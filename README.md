@@ -12,3 +12,6 @@ User stories:
 9) As a mother, I want to kepp the house clean at all times.
 10) As a tenant, I want to know what I have to do without spending extra time talking with my roommate.
 11) As a user, I want to be able to manage the common spaces I live in.
+
+Backlog:
+https://trello.com/b/ji4XLFmP/organize-living-space-app
