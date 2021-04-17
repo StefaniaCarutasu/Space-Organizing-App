@@ -1,7 +1,6 @@
 # Space-Organizing-App
 
-USER STORIES
-
+## User Stories
 1) As a student, I want a way to split chores between me and my other roommates.
 2) As a student, I want to be able to keep up with the common expenses.
 3) As a mother, I want to be able to assign chores around the house for my family.
@@ -15,7 +14,7 @@ USER STORIES
 11) As a user I want to be able to customize the app’s interface and my profile
 12) As a user I want to find other groups I’m supposed to join by their names
 
-
-
-Backlog:
+## Backlog
 https://trello.com/b/ji4XLFmP/organize-living-space-app
+
+## Conceptual Diagram
