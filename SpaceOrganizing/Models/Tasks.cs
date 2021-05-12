@@ -22,6 +22,8 @@ public class Tasks
     public DateTime Deadline { get; set; }
     public int GroupId { get; set; }
 
+    public bool Done { get; set; }
+
     //prioritatea posibila a unui task
     public IEnumerable<SelectListItem> PriorityLabel { get; set; }
 

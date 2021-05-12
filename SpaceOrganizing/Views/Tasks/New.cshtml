@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Titlu = "New";
+}
+
+<br />
+<p class="text-info">@ViewBag.Message</p>
+
+<h2>Adaugare task</h2>
+
+@model SpaceOrganizing.Models.Tasks
+<form method="post" action="/Tasks/New/@ViewBag.GroupId">
+    @Html.Label("Title", "Titlu Task")
+    <br />
+    @Html.TextBox("Title", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    @Html.Label("Description", "Descriere Task")
+    <br />
+    @Html.TextArea("Description", null, new { @class = "form-control" })
+    <br />
+    <br />
+
+    @Html.Label("Deadline", "Termen limita task")
+    <br />
+    @Html.TextBox("Deadline", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.DataFin, "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    @Html.Label("Priority", "PriorityLabel")
+    @Html.DropDownListFor(m => m.PriorityLabel, new SelectList(Model.PriorityLabel, "Value", "Text"), new { @class = "form-control" })
+    <br />
+    <br />
+
+    @Html.Label("Asignat")
+    @Html.DropDownListFor(m => m.UserId2, new SelectList(Model.UsersList, "Value", "Text"), new { @class = "form-control" })
+    <br />
+    <br />
+
+    @Html.Hidden("GroupId")
+    <button class="btn btn-sm btn-success" type="submit">Adauga task</button>
+
+</form>
