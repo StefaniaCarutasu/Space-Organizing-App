@@ -25,6 +25,9 @@ public class Tasks
     //prioritatea posibila a unui task
     public IEnumerable<SelectListItem> PriorityLabel { get; set; }
 
+    // lista useri pentru dropdown
+    public IEnumerable<SelectListItem> UsersList { get; set; }
+
     //foreign key
     //un task apartine unei echipe
     // public virtual Group Group { get; set; }

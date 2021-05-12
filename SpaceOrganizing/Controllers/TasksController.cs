@@ -10,7 +10,7 @@ namespace SpaceOrganizing.Controllers
 {
     public class TaskssController : Controller
     {
-        private Models.AppContext db = new Models.AppContext();
+        private Models.ApplicationDbContext db = new Models.ApplicationDbContext();
 
         [NonAction]
         private void SetAccessRights()
@@ -21,6 +21,7 @@ namespace SpaceOrganizing.Controllers
             ViewBag.utilizatorCurent = User.Identity.GetUserId();
         }
 
+        // obtinere prioritati
         [NonAction]
         private IEnumerable<SelectListItem> getPriority()
         {
@@ -44,8 +45,27 @@ namespace SpaceOrganizing.Controllers
             return PriorityList;
         }
 
+        [NonAction]
+        private IEnumerable<SelectListItem> GetAllUsers()
+        {
+            var UsersList = new List<SelectListItem>();
+            var users = from user in db.Users
+                        select user;
+
+            foreach (var user in users)
+            {
+                UsersList.Add(new SelectListItem
+                {
+                    Value = user.Id.ToString(),
+                    Text = user.UserName.ToString()
+                });
+            }
+
+            return UsersList;
+        }
+
         //SHOW
-        //GET: afisarea unui singur Tasks
+        //GET: afisarea unui singur Task
         [Authorize(Roles = "Membru,Organizator,Admin")]
         public ActionResult Show(int id)
         {
@@ -70,8 +90,11 @@ namespace SpaceOrganizing.Controllers
         [Authorize(Roles = "Organizator,Admin")]
         public ActionResult New(int Id)
         {
-            ViewBag.TeamId = Id;
-            return View();
+            Tasks Task = new Tasks();
+            Task.PriorityLabel = getPriority();
+            Task.UsersList = GetAllUsers();
+            ViewBag.GroupId = Id;
+            return View(Task);
         }
 
         //POST: adaugare Tasks-ul nou in baza de date
@@ -124,6 +147,7 @@ namespace SpaceOrganizing.Controllers
         {
             Tasks Task = db.Tasks.Find(id);
             Task.PriorityLabel = getPriority();
+            Task.UsersList = GetAllUsers();
 
             if (User.IsInRole("Organizator") || User.IsInRole("Admin") || User.IsInRole("Membru"))
             {
@@ -151,12 +175,13 @@ namespace SpaceOrganizing.Controllers
                     if (ModelState.IsValid)
                     {
 
-                        Tasks Tasks = db.Tasks.Find(id);
-                        Tasks.PriorityLabel = getPriority();
+                        Tasks Task = db.Tasks.Find(id);
+                        Task.PriorityLabel = getPriority();
+                        Task.UsersList = GetAllUsers();
 
-                        if (TryUpdateModel(Tasks))
+                        if (TryUpdateModel(Task))
                         {
-                            Tasks = editedTask;
+                            Task = editedTask;
                             db.SaveChanges();
                             TempData["message"] = "Tasks-ul a fost modificat cu succes!";
 
@@ -165,12 +190,14 @@ namespace SpaceOrganizing.Controllers
 
                         SetAccessRights();
                         editedTask.PriorityLabel = getPriority();
+                        editedTask.UsersList = GetAllUsers();
 
                         ViewBag.Message = "Nu s-a putut edita Tasks-ul!";
                         return View(editedTask);
                     }
                     SetAccessRights();
                     editedTask.PriorityLabel = getPriority();
+                    editedTask.UsersList = GetAllUsers();
 
                     ViewBag.Message = "Nu s-a putut edita Tasks-ul!";
                     return View(editedTask);
@@ -193,6 +220,7 @@ namespace SpaceOrganizing.Controllers
             {
                 SetAccessRights();
                 editedTask.PriorityLabel = getPriority();
+                editedTask.UsersList = GetAllUsers();
 
                 ViewBag.Message = "Nu s-a putut edita Tasks-ul!";
                 if (editedTask.Deadline < new DateTime())
