@@ -104,6 +104,8 @@ namespace SpaceOrganizing.Controllers
         {
             string userId = User.Identity.GetUserId();
             newTask.UserId = userId;
+            newTask.Done = false;
+
             try
             {
                 if (ModelState.IsValid)
