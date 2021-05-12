@@ -17,13 +17,12 @@ public class Tasks
     public string Description { get; set; }
     public string UserId { get; set; }
     public string UserId2 { get; set; }
-    public string PriorityLabel { get; set; }
 
     [Required(ErrorMessage = "Deadline-ul este obligatorie.")]
     public DateTime Deadline { get; set; }
-    public int TeamId { get; set; }
+    public int GroupId { get; set; }
 
-    //statusul posibil al unui task
+    //prioritatea posibila a unui task
     public IEnumerable<SelectListItem> PriorityLabel { get; set; }
 
     //foreign key

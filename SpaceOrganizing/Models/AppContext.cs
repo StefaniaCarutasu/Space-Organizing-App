@@ -9,5 +9,6 @@ namespace SpaceOrganizing.Models
     public class AppContext : DbContext
     {
         public AppContext(): base("DBConnectionString") { }
+        public DbSet<Tasks> Tasks { get; set; }
     }
 }
