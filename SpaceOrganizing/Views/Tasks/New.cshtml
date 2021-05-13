@@ -10,7 +10,7 @@
 
 @model SpaceOrganizing.Models.Tasks
 
-<form method="post" action="/Taskss/New/@ViewBag.GroupId">
+<form method="post" action="/Tasks/New/@ViewBag.GroupId">
     @Html.Label("Title", "Titlu Task")
     <br />
     @Html.TextBox("Title", null, new { @class = "form-control" })
@@ -27,7 +27,7 @@
     @Html.Label("Deadline", "Termen limita task")
     <br />
     @Html.TextBox("Deadline", null, new { @class = "form-control" })
-    @Html.ValidationMessageFor(m => m.Deadline, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(m => m.DataFin, "", new { @class = "text-danger" })
     <br />
     <br />
 

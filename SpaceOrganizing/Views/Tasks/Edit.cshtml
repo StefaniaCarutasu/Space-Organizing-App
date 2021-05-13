@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+
+<br />
+<p class="text-info">@ViewBag.Message</p>
+
+<h2>Modificare task</h2>
+
+@model SpaceOrganizing.Models.Tasks
+
+<div class="container body-content" style="margin-top:20px;">
+    @using (Html.BeginForm(actionName: "Edit", controllerName: "Tasks"))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Put)
+
+        @Html.HiddenFor(m => m.TaskId)
+        @Html.HiddenFor(m => m.GroupId)
+        @Html.HiddenFor(m => m.UserId)
+
+        if (ViewBag.esteAdmin || Model.UserId == ViewBag.utilizatorCurent)
+        {
+            @Html.Label("Title", "Titlu Task")
+            <br />
+            <div class="form-control2">
+                @Html.EditorFor(m => m.Title)
+                <br />
+                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <br />
+
+            @Html.Label("Description", "Descriere task")
+            <br />
+            @Html.Editor("Description")
+            <br />
+
+            @Html.Label("Deadline", "Inceput task")
+            <br />
+            <div class="form-control2">
+                @Html.Editor("Deadline")
+                <br />
+                @Html.ValidationMessageFor(m => m.Deadline, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <br />
+
+        }
+        else
+        {
+            @Html.HiddenFor(m => m.Title)
+            @Html.HiddenFor(m => m.Description)
+            @Html.HiddenFor(m => m.Deadline)
+        }
+
+        @Html.Label("Priority", "PriorityLabel")
+        @Html.DropDownListFor(m => m.PriorityLabel, new SelectList(Model.StatusOptions, "Value", "Text"), new { @class = "form-control" })
+        <br />
+        <br />
+
+        @Html.Label("Asignat")
+        @Html.DropDownListFor(m => m.UserId2, new SelectList(Model.UsersList, "Value", "Text"), new { @class = "form-control" })
+        <br />
+        <br />
+
+        <button class="btn btn-success" type="submit">Modifica task</button>
+    }
+</div>
