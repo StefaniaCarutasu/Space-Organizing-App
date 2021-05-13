@@ -25,6 +25,10 @@ namespace SpaceOrganizing.Models
         {
         }
 
+        // modele aplicatie 
+        public DbSet<Tasks> Tasks { get; set; }
+
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

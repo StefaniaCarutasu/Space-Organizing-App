@@ -106,5 +106,3 @@ E:\transfer\Facultate\Space-Organizing-App\SpaceOrganizing\obj\Debug\SpaceOrgani
 E:\transfer\Facultate\Space-Organizing-App\SpaceOrganizing\obj\Debug\SpaceOrganizing.csproj.CopyComplete
 E:\transfer\Facultate\Space-Organizing-App\SpaceOrganizing\obj\Debug\SpaceOrganizing.dll
 E:\transfer\Facultate\Space-Organizing-App\SpaceOrganizing\obj\Debug\SpaceOrganizing.pdb
-E:\transfer\Facultate\Space-Organizing-App\SpaceOrganizing\obj\Debug\SpaceOrganizing.Migrations.Initial.resources
-E:\transfer\Facultate\Space-Organizing-App\SpaceOrganizing\obj\Debug\SpaceOrganizing.csproj.GenerateResource.cache
