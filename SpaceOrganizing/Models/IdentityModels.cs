@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -16,6 +17,7 @@ namespace SpaceOrganizing.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public virtual ICollection<Registration> Registrations { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -27,6 +29,10 @@ namespace SpaceOrganizing.Models
 
         // modele aplicatie 
         public DbSet<Tasks> Tasks { get; set; }
+
+        public DbSet<Group> Groups { get; set; }
+
+        public DbSet<Registration> Registrations { get; set; }
 
 
         public static ApplicationDbContext Create()

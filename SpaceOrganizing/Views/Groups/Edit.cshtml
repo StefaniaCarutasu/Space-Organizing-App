@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="panel panel-default col-sm-8" style="text-align: center; width: 70%; margin-left: 15%; display:inline">
+        <div class="panel-body" id="nou" style="border-radius:20px 20px 20px 20px">
+
+            <form method="post" action="/Groups/Edit/@Model.GroupId">
+                @Html.HttpMethodOverride(HttpVerbs.Put)
+
+                @Html.Hidden("UserId")
+
+                @Html.Label("GroupName", "Numele grupului")
+                <br />
+                <div style="align-content:center;">
+                    @Html.Editor("GroupName")
+                    <br />
+                    @Html.ValidationMessage("GroupName", null, new { @class = "text-danger" })
+                </div>
+                <br /><br />
+                @Html.Label("GroupDescription", "Descriere grup")
+                <br />
+                <div style="align-content:center;">
+                    @Html.Editor("GroupDescription")
+
+                    @Html.ValidationMessage("GroupDescription", "", new { @class = "text-danger" })
+                </div>
+                <br />
+                <button class=" btn btn-success" type="submit">Modifica grup</button>
+            </form>
+
+
+        </div>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+
+
