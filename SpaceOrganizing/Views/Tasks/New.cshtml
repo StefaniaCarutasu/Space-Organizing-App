@@ -9,6 +9,7 @@
 <h2>Adaugare task</h2>
 
 @model SpaceOrganizing.Models.Tasks
+
 <form method="post" action="/Tasks/New/@ViewBag.GroupId">
     @Html.Label("Title", "Titlu Task")
     <br />
