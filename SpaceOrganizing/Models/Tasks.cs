@@ -27,17 +27,17 @@ namespace SpaceOrganizing.Models
 
         public bool Done { get; set; }
 
-        //prioritatea posibila a unui task
+        // prioritatea posibila a unui task
         public IEnumerable<SelectListItem> PriorityLabel { get; set; }
 
         // lista useri pentru dropdown
         public IEnumerable<SelectListItem> UsersList { get; set; }
 
-        //foreign key
-        //un task apartine unei echipe
+        // foreign key
+        // un task apartine unei echipe
         // public virtual Group Group { get; set; }
 
-        //este asignat unui utilizator 
+        // este asignat unui utilizator 
         public virtual ApplicationUser User2 { get; set; }
 
         //un task este creat de catre un utilizator

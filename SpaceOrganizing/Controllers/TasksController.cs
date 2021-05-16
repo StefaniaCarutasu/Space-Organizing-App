@@ -36,7 +36,7 @@ namespace SpaceOrganizing.Controllers
 
         // obtinere prioritati
         [NonAction]
-        private IEnumerable<SelectListItem> getPriority()
+        private IEnumerable<SelectListItem> GetPriority()
         {
             var PriorityList = new List<SelectListItem>();
             PriorityList.Add(new SelectListItem
@@ -76,8 +76,8 @@ namespace SpaceOrganizing.Controllers
             {
                 UsersList.Add(new SelectListItem
                 {
-                    Value = user.Id.ToString(),
-                    Text = user.UserName.ToString()
+                    Value = user.Id,
+                    Text = user.UserName
                 });
             }
 
@@ -85,7 +85,7 @@ namespace SpaceOrganizing.Controllers
         }
 
         //SHOW
-        //GET: afisarea unui singur Task
+        //GET: afisarea unui singur task
         [Authorize(Roles = "User,Administrator")]
         public ActionResult Show(int id)
         {
@@ -108,14 +108,14 @@ namespace SpaceOrganizing.Controllers
 
 
         //NEW
-        //GET: afisare formular adaugare Tasks
+        //GET: afisare formular adaugare task
         [Authorize(Roles = "User,Administrator")]
         public ActionResult New(int Id)
         {
             if (IsFromGroup(User.Identity.GetUserId(), Id))
             {
                 Tasks Task = new Tasks();
-                Task.PriorityLabel = getPriority();
+                Task.PriorityLabel = GetPriority();
                 Task.UsersList = GetAllUsers(Id);
 
                 ViewBag.GroupId = Id;
@@ -128,8 +128,8 @@ namespace SpaceOrganizing.Controllers
             }
         }
 
-        //POST: adaugare Tasks-ul nou in baza de date
-        [Authorize(Roles = "User,Admininistrator")]
+        //POST: adaugare task-ul nou in baza de date
+        [Authorize(Roles = "User,Administrator")]
         [HttpPost]
         public ActionResult New(Tasks newTask)
         {
@@ -138,6 +138,8 @@ namespace SpaceOrganizing.Controllers
             {
                 newTask.UserId = userId;
                 newTask.Done = false;
+                newTask.UsersList = GetAllUsers(newTask.GroupId);
+                newTask.PriorityLabel = GetPriority();
 
                 try
                 {
@@ -159,6 +161,7 @@ namespace SpaceOrganizing.Controllers
                             ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
                         }
 
+                        ViewBag.Message = "Aici crapa";
                         return View(newTask);
                     }
                 }
@@ -169,6 +172,7 @@ namespace SpaceOrganizing.Controllers
                     {
                         ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
                     }
+                    ViewBag.Message = e.Message;
 
                     return View(newTask);
                 }
@@ -182,7 +186,7 @@ namespace SpaceOrganizing.Controllers
 
 
         //EDIT
-        //GET: afisare formular de editare Tasks
+        //GET: afisare formular de editare task
         [Authorize(Roles = "User,Administrator")]
         public ActionResult Edit(int id)
         {
@@ -191,7 +195,7 @@ namespace SpaceOrganizing.Controllers
 
             if (ViewBag.esteAdmin || ViewBag.esteOrganizator || ViewBag.esteUser)
             {
-                Task.PriorityLabel = getPriority();
+                Task.PriorityLabel = GetPriority();
                 Task.UsersList = GetAllUsers(Task.GroupId);
                 return View(Task);
             }
@@ -203,12 +207,14 @@ namespace SpaceOrganizing.Controllers
             }
         }
 
-        //PUT: modificare Tasks
+        //PUT: modificare task
         [Authorize(Roles = "User, Administrator")]
         [HttpPut]
         public ActionResult Edit(int id, Tasks editedTask)
         {
             SetAccessRights(editedTask);
+            editedTask.PriorityLabel = GetPriority();
+            editedTask.UsersList = GetAllUsers(editedTask.GroupId);
 
             try
             {
@@ -218,7 +224,7 @@ namespace SpaceOrganizing.Controllers
                     {
 
                         Tasks Task = db.Tasks.Find(id);
-                        Task.PriorityLabel = getPriority();
+                        Task.PriorityLabel = GetPriority();
                         Task.UsersList = GetAllUsers(Task.GroupId);
 
                         if (TryUpdateModel(Task))
@@ -230,15 +236,9 @@ namespace SpaceOrganizing.Controllers
                             return Redirect("/Taskss/Show/" + id);
                         }
 
-                        editedTask.PriorityLabel = getPriority();
-                        editedTask.UsersList = GetAllUsers(editedTask.GroupId);
-
                         ViewBag.Message = "Nu s-a putut edita task-ul!";
                         return View(editedTask);
                     }
-
-                    editedTask.PriorityLabel = getPriority();
-                    editedTask.UsersList = GetAllUsers(editedTask.GroupId);
 
                     ViewBag.Message = "Nu s-a putut edita task-ul!";
                     return View(editedTask);
@@ -258,9 +258,6 @@ namespace SpaceOrganizing.Controllers
 
             catch (Exception e)
             {
-                editedTask.PriorityLabel = getPriority();
-                editedTask.UsersList = GetAllUsers(editedTask.GroupId);
-
                 ViewBag.Message = "Nu s-a putut edita task-ul!";
                 if (editedTask.Deadline < new DateTime())
                 {
@@ -273,7 +270,7 @@ namespace SpaceOrganizing.Controllers
 
 
         //DELETE
-        //DELETE: stergerea unui Tasks
+        //DELETE: stergerea unui task
         [Authorize(Roles = "User,Administrator")]
         [HttpDelete]
         public ActionResult Delete(int id)
