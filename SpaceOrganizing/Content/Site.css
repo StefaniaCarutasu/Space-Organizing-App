@@ -1,7 +1,4 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
+﻿
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -23,10 +20,6 @@ textarea {
     max-width: 280px;
 }
 
-.navbar {
-    background-color: #5C2018;
-    border: none;
-}
 
 .navbar a {
     color: #D4A59A;
@@ -38,4 +31,29 @@ textarea {
 
 .navbar > li > a :hover {
     background-color: #F3E0DC;
+}
+@keyframes animatie {
+    0% {
+        box-shadow: 0 0 0 0px #8860d033;
+    }
+
+    20% {
+        box-shadow: 0 0 0 10px #8860d033;
+    }
+
+    40% {
+        box-shadow: 0 0 0 10px #8860d033, 0 0 0 20px #8860d033
+    }
+
+    60% {
+        box-shadow: 0 0 0 5px #8860d033, 0 0 0 25px #8860d033, 0 0 0 15px #8860d033;
+    }
+
+    80% {
+        box-shadow: 0 0 0 0px #8860d033, 0 0 0 20px #8860d033, 0 0 0 30px #8860d033, 0 0 0 40px #8860d033;
+    }
+
+    100% {
+        box-shadow: 0 0 0 10px #8860d033, 0 0 0 20px #8860d033, 0 0 0 30px #8860d033, 0 0 0 45px #8860d033, 0 0 0 60px #8860d033;
+    }
 }
