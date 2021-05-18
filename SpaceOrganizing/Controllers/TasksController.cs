@@ -13,17 +13,30 @@ namespace SpaceOrganizing.Controllers
         private Models.ApplicationDbContext db = new Models.ApplicationDbContext();
 
         [NonAction]
-        private void SetAccessRights()
+        private void SetAccessRights(Tasks Task)
         {
-            ViewBag.esteAdmin = User.IsInRole("Admin");
-            ViewBag.esteOrganizator = User.IsInRole("Organizator");
-            ViewBag.esteMembru = User.IsInRole("Membru");
             ViewBag.utilizatorCurent = User.Identity.GetUserId();
+            ViewBag.esteAdmin = User.IsInRole("Administrator");
+
+            ViewBag.esteOrganizator = false;
+            if (Task.UserId == ViewBag.utilizatorCurent)
+            {
+                ViewBag.esteOrganizator = true;
+            }
+
+            ViewBag.esteUser = IsFromGroup(Task.UserId, Task.GroupId);
+        }
+
+        // verificare daca userul face parte din echipa
+        private bool IsFromGroup(String userId, int GroupId)
+        {
+            // TO BE DONE WHEN GROUPS
+            return true;
         }
 
         // obtinere prioritati
         [NonAction]
-        private IEnumerable<SelectListItem> getPriority()
+        private IEnumerable<SelectListItem> GetPriority()
         {
             var PriorityList = new List<SelectListItem>();
             PriorityList.Add(new SelectListItem
@@ -46,18 +59,25 @@ namespace SpaceOrganizing.Controllers
         }
 
         [NonAction]
-        private IEnumerable<SelectListItem> GetAllUsers()
+        private IEnumerable<SelectListItem> GetAllUsers(int groupId)
         {
             var UsersList = new List<SelectListItem>();
             var users = from user in db.Users
+                        //where user.GroupId = groupId
                         select user;
+
+            UsersList.Add(new SelectListItem
+            {
+                Value = null,
+                Text = "None"
+            });
 
             foreach (var user in users)
             {
                 UsersList.Add(new SelectListItem
                 {
-                    Value = user.Id.ToString(),
-                    Text = user.UserName.ToString()
+                    Value = user.Id,
+                    Text = user.UserName
                 });
             }
 
@@ -65,150 +85,168 @@ namespace SpaceOrganizing.Controllers
         }
 
         //SHOW
-        //GET: afisarea unui singur Task
-        [Authorize(Roles = "Membru,Organizator,Admin")]
+        //GET: afisarea unui singur task
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Show(int id)
         {
             if (TempData.ContainsKey("message"))
                 ViewBag.Message = TempData["message"];
 
             Tasks Task = db.Tasks.Find(id);
-            ViewBag.seteazaStatus = false;
-            if (User.IsInRole("Membru") || User.IsInRole("Admin"))
+            SetAccessRights(Task);
+
+            if (ViewBag.esteUser || ViewBag.esteOrganizator || ViewBag.esteAdmin)
             {
-                ViewBag.seteazaStatus = true;
+                return View(Task);
             }
-
-            SetAccessRights();
-
-            return View(Task);
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa vedeti task-urile unei echipe din care nu faceti parte!";
+                return Redirect("Groups/Index");
+            }
         }
 
 
         //NEW
-        //GET: afisare formular adaugare Tasks
-        [Authorize(Roles = "Organizator,Admin")]
+        //GET: afisare formular adaugare task
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult New(int Id)
         {
-            Tasks Task = new Tasks();
-            Task.PriorityLabel = getPriority();
-            Task.UsersList = GetAllUsers();
-            ViewBag.GroupId = Id;
-            return View(Task);
+            if (IsFromGroup(User.Identity.GetUserId(), Id))
+            {
+                Tasks Task = new Tasks();
+                Task.PriorityLabel = GetPriority();
+                Task.UsersList = GetAllUsers(Id);
+
+                ViewBag.GroupId = Id;
+                return View(Task);
+            }
+            else
+            { 
+                TempData["message"] = "Nu aveti dreptul sa creati task-uri la o echipa din care nu faceti parte!";
+                return Redirect("Groups/Index");
+            }
         }
 
-        //POST: adaugare Tasks-ul nou in baza de date
-        [Authorize(Roles = "Organizator,Admin")]
+        //POST: adaugare task-ul nou in baza de date
+        [Authorize(Roles = "User,Administrator")]
         [HttpPost]
         public ActionResult New(Tasks newTask)
         {
             string userId = User.Identity.GetUserId();
-            newTask.UserId = userId;
-            newTask.Done = false;
-
-            try
+            if (IsFromGroup(userId, newTask.GroupId))
             {
-                if (ModelState.IsValid)
+                newTask.UserId = userId;
+                newTask.Done = false;
+                newTask.UsersList = GetAllUsers(newTask.GroupId);
+                newTask.PriorityLabel = GetPriority();
+
+                try
                 {
-                    db.Tasks.Add(newTask);
-                    db.SaveChanges();
-                    TempData["message"] = "Tasksul a fost adaugat cu success!";
+                    if (ModelState.IsValid)
+                    {
+                        db.Tasks.Add(newTask);
+                        db.SaveChanges();
+                        TempData["message"] = "Task-ul a fost adaugat cu success!";
 
-                    return Redirect("/Teams/Show/" + newTask.GroupId);
+                        return Redirect("/Group/Show/" + newTask.GroupId);
 
+                    }
+
+                    else
+                    {
+                        ViewBag.Message = "Nu s-a putut adauga Task-ul!";
+                        if (newTask.Deadline < new DateTime())
+                        {
+                            ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
+                        }
+
+                        ViewBag.Message = "Aici crapa";
+                        return View(newTask);
+                    }
                 }
-
-                else
+                catch (Exception e)
                 {
-                    ViewBag.Message = "Nu s-a putut adauga Tasks-ul!";
+                    ViewBag.Message = "Nu s-a putut adauga task-ul!";
                     if (newTask.Deadline < new DateTime())
                     {
                         ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
                     }
+                    ViewBag.Message = e.Message;
 
                     return View(newTask);
                 }
             }
-            catch (Exception e)
+            else
             {
-                ViewBag.Message = "Nu s-a putut adauga Tasks-ul!";
-                if (newTask.Deadline < new DateTime())
-                {
-                    ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
-                }
-
-                return View(newTask);
+                TempData["message"] = "Nu aveti dreptul sa creati task-uri la o echipa din care nu faceti parte!";
+                return Redirect("Groups/Index");
             }
         }
 
 
         //EDIT
-        //GET: afisare formular de editare Tasks
-        [Authorize(Roles = "Membru,Organizator,Admin")]
+        //GET: afisare formular de editare task
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Edit(int id)
         {
             Tasks Task = db.Tasks.Find(id);
-            Task.PriorityLabel = getPriority();
-            Task.UsersList = GetAllUsers();
+            SetAccessRights(Task);
 
-            if (User.IsInRole("Organizator") || User.IsInRole("Admin") || User.IsInRole("Membru"))
+            if (ViewBag.esteAdmin || ViewBag.esteOrganizator || ViewBag.esteUser)
             {
-                SetAccessRights();
-
+                Task.PriorityLabel = GetPriority();
+                Task.UsersList = GetAllUsers(Task.GroupId);
                 return View(Task);
             }
 
             else
             {
-                TempData["message"] = "Nu aveti dreptul sa modificati Tasks-urile de la aceasta echipa!";
+                TempData["message"] = "Nu aveti dreptul sa modificati task-urile de la aceasta echipa!";
                 return Redirect("/Teams/Show/" + Task.GroupId);
             }
         }
 
-        //PUT: modificare Tasks
-        [Authorize(Roles = "Membru,Organizator,Admin")]
+        //PUT: modificare task
+        [Authorize(Roles = "User, Administrator")]
         [HttpPut]
         public ActionResult Edit(int id, Tasks editedTask)
         {
+            SetAccessRights(editedTask);
+            editedTask.PriorityLabel = GetPriority();
+            editedTask.UsersList = GetAllUsers(editedTask.GroupId);
+
             try
             {
-                if (User.IsInRole("Organizator") || User.IsInRole("Admin") || User.IsInRole("Membru"))
+                if (ViewBag.esteAdmin || ViewBag.esteOrganizator || ViewBag.esteUser)
                 {
                     if (ModelState.IsValid)
                     {
 
                         Tasks Task = db.Tasks.Find(id);
-                        Task.PriorityLabel = getPriority();
-                        Task.UsersList = GetAllUsers();
+                        Task.PriorityLabel = GetPriority();
+                        Task.UsersList = GetAllUsers(Task.GroupId);
 
                         if (TryUpdateModel(Task))
                         {
                             Task = editedTask;
                             db.SaveChanges();
-                            TempData["message"] = "Tasks-ul a fost modificat cu succes!";
+                            TempData["message"] = "Task-ul a fost modificat cu succes!";
 
                             return Redirect("/Taskss/Show/" + id);
                         }
 
-                        SetAccessRights();
-                        editedTask.PriorityLabel = getPriority();
-                        editedTask.UsersList = GetAllUsers();
-
-                        ViewBag.Message = "Nu s-a putut edita Tasks-ul!";
+                        ViewBag.Message = "Nu s-a putut edita task-ul!";
                         return View(editedTask);
                     }
-                    SetAccessRights();
-                    editedTask.PriorityLabel = getPriority();
-                    editedTask.UsersList = GetAllUsers();
 
-                    ViewBag.Message = "Nu s-a putut edita Tasks-ul!";
+                    ViewBag.Message = "Nu s-a putut edita task-ul!";
                     return View(editedTask);
                 }
 
                 else
                 {
-
-                    TempData["message"] = "Nu aveti dreptul sa modificati un Tasks-urile din aceasta echipa!";
+                    TempData["message"] = "Nu aveti dreptul sa modificati un task-urile din aceasta echipa!";
                     if (editedTask.Deadline < new DateTime())
                     {
                         ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
@@ -220,11 +258,7 @@ namespace SpaceOrganizing.Controllers
 
             catch (Exception e)
             {
-                SetAccessRights();
-                editedTask.PriorityLabel = getPriority();
-                editedTask.UsersList = GetAllUsers();
-
-                ViewBag.Message = "Nu s-a putut edita Tasks-ul!";
+                ViewBag.Message = "Nu s-a putut edita task-ul!";
                 if (editedTask.Deadline < new DateTime())
                 {
                     ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
@@ -236,33 +270,34 @@ namespace SpaceOrganizing.Controllers
 
 
         //DELETE
-        //DELETE: stergerea unui Tasks
-        [Authorize(Roles = "Organizator,Admin")]
+        //DELETE: stergerea unui task
+        [Authorize(Roles = "User,Administrator")]
         [HttpDelete]
         public ActionResult Delete(int id)
         {
             Tasks Task = db.Tasks.Find(id);
+            SetAccessRights(Task);
 
             try
             {
-                if (User.Identity.GetUserId() == Task.UserId || User.IsInRole("Admin"))
+                if (ViewBag.esteOrganizator || ViewBag.esteAdmin)
                 {
                     db.Tasks.Remove(Task);
                     db.SaveChanges();
-                    TempData["message"] = "Tasks-ul a fost sters cu success!";
+                    TempData["message"] = "Task-ul a fost sters cu success!";
 
                     return Redirect("/Teams/Show/" + Task.GroupId);
                 }
 
                 else
                 {
-                    TempData["message"] = "Nu aveti dreptul sa stergeti un Tasks care nu va apartine!";
+                    TempData["message"] = "Nu aveti dreptul sa stergeti un task care nu va apartine!";
                     return Redirect("/Teams/Show/" + Task.GroupId);
                 }
             }
             catch (Exception e)
             {
-                TempData["message"] = "Nu s-a putut sterge Tasks-ul!";
+                TempData["message"] = "Nu s-a putut sterge task-ul!";
                 return Redirect("/Taskss/Show/" + Task.TaskId);
             }
         }
