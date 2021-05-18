@@ -43,12 +43,5 @@ namespace SpaceOrganizing.Controllers
 
             return View();
         }
-
-        public ActionResult ProfilePage()
-        {
-            ViewBag.Message = "User's profile page.";
-
-            return View();
-        }
     }
 }

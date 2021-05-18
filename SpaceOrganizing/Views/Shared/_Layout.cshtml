@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,48 +8,48 @@
             outline: none;
         }
 
-        #demo input[type=text] {
-            -webkit-appearance: textfield;
-            -webkit-box-sizing: content-box;
-            font-family: inherit;
-            font-size: 100%;
-        }
+            #demo input[type=text] {
+                -webkit-appearance: textfield;
+                -webkit-box-sizing: content-box;
+                font-family: inherit;
+                font-size: 100%;
+            }
 
-        #demo input::-webkit-search-decoration,
-        #demo input::-webkit-search-cancel-button {
-            display: none;
-        }
+            #demo input::-webkit-search-decoration,
+            #demo input::-webkit-search-cancel-button {
+                display: none;
+            }
 
-        #demo input[type=text] {
-            background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
-            border: solid 1px #ccc;
-            padding: 9px 10px 9px 32px;
-            width: 55px;
-            -webkit-border-radius: 10em;
-            -moz-border-radius: 10em;
-            border-radius: 10em;
-            -webkit-transition: all .5s;
-            -moz-transition: all .5s;
-            transition: all .5s;
-        }
+            #demo input[type=text] {
+                background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+                border: solid 1px #ccc;
+                padding: 9px 10px 9px 32px;
+                width: 55px;
+                -webkit-border-radius: 10em;
+                -moz-border-radius: 10em;
+                border-radius: 10em;
+                -webkit-transition: all .5s;
+                -moz-transition: all .5s;
+                transition: all .5s;
+            }
 
-        #demo input[type=text]:focus {
-            width: 130px;
-            background-color: #fff;
-            border-color: #66CC75;
-            -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
-            -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
-            box-shadow: 0 0 5px rgba(109,207,246,.5);
-        }
+                #demo input[type=text]:focus {
+                    width: 130px;
+                    background-color: #fff;
+                    border-color: #66CC75;
+                    -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+                    -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+                    box-shadow: 0 0 5px rgba(109,207,246,.5);
+                }
 
 
-        #demo input:-moz-placeholder {
-            color: #999;
-        }
+            #demo input:-moz-placeholder {
+                color: #999;
+            }
 
-        #demo input::-webkit-input-placeholder {
-            color: #999;
-        }
+            #demo input::-webkit-input-placeholder {
+                color: #999;
+            }
     </style>
 
     <!-- basic -->
@@ -114,23 +114,36 @@
                                     <li class="nav-item active">
                                         <a class="nav-link" href="/Home/Index">Home</a>
                                     </li>
-                                    <li>
-                                        <a class="nav-link" href="/Account/Register">Register</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/Account/Login">Log In</a>
-                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="/Groups/Index">Groups List</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/Home/ProfilePage">User Profile</a>
                                     </li>
                                     <li class="container">
                                         <form id="demo" method="get">
                                             <input type="text" name="search" placeholder="Search" value="@ViewBag.SearchString">
                                         </form>
                                     </li>
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <div class="ptfloat">
+                                                <p>
+                                                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "loginal" })
+                                                </p>
+                                                <p><a href="javascript:document.getElementById('logoutForm').submit()" class="alstyle logoff">LOG OFF</a></p>
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Account/Register">Register</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Account/Login">Log In</a>
+                                        </li>
+                                    }
                                 </ul>
 
                             </div>
@@ -138,8 +151,8 @@
                     </div>
                 </div>
             </div>
-            
-            
+
+
         </div>
     </header>
     <!-- end header inner -->
