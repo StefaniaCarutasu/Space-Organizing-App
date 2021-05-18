@@ -41,6 +41,7 @@ namespace SpaceOrganizing
                     UserManager.AddToRole(user.Id, "Administrator");
                 }
             }
+            
             if (!roleManager.RoleExists("User"))
             {
                 var role = new IdentityRole();

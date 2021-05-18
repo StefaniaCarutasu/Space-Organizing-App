@@ -22,9 +22,18 @@ namespace SpaceOrganizing
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/template/js").Include(
+                      "~/Scripts/jquery.min.js",
+                      "~/Scripts/bootstrap.bundle.min.js",
+                      "~/Scripts/jquery-3.0.0.min.js",
+                      "~/Scripts/plugin.js"));
+            bundles.Add(new StyleBundle("~/template/css").Include(
+                     "~/Content/css/bootstrap.min.css",
+                     "~/Content/css/jquery.mCustomScrollbar.min.css",
+                     "~/Content/css/style.css",
+                     "~/Content/css/responsive.css",
+                     "~/Content/css/style.css",
+                     "~/Content/site.css"));
         }
     }
 }
