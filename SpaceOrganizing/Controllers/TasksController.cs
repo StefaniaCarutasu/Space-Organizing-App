@@ -134,33 +134,36 @@ namespace SpaceOrganizing.Controllers
         public ActionResult New(Tasks newTask)
         {
             string userId = User.Identity.GetUserId();
-            ApplicationUser user1 = db.Users.Find(userId);
-            ApplicationUser user2 = db.Users.Find(newTask.UserId2);
-            ViewBag.GroupId = newTask.GroupId;
-
             if (IsFromGroup(userId, newTask.GroupId))
             {
                 newTask.UserId = userId;
                 newTask.Done = false;
-                if (user2 != null)
-                {
-                    newTask.User2 = user2;
-                }
                 newTask.UsersList = GetAllUsers(newTask.GroupId);
                 newTask.PriorityLabel = GetPriority();
 
                 try
                 {
-                    db.Tasks.Add(newTask);
-                    user1.CreatedTasks.Add(newTask);
-                    if (user2 != null)
+                    if (ModelState.IsValid)
                     {
-                        user2.AsignedTasks.Add(newTask);
-                    }
-                    db.SaveChanges();
-                    TempData["message"] = "Task-ul a fost adaugat cu success!";
+                        db.Tasks.Add(newTask);
+                        db.SaveChanges();
+                        TempData["message"] = "Task-ul a fost adaugat cu success!";
 
-                    return Redirect("/Groups/Show/" + newTask.GroupId);
+                        return Redirect("/Group/Show/" + newTask.GroupId);
+
+                    }
+
+                    else
+                    {
+                        ViewBag.Message = "Nu s-a putut adauga Task-ul!";
+                        if (newTask.Deadline < new DateTime())
+                        {
+                            ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
+                        }
+
+                        ViewBag.Message = "Aici crapa";
+                        return View(newTask);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -200,7 +203,7 @@ namespace SpaceOrganizing.Controllers
             else
             {
                 TempData["message"] = "Nu aveti dreptul sa modificati task-urile de la aceasta echipa!";
-                return Redirect("/Groups/Show/" + Task.GroupId);
+                return Redirect("/Teams/Show/" + Task.GroupId);
             }
         }
 
@@ -212,35 +215,33 @@ namespace SpaceOrganizing.Controllers
             SetAccessRights(editedTask);
             editedTask.PriorityLabel = GetPriority();
             editedTask.UsersList = GetAllUsers(editedTask.GroupId);
-            ApplicationUser user2 = db.Users.Find(editedTask.UserId2);
 
             try
             {
                 if (ViewBag.esteAdmin || ViewBag.esteOrganizator || ViewBag.esteUser)
                 {
-                    Tasks Task = db.Tasks.Find(id);
-                    Task.PriorityLabel = GetPriority();
-                    Task.UsersList = GetAllUsers(Task.GroupId);
-                    ApplicationUser user2Initial = db.Users.Find(Task.UserId2);
-
-                    try
+                    if (ModelState.IsValid)
                     {
-                        Task = editedTask;
-                        if (user2 != user2Initial)
+
+                        Tasks Task = db.Tasks.Find(id);
+                        Task.PriorityLabel = GetPriority();
+                        Task.UsersList = GetAllUsers(Task.GroupId);
+
+                        if (TryUpdateModel(Task))
                         {
-                            user2.AsignedTasks.Add(Task);
-                            user2Initial.AsignedTasks.Remove(Task);
+                            Task = editedTask;
+                            db.SaveChanges();
+                            TempData["message"] = "Task-ul a fost modificat cu succes!";
+
+                            return Redirect("/Taskss/Show/" + id);
                         }
-                        db.SaveChanges();
-                        TempData["message"] = "Task-ul a fost modificat cu succes!";
 
-                        return Redirect("/Taskss/Show/" + id);
-                    }
-
-                    catch (Exception e) {
                         ViewBag.Message = "Nu s-a putut edita task-ul!";
                         return View(editedTask);
                     }
+
+                    ViewBag.Message = "Nu s-a putut edita task-ul!";
+                    return View(editedTask);
                 }
 
                 else
@@ -251,7 +252,7 @@ namespace SpaceOrganizing.Controllers
                         ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
                     }
 
-                    return Redirect("/Groups/Show/" + editedTask.GroupId);
+                    return Redirect("/Teams/Show/" + editedTask.GroupId);
                 }
             }
 
@@ -276,29 +277,22 @@ namespace SpaceOrganizing.Controllers
         {
             Tasks Task = db.Tasks.Find(id);
             SetAccessRights(Task);
-            ApplicationUser user1 = db.Users.Find(Task.UserId);
-            ApplicationUser user2 = db.Users.Find(Task.UserId2);
 
             try
             {
                 if (ViewBag.esteOrganizator || ViewBag.esteAdmin)
                 {
                     db.Tasks.Remove(Task);
-                    user1.CreatedTasks.Remove(Task);
-                    if (user2 != null)
-                    {
-                        user2.AsignedTasks.Remove(Task);
-                    }
                     db.SaveChanges();
                     TempData["message"] = "Task-ul a fost sters cu success!";
 
-                    return Redirect("/Groups/Show/" + Task.GroupId);
+                    return Redirect("/Teams/Show/" + Task.GroupId);
                 }
 
                 else
                 {
                     TempData["message"] = "Nu aveti dreptul sa stergeti un task care nu va apartine!";
-                    return Redirect("/Groups/Show/" + Task.GroupId);
+                    return Redirect("/Teams/Show/" + Task.GroupId);
                 }
             }
             catch (Exception e)

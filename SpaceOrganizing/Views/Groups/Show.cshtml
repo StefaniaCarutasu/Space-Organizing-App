@@ -82,14 +82,14 @@
                             <strong>@task.User.UserName</strong>
                         </div>
                         <div class="panel-body">
-                            <p>@task.Title</p>
-                            <small class="pull-right">@task.Deadline</small>
+                            <p>@task.Content</p>
+                            <small class="pull-right">@task.Date</small>
                         </div>
                         <div class="panel-footer" style="padding-bottom:40px">
                             @if (ViewBag.isGroupOwner || task.UserId == ViewBag.UserId || ViewBag.isAdmin)
                             {
                                 <div style="display: inline-block; float : left; margin-right: 15px">
-                                    <form method="post" action="/Taskss/Delete/@task.TaskId">
+                                    <form method="post" action="/Tasks/Delete/@task.TaskId">
                                         @Html.HttpMethodOverride(HttpVerbs.Delete)
                                         <button class="glyphicon glyphicon-trash" style="border: none;
                             background: transparent" type="submit"></button>
@@ -101,14 +101,14 @@
                             {
                                 <div style="display: inline-block; float : left">
                                     <a class="glyphicon glyphicon-pencil"
-                                       href="/Taskss/Edit/@task.TaskId"></a>
+                                       href="/Tasks/Edit/@task.TaskId"></a>
                                 </div>
 
 
                                 <div class="col-md-2"></div>
                             }
                             <div style="display:inline-block; float : right; margin-right:15px">
-                                <a class="glyphicon glyphicon-comment" href="/Taskss/Show/@task.TaskId"></a>
+                                <a class="glyphicon glyphicon-comment" href="/Tasks/Show/@task.TaskId"></a>
                             </div>
                         </div>
 
