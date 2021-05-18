@@ -129,7 +129,7 @@
                                             @Html.AntiForgeryToken()
                                             <div class="ptfloat">
                                                 <p>
-                                                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "loginal" })
+                                                    @Html.ActionLink("Hello, " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "loginal" })
                                                 </p>
                                                 <p><a href="javascript:document.getElementById('logoutForm').submit()" class="alstyle logoff">LOG OFF</a></p>
                                             </div>
