@@ -35,7 +35,7 @@ namespace SpaceOrganizing.Models
 
         // foreign key
         // un task apartine unei echipe
-        //public virtual Group Group { get; set; }
+        public virtual Group Group { get; set; }
 
         // este asignat unui utilizator 
         public virtual ApplicationUser User2 { get; set; }
