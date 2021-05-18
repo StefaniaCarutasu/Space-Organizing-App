@@ -281,6 +281,7 @@
     <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Views\Groups\Show.cshtml" />
     <Content Include="Views\Groups\New.cshtml" />
+    <Content Include="Views\Home\ProfilePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202105130854256_Initial.resx">
