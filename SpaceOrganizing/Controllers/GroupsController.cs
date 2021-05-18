@@ -14,7 +14,11 @@ namespace SpaceOrganizing.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Groups
+<<<<<<< HEAD
         [Authorize(Roles = "User,Administrator")]
+=======
+        //[Authorize(Roles = "Membru,Organizator,Admin")]
+>>>>>>> origin/SearchBar
         public ActionResult Index()
         {
             if (TempData.ContainsKey("message"))
@@ -22,8 +26,8 @@ namespace SpaceOrganizing.Controllers
                 ViewBag.message = TempData["message"].ToString();
             }
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
-            var groups = db.Groups;
-            ViewBag.Groups = groups;
+            //var groups = db.Groups;
+            ViewBag.Groups = db.Groups.ToList();
             ViewBag.User = user;
             var users = from usr in db.Users
                         orderby usr.UserName
