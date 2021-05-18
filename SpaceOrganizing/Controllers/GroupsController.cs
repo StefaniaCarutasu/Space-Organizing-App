@@ -14,7 +14,7 @@ namespace SpaceOrganizing.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Groups
-        [Authorize(Roles = "Membru,Organizator,Admin")]
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Index()
         {
             if (TempData.ContainsKey("message"))
@@ -48,7 +48,7 @@ namespace SpaceOrganizing.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Membru,Organizator,Admin")]
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Show(int id)
         {
             Group group = db.Groups.Find(id);
@@ -71,7 +71,7 @@ namespace SpaceOrganizing.Controllers
             return View(group);
         }
 
-        [Authorize(Roles = "Membru,Organizator,Admin")]
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult New()
         {
             Group group = new Group();
@@ -80,7 +80,7 @@ namespace SpaceOrganizing.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Mmebru,Organizator,Admin")]
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult New(Group gr)
         {
             gr.UserId = User.Identity.GetUserId();
@@ -113,7 +113,7 @@ namespace SpaceOrganizing.Controllers
             }
         }
 
-        [Authorize(Roles = "Membru,Organizator,Admin")]
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Edit(int id)
         {
             Group gr = db.Groups.Find(id);
@@ -129,7 +129,7 @@ namespace SpaceOrganizing.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Membru,Organizator,Admin")]
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Edit(int id, Group requestGroup)
         {
             try
@@ -152,7 +152,7 @@ namespace SpaceOrganizing.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Membru,Organizator,Admin")]
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Delete(int id)
         {
             Group gr = db.Groups.Find(id);
@@ -170,7 +170,7 @@ namespace SpaceOrganizing.Controllers
             }
         }
 
-        [Authorize(Roles = "Membru,Organizator,Admin")]
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult NewMember(int id)
         {
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
@@ -187,7 +187,7 @@ namespace SpaceOrganizing.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Membru,Organizator,Admin")]
+        [Authorize(Roles = "User,Administrator")]
 
         public ActionResult LeaveGroup(int id)
         {
