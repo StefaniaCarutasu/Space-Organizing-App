@@ -63,11 +63,10 @@
 
 <br />
 <br />
-@foreach (var group in ViewBag.Groups)
+@foreach (SpaceOrganizing.Models.Group group in ViewBag.Groups)
 {
-    if (group.GroupId != 1)
-    {
-
+    //if (group.GroupId != 1)
+    //{ 
         <div class="row">
             <div class="col-sm-2"></div>
             <div class="panel panel-default col-sm-8">
@@ -80,18 +79,22 @@
                     @{
 
                         int count = 0;
-                        foreach (var reg in group.Registrations)
+
+                        foreach (SpaceOrganizing.Models.Registration reg in group.Registrations)
                         {
-                            if (ViewBag.User == reg.User || ViewBag.User == group.User)
+                            if (reg.GroupId == group.GroupId)
                             {
-                                <i class="glyphicon glyphicon-ok">Esti inscris in grup</i>
-                                count = 1;
-                                break;
+                                if (ViewBag.User == reg.User || ViewBag.User == group.User)
+                                {
+                                    <i class="glyphicon glyphicon-ok">Esti inscris in grup</i>
+                                    count = 1;
+                                    break;
+                                }
                             }
-                        }
-                        if (count == 0)
-                        {
-                            <a class="btn btn-info" href="/Groups/NewMember/@group.GroupId">Inscrie-te in grup</a>
+                            if (count == 0)
+                            {
+                                <a class="btn btn-info" href="/Groups/NewMember/@group.GroupId">Inscrie-te in grup</a>
+                            }
                         }
                         <a class="btn btn-info" href="/Groups/Show/@group.GroupId">Afisare grup</a>
                     }
@@ -109,7 +112,7 @@
 
         <br />
 
-    }
+    //}
 
 
 }

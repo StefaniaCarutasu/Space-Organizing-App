@@ -21,9 +21,10 @@ namespace SpaceOrganizing.Controllers
             {
                 ViewBag.message = TempData["message"].ToString();
             }
+
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
-            var groups = db.Groups;
-            ViewBag.Groups = groups;
+            //var groups = db.Groups;
+            ViewBag.Groups = db.Groups.ToList();
             ViewBag.User = user;
             var users = from usr in db.Users
                         orderby usr.UserName
@@ -80,7 +81,7 @@ namespace SpaceOrganizing.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Mmebru,Organizator,Admin")]
+        [Authorize(Roles = "Membru,Organizator,Admin")]
         public ActionResult New(Group gr)
         {
             gr.UserId = User.Identity.GetUserId();
