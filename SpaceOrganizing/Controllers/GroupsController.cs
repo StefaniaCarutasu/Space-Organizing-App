@@ -14,11 +14,8 @@ namespace SpaceOrganizing.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Groups
-<<<<<<< HEAD
         [Authorize(Roles = "User,Administrator")]
-=======
-        //[Authorize(Roles = "Membru,Organizator,Admin")]
->>>>>>> origin/SearchBar
+
         public ActionResult Index()
         {
             if (TempData.ContainsKey("message"))
