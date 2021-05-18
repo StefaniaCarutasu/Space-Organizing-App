@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Titlu = "New";
 }
 
@@ -10,7 +9,7 @@
 
 @model SpaceOrganizing.Models.Tasks
 
-<form method="post" action="/Tasks/New/@ViewBag.GroupId">
+<form method="post" action="/Taskss/New/@ViewBag.GroupId">
     @Html.Label("Title", "Titlu Task")
     <br />
     @Html.TextBox("Title", null, new { @class = "form-control" })
@@ -24,20 +23,20 @@
     <br />
     <br />
 
-    @Html.Label("Deadline", "Termen limita task")
+    @Html.Label("Deadline", "Termen Limita")
     <br />
     @Html.TextBox("Deadline", null, new { @class = "form-control" })
-    @Html.ValidationMessageFor(m => m.DataFin, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(m => m.Deadline, "", new { @class = "text-danger" })
     <br />
     <br />
 
-    @Html.Label("Priority", "PriorityLabel")
+    @Html.Label("PriorityLabel", "Prioritate")
     @Html.DropDownListFor(m => m.PriorityLabel, new SelectList(Model.PriorityLabel, "Value", "Text"), new { @class = "form-control" })
     <br />
     <br />
 
-    @Html.Label("Asignat")
-    @Html.DropDownListFor(m => m.UserId2, new SelectList(Model.UsersList, "Value", "Text"), new { @class = "form-control" })
+    @Html.Label("UserId2", "Asignat")
+    @Html.DropDownListFor(m => m.UserId2, new SelectList(Model.UsersList, "Value", "Text"), "Selectati utilizator", new { @class = "form-control" })
     <br />
     <br />
 

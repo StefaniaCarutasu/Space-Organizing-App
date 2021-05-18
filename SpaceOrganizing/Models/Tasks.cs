@@ -21,26 +21,26 @@ namespace SpaceOrganizing.Models
         public string UserId { get; set; }
         public string UserId2 { get; set; }
 
-        [Required(ErrorMessage = "Deadline-ul este obligatorie.")]
+        [Required(ErrorMessage = "Deadline-ul este obligatoriu.")]
         public DateTime Deadline { get; set; }
         public int GroupId { get; set; }
 
         public bool Done { get; set; }
 
-        //prioritatea posibila a unui task
+        // prioritatea posibila a unui task
         public IEnumerable<SelectListItem> PriorityLabel { get; set; }
 
         // lista useri pentru dropdown
         public IEnumerable<SelectListItem> UsersList { get; set; }
 
-        //foreign key
-        //un task apartine unei echipe
-        // public virtual Group Group { get; set; }
+        // foreign key
+        // un task apartine unei echipe
+        //public virtual Group Group { get; set; }
 
-        //este asignat unui membru
+        // este asignat unui utilizator 
         public virtual ApplicationUser User2 { get; set; }
 
-        //un task este creat de catre un organizator
+        //un task este creat de catre un utilizator
         public virtual ApplicationUser User { get; set; }
     }
 }
