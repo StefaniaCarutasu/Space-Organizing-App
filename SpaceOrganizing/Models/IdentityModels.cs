@@ -20,6 +20,12 @@ namespace SpaceOrganizing.Models
         }
         public virtual ICollection<Registration> Registrations { get; set; }
         public IEnumerable<SelectListItem> AllRoles { get; set; }
+
+        //un user poate avea mia multe taskuri asignate
+        public virtual ICollection<Tasks> AsignedTasks { get; set; }
+
+        //un user poate crea mai multe taskuri
+        public virtual ICollection<Tasks> CreatedTasks { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

@@ -57,3 +57,10 @@ textarea {
         box-shadow: 0 0 0 10px #8860d033, 0 0 0 20px #8860d033, 0 0 0 30px #8860d033, 0 0 0 45px #8860d033, 0 0 0 60px #8860d033;
     }
 }
+
+.center_div {
+    margin: 0 auto;
+    width: 80%; /* value of your choice which suits your alignment */
+    align-content: center;
+    
+}
