@@ -28,10 +28,14 @@ namespace SpaceOrganizing.Controllers
         }
 
         // verificare daca userul face parte din echipa
-        private bool IsFromGroup(String userId, int GroupId)
+        private bool IsFromGroup(String userId, int groupId)
         {
-            // TO BE DONE WHEN GROUPS
-            return true;
+            var registrations = from reg in db.Registrations
+                                where reg.UserId == userId
+                                where reg.GroupId == groupId
+                                select reg;
+
+            return registrations != null;
         }
 
         // obtinere prioritati
@@ -63,7 +67,8 @@ namespace SpaceOrganizing.Controllers
         {
             var UsersList = new List<SelectListItem>();
             var users = from user in db.Users
-                            //where user.GroupId = groupId
+                        join reg in db.Registrations on user.Id equals reg.UserId
+                        where reg.GroupId == groupId
                         select user;
 
             UsersList.Add(new SelectListItem
