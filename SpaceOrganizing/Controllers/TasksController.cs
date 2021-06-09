@@ -243,7 +243,10 @@ namespace SpaceOrganizing.Controllers
             SetAccessRights(editedTask);
             editedTask.PriorityLabel = GetPriority();
             editedTask.UsersList = GetAllUsers(editedTask.GroupId);
+            ApplicationUser user1 = db.Users.Find(editedTask.UserId);
             ApplicationUser user2 = db.Users.Find(editedTask.UserId2);
+            editedTask.User = user1;
+            editedTask.User2 = user2;
 
             try
             {
@@ -252,19 +255,19 @@ namespace SpaceOrganizing.Controllers
                     if (ModelState.IsValid)
                     {
                         Tasks Task = db.Tasks.Find(id);
-                        Task.PriorityLabel = GetPriority();
-                        Task.UsersList = GetAllUsers(Task.GroupId);
                         ApplicationUser user2Initial = db.Users.Find(Task.UserId2);
 
                         if (TryUpdateModel(Task))
                         {
                             Task = editedTask;
-                            db.SaveChanges();
+                            Task.User = user1;
+                            Task.User2 = user2;
+                            //db.SaveChanges();
                             if (user2 != user2Initial && user2 != null && user2Initial != null)
                             {
                                 user2.AsignedTasks.Add(Task);
                                 user2Initial.AsignedTasks.Remove(Task);
-                                taskAsigantionEmailAsync(editedTask.TaskId, editedTask.GroupId);
+                                // taskAsigantionEmailAsync(editedTask.TaskId, editedTask.GroupId);
                             }
                             else if (user2 == null && user2Initial != null)
                             {
@@ -273,7 +276,7 @@ namespace SpaceOrganizing.Controllers
                             else if (user2Initial == null && user2 != null)
                             {
                                 user2.AsignedTasks.Add(Task);
-                                taskAsigantionEmailAsync(Task.TaskId, Task.GroupId);
+                                // taskAsigantionEmailAsync(Task.TaskId, Task.GroupId);
                             }
                             db.SaveChanges();
                             TempData["message"] = "Task-ul a fost modificat cu succes!";
