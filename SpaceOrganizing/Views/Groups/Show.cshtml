@@ -93,34 +93,39 @@
                         Descriere task: <p class="lead">@task.Description</p>
                         Prioritate: <strong>@task.Priority</strong>
                         <br />
-                        <input type="checkbox" id="taskTerminat" name="taskTerminat">
-                        <label for="taskTerminat"> Done </label>
+                        <!--<input type="checkbox" id="taskTerminat" name="taskTerminat">
+    <label for="taskTerminat"> Done </label>-->
                         <hr class="my-4">
                         <p>Creat de: @task.User.UserName</p>
                         <span class="label label-info">Deadline: @task.Deadline</span>
-                        <p>Done: @task.Done</p>
+
+                        <!--<p>Done: task.Done</p>-->
+                        <p>
+                        <input id="Done" name="Done" type="checkbox" value="@task.Done" />
+                        Done</p>
+
                         @if (task.User2 != null)
                         {
                             <p>Asignat lui: @task.User2.UserName</p>
                             <br />
                         }
-                    <p class="lead" style="margin-top:2rem">
-                        <div style="display: inline-block; float : left; margin-right: 15px">
-                            <a class="btn btn-primary btn-lg" style="padding:1rem" href="/Taskss/Edit/@task.TaskId">Modifica task</a>
-                        </div>
-
-                        @if (ViewBag.isAdmin || ViewBag.UserId == task.UserId)
-                        {
-                            <div style="display: inline-block; float : left">
-                                <form method="post" action="/Taskss/Delete/@task.TaskId">
-                                    @Html.HttpMethodOverride(HttpVerbs.Delete)
-
-                                    <button class="btn btn-primary btn-lg" style="padding:1rem" type="submit">Sterge task</button>
-                                </form>
+                        <p class="lead" style="margin-top:2rem">
+                            <div style="display: inline-block; float : left; margin-right: 15px">
+                                <a class="btn btn-primary btn-lg" style="padding:1rem" href="/Taskss/Edit/@task.TaskId">Modifica task</a>
                             </div>
 
-                        }
-                    </p>
+                            @if (ViewBag.isAdmin || ViewBag.UserId == task.UserId)
+                            {
+                                <div style="display: inline-block; float : left">
+                                    <form method="post" action="/Taskss/Delete/@task.TaskId">
+                                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+                                        <button class="btn btn-primary btn-lg" style="padding:1rem" type="submit">Sterge task</button>
+                                    </form>
+                                </div>
+
+                            }
+                        </p>
                     </div>
 
                 </div>
