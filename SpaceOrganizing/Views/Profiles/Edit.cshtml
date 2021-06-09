@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Editare profil</h2>
+
+<form class="panel-body" method="post" action="/Profiles/Edit">
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.Hidden("Id")
+
+
+    @Html.Label("UserName", "Nume utilizator")
+    <br />
+    @Html.Editor("Username")
+    <br />
+    <br />
+
+    @Html.Label("BirthDate", "Data nasterii")
+    <br />
+    @Html.Editor("BirthDate")
+    <br />
+ 
+    <br />
+
+    @Html.Label("PhoneNumber", "Numar telefon")
+    <br />
+    @Html.Editor("PhoneNumber")
+    <br />
+    <br />
+    @Html.Label("ProfileDescription", "Descriere profil")
+    <br />
+    @Html.Editor("ProfileDescription")
+    <br />
+    <br />
+    <button class="btn btn-success" type="submit">Modifica profil</button>
+</form>
+

@@ -154,7 +154,12 @@
                 {
                     <img src="~/Content/images/no_profile_picture.png" alt="Profile photo" width="500" height="600">
                 }
+                else
+                {
+                    string fileName = ViewBag.UserId + ".jpeg";
+                    <img src="~/Content/profilePictures/@fileName" alt="Profile photo" width="500" height="600" />
 
+                }
 
             </div>
         </div>
@@ -172,7 +177,7 @@
             {
                 <h5 style="text-align:center; font-size:20px;color:antiquewhite"><strong>~@ViewBag.ProfileDescription~</strong></h5>
                 <br />
-                <a class="btn btn-info" href="/Profiles/Edit/" > Editeaza profil!</a>
+                <a class="btn btn-info" href="/Profiles/Edit/"> Editeaza profil!</a>
             }
             else
             {
