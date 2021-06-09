@@ -152,17 +152,23 @@
             <div class="trick">
                 @if (ViewBag.Picture == false)
                 {
-                    <img src="~/Content/images/no_profile_picture.png" alt="Profile photo" width="500" height="600">
+                    <img src="~/Content/images/no_profile_picture.png" alt="Profile photo" width="500" height="300">
+                    <br /><br />
+                    <a class="btn btn-info" href="/Profiles/NewProfilePicture/"> Adauga poza de profil!</a>
+                    <br />
                 }
                 else
                 {
                     string fileName = ViewBag.UserId + ".jpeg";
-                    <img src="~/Content/profilePictures/@fileName" alt="Profile photo" width="500" height="600" />
-
+                    <img src="~/Content/profilePictures/@fileName" alt="Profile photo" width="500" height="100" />
+                    <br /><br />
+                    <a class="btn btn-info" href="/Profiles/NewProfilePicture/"> Editeaza poza de profil!</a>
+                    <br />
                 }
 
             </div>
         </div>
+        <br /><br />
         <ul class="text" style="color: antiquewhite">@ViewBag.User.UserName</ul>
         <br />
             @if(ViewBag.Birthday == 1)
