@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -18,6 +21,19 @@ namespace SpaceOrganizing.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public DateTime BirthDate { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [StringLength(100, ErrorMessage = "Descrierea profilului nu poate avea mai mult de 100 de caractere")]
+        public string ProfileDescription { get; set; }
+
+        [ForeignKey("User1_Id")]
+        public virtual ICollection<Friend> SentRequests { get; set; }
+
+        [ForeignKey("User2_Id")]
+        public virtual ICollection<Friend> ReceivedRequests { get; set; }
         public virtual ICollection<Registration> Registrations { get; set; }
         public IEnumerable<SelectListItem> AllRoles { get; set; }
 
@@ -39,6 +55,9 @@ namespace SpaceOrganizing.Models
         public DbSet<Tasks> Tasks { get; set; }
 
         public DbSet<Group> Groups { get; set; }
+        public DbSet<Friend> Friends { get; set; }
+
+        public DbSet<Profile> Profiles { get; set; }
 
         public DbSet<Registration> Registrations { get; set; }
 

@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorPageController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -181,9 +182,11 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Friend.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Registration.cs" />
     <Compile Include="Models\Tasks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -214,6 +217,7 @@
     <Content Include="Content\images\image6.jpg" />
     <Content Include="Content\images\image7.png" />
     <Content Include="Content\images\images.png" />
+    <Content Include="Content\images\PageError.jpg" />
     <Content Include="Content\images\service2.png" />
     <Content Include="Content\images\service3.jpg" />
     <Content Include="favicon.ico" />
@@ -281,6 +285,7 @@
     <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Views\Groups\Show.cshtml" />
     <Content Include="Views\Groups\New.cshtml" />
+    <Content Include="Views\ErrorPage\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202105130854256_Initial.resx">
