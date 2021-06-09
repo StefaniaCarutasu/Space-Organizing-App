@@ -104,23 +104,23 @@
                             <p>Asignat lui: @task.User2.UserName</p>
                             <br />
                         }
-                        <p class="lead" style="margin-top:2rem">
-                            <div style="display: inline-block; float : left; margin-right: 15px">
-                                <a class="btn btn-primary btn-lg" style="padding:1rem" href="/Taskss/Edit/@task.TaskId">Modifica task</a>
+                    <p class="lead" style="margin-top:2rem">
+                        <div style="display: inline-block; float : left; margin-right: 15px">
+                            <a class="btn btn-primary btn-lg" style="padding:1rem" href="/Taskss/Edit/@task.TaskId">Modifica task</a>
+                        </div>
+
+                        @if (ViewBag.isAdmin || ViewBag.UserId == task.UserId)
+                        {
+                            <div style="display: inline-block; float : left">
+                                <form method="post" action="/Taskss/Delete/@task.TaskId">
+                                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+                                    <button class="btn btn-primary btn-lg" style="padding:1rem" type="submit">Sterge task</button>
+                                </form>
                             </div>
 
-                            @if (ViewBag.isAdmin)
-                            {
-                                <div style="display: inline-block; float : left">
-                                    <form method="post" action="/Taskss/Delete/@task.TaskId">
-                                        @Html.HttpMethodOverride(HttpVerbs.Delete)
-
-                                        <button class="btn btn-primary btn-lg" style="padding:1rem" type="submit">Sterge task</button>
-                                    </form>
-                                </div>
-
-                            }
-                        </p>
+                        }
+                    </p>
                     </div>
 
                 </div>

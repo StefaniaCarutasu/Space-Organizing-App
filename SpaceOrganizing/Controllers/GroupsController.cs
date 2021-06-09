@@ -58,7 +58,7 @@ namespace SpaceOrganizing.Controllers
             ViewBag.isAdmin = false;
             ViewBag.isGroupOwner = false;
             ViewBag.UserId = User.Identity.GetUserId();
-            if (User.IsInRole("Admin"))
+            if (User.IsInRole("Administrator"))
             {
                 ViewBag.isAdmin = true;
             }
