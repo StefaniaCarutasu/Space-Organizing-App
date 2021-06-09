@@ -2,6 +2,7 @@
 using SpaceOrganizing.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -34,8 +35,10 @@ namespace SpaceOrganizing.Controllers
 
             ViewBag.UsersList = users; 
         }
+
         // GET: Profiles
         //Afisarea profilului utilizatorului logat curent
+        [Authorize(Roles = "Administrator,User")]
         public ActionResult Index()
         {
             string id = User.Identity.GetUserId();
@@ -71,7 +74,7 @@ namespace SpaceOrganizing.Controllers
         }
 
         //Vizualizeaza profilul unui utilizator
-        [Authorize(Roles = "User,Admin")]
+        [Authorize(Roles = "Administrator,User")]
         public ActionResult Show(string id)
         {
             ApplicationUser user = db.Users.Find(id);
@@ -101,7 +104,7 @@ namespace SpaceOrganizing.Controllers
             return View(user);
         }
 
-        [Authorize(Roles = "User,Admin")]
+        [Authorize(Roles = "Administrator,User")]
         public ActionResult Edit()
         {
             string id = User.Identity.GetUserId();
@@ -110,7 +113,7 @@ namespace SpaceOrganizing.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "User,Admin")]
+        [Authorize(Roles = "Administrator,User")]
         public ActionResult Edit(ApplicationUser requestUser)
         {
             string id = User.Identity.GetUserId();

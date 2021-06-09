@@ -221,7 +221,7 @@
     <Content Include="Content\images\PageError.jpg" />
     <Content Include="Content\images\service2.png" />
     <Content Include="Content\images\service3.jpg" />
-    <Content Include="Content\images\WhatsApp Image 2021-06-06 at 23.14.19.jpeg" />
+    <Content Include="Content\profilePictures\b67bebad-ae3f-4d03-b1be-8b4c7be3d257.jpeg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -290,6 +290,7 @@
     <Content Include="Views\ErrorPage\Error.cshtml" />
     <Content Include="Views\Profiles\Index.cshtml" />
     <Content Include="Views\Profiles\Show.cshtml" />
+    <Content Include="Views\Profiles\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202105130854256_Initial.resx">

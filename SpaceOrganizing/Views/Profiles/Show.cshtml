@@ -145,7 +145,18 @@
     <div id="overlay">
         <div class="image">
             <div class="trick">
-                <img src="~/Content/images/WhatsApp Image 2021-06-06 at 23.14.19.jpeg" alt="Profile photo" width="500" height="600">
+                @if (ViewBag.Picture == false)
+                {
+                    <img src="~/Content/images/no_profile_picture.png" alt="Profile photo" width="500" height="600">
+                }
+                else
+                {
+                    string fileName = ViewBag.UserId + ".jpeg";
+                    <img src="~/Content/profilePictures/@fileName" alt="Profile photo" width="500" height="600" />
+
+                }
+
+
             </div>
         </div>
         <ul class="text" style="color: antiquewhite">@ViewBag.User.UserName</ul>
