@@ -259,9 +259,9 @@ namespace SpaceOrganizing.Controllers
 
                         if (TryUpdateModel(Task))
                         {
-                            Task = editedTask;
-                            Task.User = user1;
-                            Task.User2 = user2;
+                            // Task = editedTask;
+                            //Task.User = user1;
+                            //Task.User2 = user2;
                             //db.SaveChanges();
                             if (user2 != user2Initial && user2 != null && user2Initial != null)
                             {
@@ -278,6 +278,8 @@ namespace SpaceOrganizing.Controllers
                                 user2.AsignedTasks.Add(Task);
                                 // taskAsigantionEmailAsync(Task.TaskId, Task.GroupId);
                             }
+                            db.Tasks.Remove(Task);
+                            db.Tasks.Add(editedTask);
                             db.SaveChanges();
                             TempData["message"] = "Task-ul a fost modificat cu succes!";
 
