@@ -32,8 +32,22 @@ namespace SpaceOrganizing
                      "~/Content/css/jquery.mCustomScrollbar.min.css",
                      "~/Content/css/style.css",
                      "~/Content/css/responsive.css",
-                     "~/Content/css/style.css",
+                     "~/Content/css/style.css", 
                      "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/template/cssLogin").Include(
+                     "~/Content/css/bootstrap.min.css",
+                     "~/Content/css/jquery.mCustomScrollbar.min.css",
+                     "~/Content/css/style.css",
+                     "~/Content/css/responsive.css",
+                     "~/Content/cssLogin/style.css"));
+            bundles.Add(new StyleBundle("~/template/cssRegister").Include(
+                    "~/Content/cssRegister/main.css",
+                    "~/Content/cssRegister/util.css",
+                    "~/Content/cssRegister/bootstrap.min.css",
+                     "~/Content/cssRegister/jquery.mCustomScrollbar.min.css",
+                     "~/Content/cssRegister/style.css",
+                     "~/Content/cssRegister/responsive.css",
+                     "~/Content/cssRegister/style.css"));
         }
     }
 }

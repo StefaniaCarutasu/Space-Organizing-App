@@ -1,7 +1,11 @@
 ﻿@{ ViewBag.Title = "Show"; }
 
+<<<<<<< Updated upstream
 
 
+=======
+@Styles.Render("~/template/cssLogin")
+>>>>>>> Stashed changes
 <br />
 <br />
 
@@ -14,7 +18,20 @@
         <a class="btn btn-primary pull-right" style="background-color: #5680E9" href="/Groups/Index">Inapoi la grupuri</a>
         <br />
         <br />
+<<<<<<< Updated upstream
 
+=======
+        @if (ViewBag.isGroupOwner)
+        {
+            <a class="glyphicon glyphicon-edit" href="/Groups/Edit/@ViewBag.Group.GroupId" style="text-align:center; display:block"> Modifica grupul</a>}
+
+        @if (ViewBag.isGroupOwner || ViewBag.isAdmin)
+        {
+            <form method="post" action="/Groups/Delete/@ViewBag.Group.GroupId">
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="glyphicon glyphicon-trash pull-right" style="border: none; background: transparent;text-align:center; display:block" type="submit"></button>
+            </form>}
+>>>>>>> Stashed changes
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -78,15 +95,27 @@
         </div>
         <hr />
     </div>
+<<<<<<< Updated upstream
 
     <div class="item item2" ; style="grid-column:2/4;
     grid-row:2/4;">
+=======
+    <div class="panel-body" style="border-radius:0 0 20px 20px">
+        @if (ViewBag.Group.GroupDescription != null)
+        {
+            <div style="font-size:20px">Descriere grup: <br /><strong>@ViewBag.Group.GroupDescription</strong></div> }
+        else if (ViewBag.isGroupOwner)
+        {
+            <a class="glyphicon glyphicon-edit" href="/Groups/Edit/@ViewBag.Group.GroupId"> Adauga descriere</a>
+            <br /><br />}
+>>>>>>> Stashed changes
         <br />
         <br />
         @if (ViewBag.UsersCount != 0)
         {
             foreach (var task in ViewBag.Group.Tasks)
             {
+<<<<<<< Updated upstream
                 <div class="container">
                     <div class="jumbotron">
                         <p class="display-3">@task.Title</p>
@@ -108,6 +137,19 @@
                             <div style="display: inline-block; float : left; margin-right: 15px">
                                 <a class="btn btn-primary btn-lg" style="padding:1rem" href="/Taskss/Edit/@task.TaskId">Modifica task</a>
                             </div>
+=======
+                if ((reg.User == ViewBag.User) && (ViewBag.isGroupOwner == false))
+                {
+                    <form method="post" action="/Groups/LeaveGroup/@reg.RegistrationId">
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                        <button class="btn btn-danger pull-right" type="submit">
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            Paraseste grupul
+                        </button>
+                    </form>}
+            }
+        }
+>>>>>>> Stashed changes
 
                             @if (ViewBag.isAdmin)
                             {
@@ -123,6 +165,7 @@
                         </p>
                     </div>
 
+<<<<<<< Updated upstream
                 </div>
                 <hr />
             }
@@ -136,10 +179,54 @@
                             <a class="btn btn-primary pull-right" style="background-color: #5680E9" href="/Taskss/New/@ViewBag.Group.GroupId">Creeaza task</a>
 
                         </div>
+=======
+@if (ViewBag.UsersCount != 0)
+{
+    foreach (var task in ViewBag.Group.Tasks)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8" style=" border-radius:30px 30px 30px 5px; padding:20px">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>@task.User.UserName</strong>
+                        </div>
+                        <div class="panel-body">
+                            <p>@task.Title</p>
+                            <small class="pull-right">@task.Deadline</small>
+                        </div>
+                        <div class="panel-footer" style="padding-bottom:40px">
+                            @if (ViewBag.isGroupOwner || task.UserId == ViewBag.UserId || ViewBag.isAdmin)
+                            {
+                                <div style="display: inline-block; float : left; margin-right: 15px">
+                                    <form method="post" action="/Taskss/Delete/@task.TaskId">
+                                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                        <button class="glyphicon glyphicon-trash" style="border: none;
+                            background: transparent" type="submit"></button>
+                                    </form>
+                                </div>}
+
+                            @if (task.UserId == ViewBag.UserId || ViewBag.isAdmin)
+                            {
+                                <div style="display: inline-block; float : left">
+                                    <a class="glyphicon glyphicon-pencil"
+                                       href="/Taskss/Edit/@task.TaskId"></a>
+                                </div>
+
+
+                                <div class="col-md-2"></div>}
+                            <div style="display:inline-block; float : right; margin-right:15px">
+                                <a class="glyphicon glyphicon-comment" href="/Taskss/Show/@task.TaskId"></a>
+                            </div>
+                        </div>
+
+>>>>>>> Stashed changes
                     </div>
                     <div class="col-md-2"></div>
                 </div>
             </div>
+<<<<<<< Updated upstream
         }
 
         else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
@@ -184,10 +271,83 @@
                                     </div>
                                 </div>
 
+=======
+        </div>
+        <hr />
+ }
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <div class="panel">
+                    @using (Html.BeginForm(actionName: "New", controllerName: "Tasks"))
+                    {
+                        @Html.Hidden("GroupId")
+
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        <input type="hidden" name="GroupId" value="@ViewBag.Group.GroupId" />
+                        @Html.Label("Content", "Continut postare")
+                        <br />
+                        @Html.TextArea("Content", null, new { @class = "form-control" })
+                        <br />
+                        @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+                        <button class="btn btn-success " type="submit">
+                            Adauga
+                            postare
+                        </button>}
+
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div> }
+else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
+{
+    foreach (var task in ViewBag.Group.Tasks)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8" style=" border-radius:30px 30px 30px 5px; padding:20px">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>@task.User.UserName</strong>
+                        </div>
+                        <div class="panel-body">
+                            <p>@task.Content</p>
+                            <small class="pull-right">@task.Date</small>
+                        </div>
+                        <div class="panel-footer" style="padding-bottom:40px">
+                            @if (ViewBag.isGroupOwner || task.UserId == ViewBag.UserId || ViewBag.isAdmin)
+                            {
+                                <div style="display: inline-block; float : left; margin-right: 15px">
+                                    <form method="post" action="/Tasks/Delete/@task.TaskId">
+                                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                        <button class="glyphicon glyphicon-trash" style="border: none;
+                            background: transparent" type="submit"></button>
+                                    </form>
+                                </div>}
+
+                            @if (task.UserId == ViewBag.UserId || ViewBag.isAdmin)
+                            {
+                                <div style="display: inline-block; float : left">
+                                    <a class="glyphicon glyphicon-pencil"
+                                       href="/Tasks/Edit/@task.TaskId"></a>
+                                </div>
+
+
+                                <div class="col-md-2"></div>}
+                            <div style="display:inline-block; float : right; margin-right:15px">
+                                <a class="glyphicon glyphicon-comment" href="/Tasks/Show/@task.TaskId"></a>
+>>>>>>> Stashed changes
                             </div>
                         </div>
+
                     </div>
                 </div>
+<<<<<<< Updated upstream
                 <hr />
             }
 
@@ -258,3 +418,37 @@
         document.getElementById("nume1").style.color = "#" + randomColor; 
     }
 </script>
+=======
+            </div>
+        </div>
+        <hr />
+ }
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <div class="panel">
+                    @using (Html.BeginForm(actionName: "New", controllerName: "Tasks"))
+                    {
+                        @Html.Hidden("GroupId")
+
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        <input type="hidden" name="GroupId" value="@ViewBag.Group.GroupId" />
+                        @Html.Label("Content", "Continut postare")
+                        <br />
+                        @Html.TextArea("Content", null, new { @class = "form=control" })
+                        <br />
+                        @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+                        <button class="btn btn-success " type="submit">
+                            Adauga
+                            postare
+                        </button>}
+
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>}
+>>>>>>> Stashed changes

@@ -63,8 +63,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- bootstrap css -->
-    @Styles.Render("~/template/css")
+ 
     <!-- fevicon -->
     <link rel="icon" href="images/fevicon.png" type="image/gif" />
 
@@ -127,12 +126,12 @@
                                         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                                         {
                                             @Html.AntiForgeryToken()
-                                            <div class="ptfloat">
+                                            <li class="nav-item">
                                                 <p>
                                                     @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "loginal" })
                                                 </p>
                                                 <p><a href="javascript:document.getElementById('logoutForm').submit()" class="alstyle logoff">LOG OFF</a></p>
-                                            </div>
+                                            </li>
                                         }
                                     }
                                     else
@@ -158,42 +157,10 @@
     <!-- end header inner -->
     <!-- end header -->
     <!-- banner -->
-
-    <section class="banner_main">
-        @RenderBody()
-
-    </section>
-
+    @RenderBody()
 
     <!-- end contact -->
-    <!--  footer -->
-    <footer>
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 offset-md-1">
-                        <div class="cont">
-                            <h3>Contact now</h3>
-                            <span></span>
-                            <p>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="copyright">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p>© 2021 All Rights Reserved.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </footer>
-    <!-- end footer -->
+  
     <!-- Javascript files-->
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
