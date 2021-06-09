@@ -172,6 +172,7 @@
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -182,7 +183,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Friend.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -217,9 +217,11 @@
     <Content Include="Content\images\image6.jpg" />
     <Content Include="Content\images\image7.png" />
     <Content Include="Content\images\images.png" />
+    <Content Include="Content\images\no_profile_picture.png" />
     <Content Include="Content\images\PageError.jpg" />
     <Content Include="Content\images\service2.png" />
     <Content Include="Content\images\service3.jpg" />
+    <Content Include="Content\images\WhatsApp Image 2021-06-06 at 23.14.19.jpeg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -286,6 +288,8 @@
     <Content Include="Views\Groups\Show.cshtml" />
     <Content Include="Views\Groups\New.cshtml" />
     <Content Include="Views\ErrorPage\Error.cshtml" />
+    <Content Include="Views\Profiles\Index.cshtml" />
+    <Content Include="Views\Profiles\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202105130854256_Initial.resx">
