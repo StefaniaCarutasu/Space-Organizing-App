@@ -156,16 +156,27 @@ namespace SpaceOrganizing.Controllers
 
                 try
                 {
-                    db.Tasks.Add(newTask);
-                    user1.CreatedTasks.Add(newTask);
-                    if (user2 != null)
+                    if (ModelState.IsValid)
                     {
-                        user2.AsignedTasks.Add(newTask);
-                    }
-                    db.SaveChanges();
-                    TempData["message"] = "Task-ul a fost adaugat cu success!";
+                        db.Tasks.Add(newTask);
+                        user1.CreatedTasks.Add(newTask);
+                        if (user2 != null)
+                        {
+                            user2.AsignedTasks.Add(newTask);
+                        }
+                        db.SaveChanges();
+                        TempData["message"] = "Task-ul a fost adaugat cu success!";
 
-                    return Redirect("/Groups/Show/" + newTask.GroupId);
+                        return Redirect("/Groups/Show/" + newTask.GroupId);
+                    }
+
+                    ViewBag.Message = "Nu s-a putut adauga task-ul!";
+                    if (newTask.Deadline < new DateTime())
+                    {
+                        ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
+                    }
+
+                    return View(newTask);
                 }
                 catch (Exception e)
                 {
@@ -174,7 +185,6 @@ namespace SpaceOrganizing.Controllers
                     {
                         ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
                     }
-                    ViewBag.Message = e.Message;
 
                     return View(newTask);
                 }
@@ -223,29 +233,33 @@ namespace SpaceOrganizing.Controllers
             {
                 if (ViewBag.esteAdmin || ViewBag.esteOrganizator || ViewBag.esteUser)
                 {
-                    Tasks Task = db.Tasks.Find(id);
-                    Task.PriorityLabel = GetPriority();
-                    Task.UsersList = GetAllUsers(Task.GroupId);
-                    ApplicationUser user2Initial = db.Users.Find(Task.UserId2);
-
-                    try
+                    if (ModelState.IsValid)
                     {
-                        Task = editedTask;
-                        if (user2 != user2Initial)
+                        Tasks Task = db.Tasks.Find(id);
+                        Task.PriorityLabel = GetPriority();
+                        Task.UsersList = GetAllUsers(Task.GroupId);
+                        ApplicationUser user2Initial = db.Users.Find(Task.UserId2);
+
+                        if (TryUpdateModel(Task))
                         {
-                            user2.AsignedTasks.Add(Task);
-                            user2Initial.AsignedTasks.Remove(Task);
-                        }
-                        db.SaveChanges();
-                        TempData["message"] = "Task-ul a fost modificat cu succes!";
+                            Task = editedTask;
+                            if (user2 != user2Initial)
+                            {
+                                user2.AsignedTasks.Add(Task);
+                                user2Initial.AsignedTasks.Remove(Task);
+                            }
+                            db.SaveChanges();
+                            TempData["message"] = "Task-ul a fost modificat cu succes!";
 
-                        return Redirect("/Taskss/Show/" + id);
-                    }
-                    catch (Exception e)
-                    {
+                            return Redirect("/Taskss/Show/" + id);
+                        }
+                            
                         ViewBag.Message = "Nu s-a putut edita task-ul!";
                         return View(editedTask);
                     }
+
+                    ViewBag.Message = "Nu s-a putut edita task-ul!";
+                    return View(editedTask);
                 }
 
                 else
