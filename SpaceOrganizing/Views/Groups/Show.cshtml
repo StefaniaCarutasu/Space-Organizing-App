@@ -92,6 +92,9 @@
                         <p class="display-3">@task.Title</p>
                         Descriere task: <p class="lead">@task.Description</p>
                         Prioritate: <strong>@task.Priority</strong>
+                        <br />
+                        <input type="checkbox" id="taskTerminat" name="taskTerminat">
+                        <label for="taskTerminat"> Done </label>
                         <hr class="my-4">
                         <p>Creat de: @task.User.UserName</p>
                         <span class="label label-info">Deadline: @task.Deadline</span>
