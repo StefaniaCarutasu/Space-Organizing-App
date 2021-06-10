@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity;
@@ -16,11 +19,48 @@ namespace SpaceOrganizing
 {
     public class EmailService : IIdentityMessageService
     {
+        static public async System.Threading.Tasks.Task SendAsync(string toEmail, string subject, string content)
+        {
+            // Plug in your email service here to send an email.
+            const string senderEmail = "spaceorganizing.app@gmail.com";
+            const string senderPassword = "ProiectMDS";
+
+            // create a new SMPT client object that i used to send emails
+            using (SmtpClient client = new SmtpClient())
+            {
+                client.Host = "smtp.gmail.com"; ;
+                client.Port = 25;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.EnableSsl = true;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential(senderEmail, senderPassword);
+
+                // create a new email object
+                MailMessage email = new MailMessage();
+                email.From = new MailAddress(senderEmail);
+                email.To.Add(new MailAddress(toEmail));
+                email.Subject = subject;
+                email.Body = content;
+                email.IsBodyHtml = true;
+                email.BodyEncoding = UTF8Encoding.UTF8;
+
+                // send the email
+                try
+                {
+                    await client.SendMailAsync(email);
+                } catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine(e.Message.ToString());
+                }
+            }
+        }
+
         public System.Threading.Tasks.Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
             return System.Threading.Tasks.Task.FromResult(0);
         }
+
     }
 
     public class SmsService : IIdentityMessageService

@@ -34,7 +34,7 @@
         <br />
         <br />
 
-        @Html.Label("Deadline", "Inceput task")
+        @Html.Label("Deadline", "Deadline")
         <br />
         <div class="form-control2">
             @Html.Editor("Deadline")
@@ -44,8 +44,8 @@
         <br />
         <br />
 
-        @Html.Label("Priority", "PriorityLabel")
-        @Html.DropDownListFor(m => m.PriorityLabel, new SelectList(Model.PriorityLabel, "Value", "Text"), new { @class = "form-control" })
+        @Html.Label("Priority", "Prioritate")
+        @Html.DropDownListFor(m => m.Priority, new SelectList(Model.PriorityLabel, "Value", "Text"), new { @class = "form-control" })
         <br />
         <br />
 

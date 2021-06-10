@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -18,10 +21,21 @@ namespace SpaceOrganizing.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public Boolean ProfilePicture { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [StringLength(100, ErrorMessage = "Descrierea profilului nu poate avea mai mult de 100 de caractere")]
+        public string ProfileDescription { get; set; }
+
         public virtual ICollection<Registration> Registrations { get; set; }
         public IEnumerable<SelectListItem> AllRoles { get; set; }
 
-        //un user poate avea mia multe taskuri asignate
+        public ICollection<Group> UserGroups { get; set; }
+
+        //un user poate avea mai multe taskuri asignate
         public virtual ICollection<Tasks> AsignedTasks { get; set; }
 
         //un user poate crea mai multe taskuri
@@ -39,6 +53,8 @@ namespace SpaceOrganizing.Models
         public DbSet<Tasks> Tasks { get; set; }
 
         public DbSet<Group> Groups { get; set; }
+
+        public DbSet<Profile> Profiles { get; set; }
 
         public DbSet<Registration> Registrations { get; set; }
 

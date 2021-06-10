@@ -27,6 +27,8 @@ namespace SpaceOrganizing.Models
 
         public bool Done { get; set; }
 
+        public string Priority { get; set; }
+
         // prioritatea posibila a unui task
         public IEnumerable<SelectListItem> PriorityLabel { get; set; }
 
