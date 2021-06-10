@@ -200,8 +200,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\animate.min.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\groupProfile.css" />
     <Content Include="Content\css\jquery-ui.css" />
     <Content Include="Content\css\jquery.mCustomScrollbar.min.css" />
+    <Content Include="Content\css\material-dashboard-rtl.css" />
+    <Content Include="Content\css\material-dashboard.css" />
+    <Content Include="Content\css\material-dashboard.min.css" />
     <Content Include="Content\css\meanmenu.css" />
     <Content Include="Content\css\nice-select.css" />
     <Content Include="Content\css\normalize.css" />
@@ -223,9 +227,11 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\css\material-dashboard.css.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -237,8 +243,30 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\material-dashboard-rtl.css" />
+    <Content Include="Scripts\material-dashboard.css" />
+    <Content Include="Scripts\material-dashboard.min.css" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\owl.carousel.min.js" />
     <Content Include="Scripts\plugin.js" />
+    <Content Include="Scripts\plugins\arrive.min.js" />
+    <Content Include="Scripts\plugins\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\plugins\bootstrap-notify.js" />
+    <Content Include="Scripts\plugins\bootstrap-selectpicker.js" />
+    <Content Include="Scripts\plugins\bootstrap-tagsinput.js" />
+    <Content Include="Scripts\plugins\chartist.min.js" />
+    <Content Include="Scripts\plugins\fullcalendar.min.js" />
+    <Content Include="Scripts\plugins\jasny-bootstrap.min.js" />
+    <Content Include="Scripts\plugins\jquery-jvectormap.js" />
+    <Content Include="Scripts\plugins\jquery.bootstrap-wizard.js" />
+    <Content Include="Scripts\plugins\jquery.dataTables.min.js" />
+    <Content Include="Scripts\plugins\jquery.tagsinput.js" />
+    <Content Include="Scripts\plugins\jquery.validate.min.js" />
+    <Content Include="Scripts\plugins\moment.min.js" />
+    <Content Include="Scripts\plugins\nouislider.min.js" />
+    <Content Include="Scripts\plugins\perfect-scrollbar.jquery.min.js" />
+    <Content Include="Scripts\plugins\sweetalert2.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -281,6 +309,8 @@
     <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Views\Groups\Show.cshtml" />
     <Content Include="Views\Groups\New.cshtml" />
+    <Content Include="Scripts\material-dashboard.css.map" />
+    <Content Include="Views\Shared\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202105130854256_Initial.resx">

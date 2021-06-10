@@ -1,0 +1,97 @@
+﻿@using Microsoft.AspNet.Identity
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #demo input {
+            outline: none;
+        }
+
+            #demo input[type=text] {
+                -webkit-appearance: textfield;
+                -webkit-box-sizing: content-box;
+                font-family: inherit;
+                font-size: 100%;
+            }
+
+            #demo input::-webkit-search-decoration,
+            #demo input::-webkit-search-cancel-button {
+                display: none;
+            }
+
+            #demo input[type=text] {
+                background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+                border: solid 1px #ccc;
+                padding: 9px 10px 9px 32px;
+                width: 55px;
+                -webkit-border-radius: 10em;
+                -moz-border-radius: 10em;
+                border-radius: 10em;
+                -webkit-transition: all .5s;
+                -moz-transition: all .5s;
+                transition: all .5s;
+            }
+
+                #demo input[type=text]:focus {
+                    width: 130px;
+                    background-color: #fff;
+                    border-color: #66CC75;
+                    -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+                    -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+                    box-shadow: 0 0 5px rgba(109,207,246,.5);
+                }
+
+
+            #demo input:-moz-placeholder {
+                color: #999;
+            }
+
+            #demo input::-webkit-input-placeholder {
+                color: #999;
+            }
+    </style>
+
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Data web</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    @Styles.Render("~/template/css")
+    <!-- fevicon -->
+    <link rel="icon" href="images/fevicon.png" type="image/gif" />
+
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<!-- body -->
+<!-- Javascript files-->
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery-3.0.0.min.js"></script>
+<script src="js/plugin.js"></script>
+<!-- sidebar -->
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+<body class="main-layout">
+    @RenderBody()
+
+</body>
+</html>
+

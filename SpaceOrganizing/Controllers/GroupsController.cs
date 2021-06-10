@@ -58,6 +58,7 @@ namespace SpaceOrganizing.Controllers
             ViewBag.isAdmin = false;
             ViewBag.isGroupOwner = false;
             ViewBag.UserId = User.Identity.GetUserId();
+           
             if (User.IsInRole("Admin"))
             {
                 ViewBag.isAdmin = true;
@@ -68,6 +69,11 @@ namespace SpaceOrganizing.Controllers
             }
 
             ViewBag.Group = group;
+            bool acc = true;
+            List<Tasks> taskuri = (from task in db.Tasks
+                             where task.Done == true && task.GroupId == id
+                             select task).ToList();
+            ViewBag.countDone = taskuri.Count;
             return View(group);
         }
 
