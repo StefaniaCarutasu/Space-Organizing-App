@@ -24,20 +24,18 @@ namespace SpaceOrganizing.Models
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public DateTime BirthDate { get; set; }
+        public Boolean ProfilePicture { get; set; }
 
         [DataType(DataType.MultilineText)]
         [StringLength(100, ErrorMessage = "Descrierea profilului nu poate avea mai mult de 100 de caractere")]
         public string ProfileDescription { get; set; }
 
-        [ForeignKey("User1_Id")]
-        public virtual ICollection<Friend> SentRequests { get; set; }
-
-        [ForeignKey("User2_Id")]
-        public virtual ICollection<Friend> ReceivedRequests { get; set; }
         public virtual ICollection<Registration> Registrations { get; set; }
         public IEnumerable<SelectListItem> AllRoles { get; set; }
 
-        //un user poate avea mia multe taskuri asignate
+        public ICollection<Group> UserGroups { get; set; }
+
+        //un user poate avea mai multe taskuri asignate
         public virtual ICollection<Tasks> AsignedTasks { get; set; }
 
         //un user poate crea mai multe taskuri
@@ -55,7 +53,6 @@ namespace SpaceOrganizing.Models
         public DbSet<Tasks> Tasks { get; set; }
 
         public DbSet<Group> Groups { get; set; }
-        public DbSet<Friend> Friends { get; set; }
 
         public DbSet<Profile> Profiles { get; set; }
 

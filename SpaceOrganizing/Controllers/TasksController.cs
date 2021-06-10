@@ -28,6 +28,7 @@ namespace SpaceOrganizing.Controllers
         }
 
         // verificare daca userul face parte din echipa
+        [NonAction]
         private bool IsFromGroup(String userId, int groupId)
         {
             var registrations = from reg in db.Registrations
@@ -89,9 +90,22 @@ namespace SpaceOrganizing.Controllers
             return UsersList;
         }
 
+        // trimitere mail
+        [NonAction]
+        public async System.Threading.Tasks.Task taskAsigantionEmailAsync(int taskId, int groupId)
+        {
+            Tasks Task = db.Tasks.Find(taskId);
+            Group Group = db.Groups.Find(groupId);
+            string authorEmail = Task.User2.Email;
+            string notificationBody = "<p>Ati fost asignat unui task: " + Task.Title + " in cadrul grupului " + Group.GroupName + "</p>";
+            notificationBody += "<br /><br />O zi frumoasa!";
+
+            await EmailService.SendAsync(authorEmail, "Ati fost asignat unui task", notificationBody);
+        }
+
         //SHOW
         //GET: afisarea unui singur task
-        [Authorize(Roles = "User,Administrator")]
+        /*[Authorize(Roles = "User,Administrator")]
         public ActionResult Show(int id)
         {
             if (TempData.ContainsKey("message"))
@@ -109,7 +123,7 @@ namespace SpaceOrganizing.Controllers
                 TempData["message"] = "Nu aveti dreptul sa vedeti task-urile unei echipe din care nu faceti parte!";
                 return Redirect("Groups/Index");
             }
-        }
+        }*/
 
 
         //NEW
@@ -146,6 +160,7 @@ namespace SpaceOrganizing.Controllers
             if (IsFromGroup(userId, newTask.GroupId))
             {
                 newTask.UserId = userId;
+                newTask.User = user1;
                 newTask.Done = false;
                 if (user2 != null)
                 {
@@ -163,6 +178,7 @@ namespace SpaceOrganizing.Controllers
                         if (user2 != null)
                         {
                             user2.AsignedTasks.Add(newTask);
+                            taskAsigantionEmailAsync(newTask.TaskId, newTask.GroupId);
                         }
                         db.SaveChanges();
                         TempData["message"] = "Task-ul a fost adaugat cu success!";
@@ -227,7 +243,10 @@ namespace SpaceOrganizing.Controllers
             SetAccessRights(editedTask);
             editedTask.PriorityLabel = GetPriority();
             editedTask.UsersList = GetAllUsers(editedTask.GroupId);
+            ApplicationUser user1 = db.Users.Find(editedTask.UserId);
             ApplicationUser user2 = db.Users.Find(editedTask.UserId2);
+            editedTask.User = user1;
+            editedTask.User2 = user2;
 
             try
             {
@@ -236,22 +255,35 @@ namespace SpaceOrganizing.Controllers
                     if (ModelState.IsValid)
                     {
                         Tasks Task = db.Tasks.Find(id);
-                        Task.PriorityLabel = GetPriority();
-                        Task.UsersList = GetAllUsers(Task.GroupId);
                         ApplicationUser user2Initial = db.Users.Find(Task.UserId2);
 
                         if (TryUpdateModel(Task))
                         {
-                            Task = editedTask;
-                            if (user2 != user2Initial)
+                            // Task = editedTask;
+                            //Task.User = user1;
+                            //Task.User2 = user2;
+                            //db.SaveChanges();
+                            if (user2 != user2Initial && user2 != null && user2Initial != null)
                             {
                                 user2.AsignedTasks.Add(Task);
                                 user2Initial.AsignedTasks.Remove(Task);
+                                // taskAsigantionEmailAsync(editedTask.TaskId, editedTask.GroupId);
                             }
+                            else if (user2 == null && user2Initial != null)
+                            {
+                                user2Initial.AsignedTasks.Remove(Task);
+                            }
+                            else if (user2Initial == null && user2 != null)
+                            {
+                                user2.AsignedTasks.Add(Task);
+                                // taskAsigantionEmailAsync(Task.TaskId, Task.GroupId);
+                            }
+                            db.Tasks.Remove(Task);
+                            db.Tasks.Add(editedTask);
                             db.SaveChanges();
                             TempData["message"] = "Task-ul a fost modificat cu succes!";
 
-                            return Redirect("/Taskss/Show/" + id);
+                            return Redirect("/Groups/Show/" + Task.GroupId);
                         }
                             
                         ViewBag.Message = "Nu s-a putut edita task-ul!";
