@@ -105,7 +105,7 @@ namespace SpaceOrganizing.Controllers
 
         //SHOW
         //GET: afisarea unui singur task
-        /*[Authorize(Roles = "User,Administrator")]
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Show(int id)
         {
             if (TempData.ContainsKey("message"))
@@ -123,7 +123,7 @@ namespace SpaceOrganizing.Controllers
                 TempData["message"] = "Nu aveti dreptul sa vedeti task-urile unei echipe din care nu faceti parte!";
                 return Redirect("Groups/Index");
             }
-        }*/
+        }
 
 
         //NEW

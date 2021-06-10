@@ -70,10 +70,31 @@ namespace SpaceOrganizing.Controllers
 
             ViewBag.Group = group;
             bool acc = true;
-            List<Tasks> taskuri = (from task in db.Tasks
+            List<Tasks> taskuriDone = (from task in db.Tasks
                              where task.Done == true && task.GroupId == id
                              select task).ToList();
-            ViewBag.countDone = taskuri.Count;
+            ViewBag.countDone = taskuriDone.Count;
+            List<Tasks> lowP = new List<Tasks>();
+            List<Tasks> highP = new List<Tasks>();
+            List<Tasks> medP = new List<Tasks>();
+            foreach (var task in taskuriDone)
+            {
+                if (task.Priority == "Urgent")
+                {
+                    highP.Add(task);
+                }
+                else if (task.Priority =="Medium")
+                {
+                    medP.Add(task);
+                }
+                else
+                {
+                    lowP.Add(task);
+                }
+            }
+            ViewBag.lowP = lowP;
+            ViewBag.highP = highP;
+            ViewBag.medP = medP;
             return View(group);
         }
 

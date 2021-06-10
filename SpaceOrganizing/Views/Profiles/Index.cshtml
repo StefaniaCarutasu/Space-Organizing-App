@@ -2,7 +2,9 @@
 @{
     ViewBag.Title = "Index";
 }
-
+@{
+    Layout = "~/Views/Shared/Dashboard.cshtml";
+}
 <style>
 
     .text {
@@ -138,11 +140,6 @@
         font-weight: 300;
         max-width: 100%;
     }
-
-
-
-
-   
 </style>
 </head>
 
@@ -171,13 +168,13 @@
         <br /><br />
         <ul class="text" style="color: antiquewhite">@ViewBag.User.UserName</ul>
         <br />
-            @if(ViewBag.Birthday == 1)
-            {
-                <div class="text1">
-                    <h3 class="text1">HAPPY BIRTHDAY!</h3>
-                </div>
-                <br />
-            }
+        @if (ViewBag.Birthday == 1)
+        {
+            <div class="text1">
+                <h3 class="text1">HAPPY BIRTHDAY!</h3>
+            </div>
+            <br />
+        }
         <div class="text1">
             @if (ViewBag.ProfileDescription != null)
             {
@@ -187,11 +184,11 @@
             }
             else
             {
-                 <a class="btn btn-info" href="/Profiles/Edit/"> Adauga descriere</a>
+                <a class="btn btn-info" href="/Profiles/Edit/"> Adauga descriere</a>
                 <br />
                 <br />
             }
         </div>
-        
-</div>
+
+    </div>
 </div>
