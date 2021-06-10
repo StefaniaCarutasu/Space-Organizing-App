@@ -20,8 +20,7 @@
 <link rel="stylesheet" type="text/css" href="/Content/cssRegister/main.css">
 <!--===============================================================================================-->
 @Styles.Render("~/template/cssRegister")
-
-
+@Styles.Render("~/template/css")
 <div class="header">
     <div class="container">
         <div class="limiter">
@@ -60,12 +59,12 @@
                         </div>
 
                         @Html.LabelFor(m => m.Birthday, new { @class = "col-md-2 control-label" })
-                        <div class="wrap-input100 validate-input"  data-validate="Valid birthdayis required: dd-mm-yyyy">
+                        <div class="wrap-input100 validate-input" data-validate="Valid birthdayis required: dd-mm-yyyy">
 
                             @Html.TextBoxFor(m => m.Birthday, new { @class = "input100", type = "DateTime" })
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
-                      
+
                             </span>
                         </div>
 
@@ -119,20 +118,20 @@
 
 
 
-    <!--===============================================================================================-->
-    <script src="/Content/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="/Content/vendor/bootstrap/js/popper.js"></script>
-    <script src="/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="/Content/vendor/select2/select2.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="/Content/vendor/tilt/tilt.jquery.min.js"></script>
-    <script>
-        $('.js-tilt').tilt({
-            scale: 1.1
-        })
-    </script>
-    <!--===============================================================================================-->
-    <script src="/Content/js/main.js"></script>
+<!--===============================================================================================-->
+<script src="/Content/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="/Content/vendor/bootstrap/js/popper.js"></script>
+<script src="/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="/Content/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="/Content/vendor/tilt/tilt.jquery.min.js"></script>
+<script>
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+<!--===============================================================================================-->
+<script src="/Content/js/main.js"></script>
 
