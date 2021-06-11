@@ -17,10 +17,17 @@ namespace SpaceOrganizing.Models
         [Required(ErrorMessage = "Pretul este obligatirou.")]
         public int Price { get; set; }
 
+        public bool Paid { get; set; }
+
         public int GroupId { get; set; }
-        
+
+        public string UserId { get; set; }
+
         // foreign key
         // grupul din care apartine
         public virtual Group Group { get; set; }
+
+        // userul care a platit
+        public virtual ApplicationUser User { get; set;  }
     }
 }
