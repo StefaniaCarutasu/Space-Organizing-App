@@ -126,6 +126,7 @@ namespace SpaceOrganizing.Controllers
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         //SHOW
         //user's tasks
         [Authorize(Roles = "User,Administrator")]
@@ -144,6 +145,8 @@ namespace SpaceOrganizing.Controllers
             return View();
         }
 
+=======
+>>>>>>> parent of 9a67d95 (my tasks method)
 =======
 >>>>>>> parent of 9a67d95 (my tasks method)
 
