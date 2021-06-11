@@ -19,5 +19,7 @@ namespace SpaceOrganizing.Models
 
         [DataType(DataType.MultilineText)]
         public string Message { get; set; }
+
+        public Boolean seen { get; set; }
     }
 }

@@ -61,7 +61,11 @@
                         @Html.LabelFor(m => m.Birthday, new { @class = "col-md-2 control-label" })
                         <div class="wrap-input100 validate-input">
 
-                            @Html.TextBoxFor(m => m.Birthday, new { @class = "input100", type = "DateTime" })
+
+                            <!--input class="text-box single-line input100" data-val="true" data-val-date="The field Date of Birth must be a date." id="DOB" name="DOB" type="date" value=""-->
+                            <div style="margin-left:100px">
+                                @Html.EditorFor(m => m.Birthday, new { @type = "date", @class = "text-box single-line input100" })
+                            </div>
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
 

@@ -23,7 +23,11 @@ namespace SpaceOrganizing.Models
         }
         public string LastName { get; set; }
         public string FirstName { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
+
         public Boolean ProfilePicture { get; set; }
 
         [DataType(DataType.MultilineText)]
