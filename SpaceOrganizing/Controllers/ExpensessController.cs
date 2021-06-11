@@ -84,5 +84,71 @@ namespace SpaceOrganizing.Controllers
                 return Redirect("Groups/Index");
             }
         }
+
+        //EDIT
+        //GET: afisare formular de editare plata
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult Edit(int id)
+        {
+            Expense Expense = db.Expenses.Find(id);
+
+            if (IsFromGroup(User.Identity.GetUserId(), Expense.GroupId))
+            {
+                return View(Expense);
+            }
+
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa modificati platile de la aceasta echipa!";
+                return Redirect("/Groups/Show/" + Expense.GroupId);
+            }
+        }
+
+        //PUT: modificare plata
+        [Authorize(Roles = "User, Administrator")]
+        [HttpPut]
+        public ActionResult Edit(int id, Expense editedExpense)
+        {
+            ApplicationUser user1 = db.Users.Find(editedExpense.UserId);
+            editedExpense.User = user1;
+
+            try
+            {
+                if (IsFromGroup(User.Identity.GetUserId(), editedExpense.GroupId))
+                {
+                    if (ModelState.IsValid)
+                    {
+                        Expense Expense = db.Expenses.Find(id);
+
+                        if (TryUpdateModel(Expense))
+                        {
+                            Expense = editedExpense;
+                            db.SaveChanges();
+                            TempData["message"] = "Plata a fost modificat cu succes!";
+
+                            return Redirect("/Groups/Show/" + Expense.GroupId);
+                        }
+
+                        ViewBag.Message = "Nu s-a putut edita plata!";
+                        return View(editedExpense);
+                    }
+
+                    ViewBag.Message = "Nu s-a putut edita plata!";
+                    return View(editedExpense);
+                }
+
+                else
+                {
+                    TempData["message"] = "Nu aveti dreptul sa modificati un plata din aceasta echipa!";
+                    return Redirect("/Groups/Show/" + editedExpense.GroupId);
+                }
+            }
+
+            catch (Exception e)
+            {
+                ViewBag.Message = "Nu s-a putut edita plata!";
+                return View(editedExpense);
+            }
+        }
     }
 }
