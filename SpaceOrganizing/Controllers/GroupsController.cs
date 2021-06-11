@@ -68,7 +68,14 @@ namespace SpaceOrganizing.Controllers
             {
                 ViewBag.isGroupOwner = true;
             }
-
+            ViewBag.isInGroup = false;
+            foreach(var reg in group.Registrations)
+            {
+                if(reg.UserId == User.Identity.GetUserId())
+                {
+                    ViewBag.isInGroup = true;
+                }
+            }
             ViewBag.Group = group;
             bool acc = true;
             List<Tasks> taskuriDone = (from task in db.Tasks
@@ -126,8 +133,7 @@ namespace SpaceOrganizing.Controllers
                     db.SaveChanges();
                     gr.Registrations.Add(reg);
                     db.SaveChanges();
-                    TempData["message"] = "Grupul a fost adaugat!";
-                    return RedirectToAction("Index");
+                    return Redirect("/Groups/Show/" + @gr.GroupId);
                 }
                 else
                 {
@@ -168,8 +174,7 @@ namespace SpaceOrganizing.Controllers
                     gr.GroupName = requestGroup.GroupName;
                     gr.GroupDescription = requestGroup.GroupDescription;
                     db.SaveChanges();
-                    TempData["message"] = "Grupul a fost editat cu succes";
-                    return RedirectToAction("Index");
+                    return Redirect("/Groups/Show/" + @gr.GroupId); ;
                 }
                 return View(requestGroup);
             }
@@ -188,7 +193,6 @@ namespace SpaceOrganizing.Controllers
             {
                 db.Groups.Remove(gr);
                 db.SaveChanges();
-                TempData["message"] = "Grupul a fost sters";
                 return RedirectToAction("Index");
             }
             else
