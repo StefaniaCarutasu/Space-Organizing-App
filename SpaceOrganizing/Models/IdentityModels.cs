@@ -58,6 +58,8 @@ namespace SpaceOrganizing.Models
 
         public DbSet<Registration> Registrations { get; set; }
 
+        public DbSet<Notification> Notifications { get; set; }
+
 
         public static ApplicationDbContext Create()
         {
