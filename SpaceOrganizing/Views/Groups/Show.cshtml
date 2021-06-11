@@ -3,11 +3,7 @@
     Layout = "~/Views/Shared/Dashboard.cshtml";
 }
 
-<br />
-<br />
 
-<br />
-<br />
 <div class="panel panel-default">
     <div class="panel-heading">
 
@@ -48,60 +44,6 @@
     </div>
 </div>
 
-@if (ViewBag.UsersCount != 0)
-{
-    
-
- }
-else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
-{
-    foreach (var task in ViewBag.Group.Tasks)
-    {
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8" style=" border-radius:30px 30px 30px 5px; padding:20px">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <strong>@task.User.UserName</strong>
-                        </div>
-                        <div class="panel-body">
-                            <p>@task.Content</p>
-                            <small class="pull-right">@task.Date</small>
-                        </div>
-                        <div class="panel-footer" style="padding-bottom:40px">
-                            @if (ViewBag.isGroupOwner || task.UserId == ViewBag.UserId || ViewBag.isAdmin)
-                            {
-                                <div style="display: inline-block; float : left; margin-right: 15px">
-                                    <form method="post" action="/Tasks/Delete/@task.TaskId">
-                                        @Html.HttpMethodOverride(HttpVerbs.Delete)
-                                        <button class="glyphicon glyphicon-trash" style="border: none;
-                            background: transparent" type="submit"></button>
-                                    </form>
-                                </div>}
-
-                            @if (task.UserId == ViewBag.UserId || ViewBag.isAdmin)
-                            {
-                                <div style="display: inline-block; float : left">
-                                    <a class="glyphicon glyphicon-pencil"
-                                       href="/Tasks/Edit/@task.TaskId"></a>
-                                </div>
-
-
-                                <div class="col-md-2"></div>}
-                            <div style="display:inline-block; float : right; margin-right:15px">
-                                <a class="glyphicon glyphicon-comment" href="/Tasks/Show/@task.TaskId"></a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr />
-    }
-
-   }
 
 
                 <div class="container-fluid">
@@ -145,10 +87,14 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                                         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                                         <input type="hidden" name="GroupId" value="@ViewBag.Group.GroupId" />
                                         @Html.Label("Content", "Continut task")
-                                        <br />
+                                        
                                         @Html.TextArea("Content", null, new { @class = "form-control" })
-                                        <br />
+                                       
                                         @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+                                        
+                                        @Html.Label("Deadline", "Deadline")
+                                        
+                                        @Html.TextArea("Deadline", null, new { @class = "form-control" })
                                         <button class="btn btn-success " style="background-color: #9c27b0;" type="submit">
                                             Adauga
                                             task
@@ -163,10 +109,50 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                                     </h3>
                                 </div>
                                 <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons text-danger">warning</i>
-                                        <a href="javascript:;">Set priority</a>
-                                    </div>
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                               
+                                                <div class="form-check">
+                                                    <td>
+                                                        <label for="urgent">
+
+                                                            <input class="form-check-input" type="checkbox" id="urgent" name="Urgent" value="Urgent">
+                                                            <span class="form-check-sign">
+                                                                <span class="check"></span>
+                                                            </span>
+                                                            Urgent
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <label for="medium">
+
+                                                            <input class="form-check-input" type="checkbox" id="medium" name="Medium" value="Medium">
+                                                            <span class="form-check-sign">
+                                                                <span class="check"></span>
+                                                            </span>
+                                                            Medium
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <label for="low">
+
+                                                            <input class="form-check-input" type="checkbox" id="low" name="Low" value="Low">
+                                                            <span class="form-check-sign">
+                                                                <span class="check"></span>
+                                                            </span>
+                                                            Low
+                                                        </label>
+                                                    </td>
+                                                
+                                                
+                                                <div class="stats">
+                                                    <i class="material-icons text-danger">warning</i>
+                                                    <a href="javascript:;">Set priority</a>
+                                                </div>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -211,14 +197,14 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                                     <div class="ct-chart" id="dailySalesChart"></div>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title">Daily</h4>
+                                    <h4 class="card-title">Total tasks</h4>
                                     <p class="card-category">
-                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today .
+                                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> </span> 
                                     </p>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">access_time</i> updated 4 minutes ago
+                                        <i class="material-icons">access_time</i> 
                                     </div>
                                 </div>
                             </div>
@@ -229,12 +215,12 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                                     <div class="ct-chart" id="websiteViewsChart"></div>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title">Email Subscriptions</h4>
+                                    <h4 class="card-title">Total groups</h4>
                                     <p class="card-category"></p>
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">access_time</i>  sent 2 days ago
+                                        <i class="material-icons">access_time</i> 
                                     </div>
                                 </div>
                             </div>
@@ -246,11 +232,21 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                                 </div>
                                 <div class="card-body">
                                     <h4 class="card-title">Completed Tasks</h4>
-                                    <p class="card-category"></p>
+                                    @if (ViewBag.UsersCount != 0)
+                                    {
+                                        foreach (var task in ViewBag.Group.Tasks)
+                                        {
+                                            var id = task.TaskId;
+                                            if (task.Done == true)
+                                            {
+                                                <p class="card-category">@task.Title</p>
+                                            }
+                                        }
+                                    }
                                 </div>
                                 <div class="card-footer">
                                     <div class="stats">
-                                        <i class="material-icons">access_time</i>  sent 2 days ago
+                                        <i class="material-icons">access_time</i> 
                                     </div>
                                 </div>
                             </div>
@@ -296,17 +292,29 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                                                                     foreach (var task in ViewBag.Group.Tasks)
                                                                     {
                                                                         var id = task.TaskId;
-                                                                        if (task.Priority == "Urgent")
+                                                                        if (task.Priority == "Urgent" && task.Done == false)
                                                                         {
 
                                                             <tr>
                                                                 <td>
                                                                     <div class="form-check">
                                                                         <label class="form-check-label">
-                                                                            <input class="form-check-input" type="checkbox" value="" checked>
+
+                                                                            <input class="form-check-input" type="checkbox"  id="edTask" value="" onclick="doneTask()" checked>
                                                                             <span class="form-check-sign">
                                                                                 <span class="check"></span>
                                                                             </span>
+                                                                            <script>
+                                                                                function doneTask() {
+                                                                                    var checkbox = document.getElementById('edTask');
+                                                                                    if (checkbox.checked != true) {
+                                                                                        task.Done = false;
+                                                                                    }
+                                                                                    else {
+                                                                                        task.Done = true;
+                                                                                    }
+                                                                                }
+                                                                            </script>
                                                                         </label>
                                                                     </div>
                                                                 </td>
@@ -348,7 +356,7 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                                                     {
                                                         foreach (var task in ViewBag.Group.Tasks)
                                                         {
-                                                            if (task.Priority == "Medium")
+                                                            if (task.Priority == "Medium" && task.Done == false)
                                                             {
 
                                                                 <tr>
@@ -399,7 +407,7 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                                                     {
                                                         foreach (var task in ViewBag.Group.Tasks)
                                                         {
-                                                            if (task.Priority == "Low")
+                                                            if (task.Priority == "Low" && task.Done == false)
                                                             {
 
                                                                 <tr>
@@ -453,7 +461,7 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                             <div class="card">
                                 <div class="card-header card-header-warning">
                                     <h4 class="card-title">Unfinished Tasks</h4>
-                                    <p class="card-category">-</p>
+                                    <p class="card-category"></p>
                                 </div>
                                 <div class="card-body table-responsive">
                                     <table class="table table-hover">
@@ -497,32 +505,17 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                     <nav class="float-left">
                         <ul>
                             <li>
-                                <a href="https://www.creative-tim.com">
+                                <a href="/Home/Index">
                                     Space Organizing
+                                    &copy;
+                                    <script>document.write(new Date().getFullYear())</script>
                                 </a>
                             </li>
-                            <li>
-                                <a href="https://creative-tim.com/presentation">
-                                    About Us
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://blog.creative-tim.com">
-                                    Blog
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.creative-tim.com/license">
-                                    Licenses
-                                </a>
-                            </li>
+                            
+                          
                         </ul>
                     </nav>
-                    <div class="copyright float-right">
-                        &copy;
-                        <script>document.write(new Date().getFullYear())</script>, made with <i class="material-icons">favorite</i> by
-                      
-                    </div>
+                    
                 </div>
             </footer>
         </div>
@@ -568,24 +561,14 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                         <img src="../assets/img/sidebar-4.jpg" alt="">
                     </a>
                 </li>
-                <li class="button-container">
-                    <a href="https://www.creative-tim.com/product/material-dashboard" target="_blank" class="btn btn-primary btn-block">Free Download</a>
-                </li>
+                
                 <!-- <li class="header-title">Want more components?</li>
                     <li class="button-container">
                         <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
                           Get the pro version
                         </a>
                     </li> -->
-                <li class="button-container">
-                    <a href="https://demos.creative-tim.com/material-dashboard/docs/2.1/getting-started/introduction.html" target="_blank" class="btn btn-default btn-block">
-                        View Documentation
-                    </a>
-                </li>
-                <li class="button-container github-star">
-                    <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
-                </li>
-                <li class="header-title">Thank you for 95 shares!</li>
+        
                 <li class="button-container text-center">
                     <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45</button>
                     <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot; 50</button>
