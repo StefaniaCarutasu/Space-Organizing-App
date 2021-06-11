@@ -22,14 +22,7 @@ namespace SpaceOrganizing.Models
         public string UserId2 { get; set; }
 
         [Required(ErrorMessage = "Deadline-ul este obligatoriu.")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Deadline { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime StartDate { get; set; }
-
         public int GroupId { get; set; }
 
         public bool Done { get; set; }
