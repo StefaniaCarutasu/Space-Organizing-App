@@ -187,7 +187,7 @@ namespace SpaceOrganizing.Controllers
 
                 try
                 {
-                    if (ModelState.IsValid)
+                    if (ModelState.IsValid && newTask.Deadline <= new DateTime())
                     {
                         db.Tasks.Add(newTask);
                         user1.CreatedTasks.Add(newTask);
@@ -203,7 +203,7 @@ namespace SpaceOrganizing.Controllers
                     }
 
                     ViewBag.Message = "Nu s-a putut adauga task-ul!";
-                    if (newTask.Deadline < new DateTime())
+                    if (newTask.Deadline > new DateTime())
                     {
                         ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
                     }
@@ -213,7 +213,7 @@ namespace SpaceOrganizing.Controllers
                 catch (Exception e)
                 {
                     ViewBag.Message = "Nu s-a putut adauga task-ul!";
-                    if (newTask.Deadline < new DateTime())
+                    if (newTask.Deadline > new DateTime())
                     {
                         ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
                     }
@@ -268,7 +268,7 @@ namespace SpaceOrganizing.Controllers
             {
                 if (ViewBag.esteAdmin || ViewBag.esteOrganizator || ViewBag.esteUser)
                 {
-                    if (ModelState.IsValid)
+                    if (ModelState.IsValid && editedTask.Deadline <= new DateTime())
                     {
                         Tasks Task = db.Tasks.Find(id);
                         ApplicationUser user2Initial = db.Users.Find(Task.UserId2);
@@ -313,7 +313,7 @@ namespace SpaceOrganizing.Controllers
                 else
                 {
                     TempData["message"] = "Nu aveti dreptul sa modificati un task-urile din aceasta echipa!";
-                    if (editedTask.Deadline < new DateTime())
+                    if (editedTask.Deadline > new DateTime())
                     {
                         ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
                     }
@@ -325,7 +325,7 @@ namespace SpaceOrganizing.Controllers
             catch (Exception e)
             {
                 ViewBag.Message = "Nu s-a putut edita task-ul!";
-                if (editedTask.Deadline < new DateTime())
+                if (editedTask.Deadline > new DateTime())
                 {
                     ViewBag.Message = "Deadline-ul nu poate sa fie inainte de data curenta!";
                 }
@@ -373,6 +373,21 @@ namespace SpaceOrganizing.Controllers
                 TempData["message"] = "Nu s-a putut sterge task-ul!";
                 return Redirect("/Taskss/Show/" + Task.TaskId);
             }
+        }
+
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult MarkAsDone(int taskId)
+        {
+            Tasks Task = db.Tasks.Find(taskId);
+            if (IsFromGroup(User.Identity.GetUserId(), Task.GroupId))
+            {
+                Task.Done = true;
+                db.SaveChanges();
+                return Redirect("Groups/Show/" + Task.GroupId);
+            }
+
+            TempData["message"] = "Nu puteti edita task-urile unei echipe din care nu faceti parte!";
+            return Redirect("/Groups/Index");
         }
     }
 }
