@@ -20,7 +20,7 @@
 
     foreach (SpaceOrganizing.Models.Registration reg in group.Registrations)
     {
-        if (reg.UserId == ViewBag.UserId || ViewBag.isAdmin)
+        if (ViewBag.isAdmin)
         {
             count = 1;
         }

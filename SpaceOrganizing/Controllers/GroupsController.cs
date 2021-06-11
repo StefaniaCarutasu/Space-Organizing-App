@@ -22,21 +22,30 @@ namespace SpaceOrganizing.Controllers
                 ViewBag.message = TempData["message"].ToString();
             }
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
-            ViewBag.Groups = db.Groups.ToList();
+            
             ViewBag.User = user;
             ViewBag.UserId = user.Id;
             ViewBag.isAdmin = User.IsInRole("Administrator");
             var users = from usr in db.Users
                         orderby usr.UserName
                         select usr;
+
+            List<int> OwnGroups = db.Registrations.Where(r => r.UserId == user.Id).Select(reg => reg.GroupId).ToList();
+
+            var groups = from gr in db.Groups
+                         where OwnGroups.Contains(gr.GroupId)
+                         select gr;
+
             var search = "";
-            if (Request.Params.Get("search") != null)
+            if (Request.Params["searchDashboard"] != null)
             {
-                search = Request.Params.Get("search").Trim();
-                List<string> userIds = db.Users.Where(
-                    us => us.UserName.Contains(search)).Select(u => u.Id).ToList();
+                search = Request.Params["searchDashboard"].ToString().Trim();
+                List<string> userIds = db.Users.Where(us => us.UserName.Contains(search)).Select(u => u.Id).ToList();
                 users = (IOrderedQueryable<ApplicationUser>)db.Users.Where(usr => userIds.Contains(usr.Id));
                 ViewBag.CountUsers = users.Count();
+
+                List<int> groupIds = db.Groups.Where(gr => gr.GroupName.Contains(search) || gr.GroupDescription.Contains(search)).Select(g => g.GroupId).ToList();
+                groups = (IOrderedQueryable<Group>)db.Groups.Where(gr => groupIds.Contains(gr.GroupId));
             }
             else
             {
@@ -45,6 +54,7 @@ namespace SpaceOrganizing.Controllers
 
 
             ViewBag.UsersList = users;
+            ViewBag.Groups = groups;
 
             return View();
         }
