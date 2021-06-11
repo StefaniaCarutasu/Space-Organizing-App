@@ -79,15 +79,15 @@ namespace SpaceOrganizing.Controllers
             List<Tasks> medP = new List<Tasks>();
             foreach (var task in taskuriDone)
             {
-                if (task.Priority == "Urgent")
+                if (task.Priority == "Urgent" && task.Done == false)
                 {
                     highP.Add(task);
                 }
-                else if (task.Priority =="Medium")
+                else if (task.Priority =="Medium" && task.Done==false)
                 {
                     medP.Add(task);
                 }
-                else
+                else if (task.Priority == "Low" && task.Done == false)
                 {
                     lowP.Add(task);
                 }
