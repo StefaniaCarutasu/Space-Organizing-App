@@ -143,11 +143,6 @@ namespace SpaceOrganizing.Controllers
             return View();
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of 03b0fad (Merge branch 'main' of https://github.com/StefaniaCarutasu/Space-Organizing-App into main)
-        //NEW
         //GET: afisare formular adaugare task
         [Authorize(Roles = "User,Administrator")]
         public ActionResult New(int Id)
