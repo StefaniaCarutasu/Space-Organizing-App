@@ -125,7 +125,28 @@ namespace SpaceOrganizing.Controllers
             }
         }
 
+        //SHOW
+        //user's tasks
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult MyTasks()
+        {
+            var tasks = from task in db.Tasks
+                        where task.UserId2 == User.Identity.GetUserId()
+                        select task;
+            var noGroups = (from reg in db.Registrations
+                            where reg.UserId == User.Identity.GetUserId()
+                            select reg).Count();
 
+            ViewBag.myTasks = tasks;
+            ViewBag.noTasks = tasks.Count();
+            ViewBag.noGroups = noGroups;
+            return View();
+        }
+
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 03b0fad (Merge branch 'main' of https://github.com/StefaniaCarutasu/Space-Organizing-App into main)
         //NEW
         //GET: afisare formular adaugare task
         [Authorize(Roles = "User,Administrator")]
