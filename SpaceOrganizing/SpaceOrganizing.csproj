@@ -514,7 +514,12 @@
     <Content Include="Views\Profiles\Show.cshtml" />
     <Content Include="Views\Profiles\Edit.cshtml" />
     <Content Include="Views\Profiles\NewProfilePicture.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\BasicScheduler\Index.cshtml" />
+=======
+    <Content Include="Views\Expensess\Edit.cshtml" />
+    <Content Include="Views\Expensess\New.cshtml" />
+>>>>>>> 730f2deb487f48bf74806cad0ef33a4665bd1bfb
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202105130854256_Initial.resx">
@@ -535,7 +540,6 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Expensess\" />
     <Folder Include="Views\Notifications\" />
   </ItemGroup>
   <PropertyGroup>

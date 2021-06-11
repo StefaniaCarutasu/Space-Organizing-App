@@ -148,6 +148,18 @@ namespace SpaceOrganizing.Controllers
             ViewBag.highP = highP;
             ViewBag.medP = medP;
             ViewBag.UsersList = GetAllUsers(id);
+
+            var expenses = from expense in db.Expenses
+                           where expense.Paid == false && expense.GroupId == id
+                           select expense;
+            ViewBag.expenses = expenses;
+            int totalSum = 0;
+            foreach (Expense expense in expenses)
+            {
+                totalSum += expense.Price;
+            }
+            ViewBag.totalSum = totalSum;
+            ViewBag.sumPerUser = totalSum / ViewBag.UsersCount;
             return View(group);
         }
 
