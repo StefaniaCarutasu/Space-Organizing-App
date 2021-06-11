@@ -23,7 +23,11 @@ namespace SpaceOrganizing.Models
         }
         public string LastName { get; set; }
         public string FirstName { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
+
         public Boolean ProfilePicture { get; set; }
 
         [DataType(DataType.MultilineText)]
@@ -40,6 +44,8 @@ namespace SpaceOrganizing.Models
 
         //un user poate crea mai multe taskuri
         public virtual ICollection<Tasks> CreatedTasks { get; set; }
+
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -57,6 +63,9 @@ namespace SpaceOrganizing.Models
         public DbSet<Profile> Profiles { get; set; }
 
         public DbSet<Registration> Registrations { get; set; }
+
+
+        public DbSet<Expense> Expenses { get; set; }
 
         public DbSet<Notification> Notifications { get; set; }
 

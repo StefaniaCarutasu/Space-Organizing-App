@@ -13,6 +13,34 @@ namespace SpaceOrganizing.Controllers
     public class GroupsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        [NonAction]
+        private IEnumerable<SelectListItem> GetAllUsers(int groupId)
+        {
+            var UsersList = new List<SelectListItem>();
+            var users = from user in db.Users
+                        join reg in db.Registrations on user.Id equals reg.UserId
+                        where reg.GroupId == groupId
+                        select user;
+
+            UsersList.Add(new SelectListItem
+            {
+                Value = null,
+                Text = "None"
+            });
+
+            foreach (var user in users)
+            {
+                UsersList.Add(new SelectListItem
+                {
+                    Value = user.Id,
+                    Text = user.UserName
+                });
+            }
+
+            return UsersList;
+        }
+
         // GET: Groups
         [Authorize(Roles = "User, Administrator")]
         public ActionResult Index()
@@ -22,21 +50,36 @@ namespace SpaceOrganizing.Controllers
                 ViewBag.message = TempData["message"].ToString();
             }
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
-            ViewBag.Groups = db.Groups.ToList();
+            IQueryable<Group> groups = null;
             ViewBag.User = user;
-            ViewBag.UserId = user.Id;
-            ViewBag.isAdmin = User.IsInRole("Administrator");
+            if (User.IsInRole("Administrator"))
+            {
+                groups = from gr in db.Groups
+                         select gr;
+            }
+            else
+            {
+                List<int> OwnGroups = db.Registrations.Where(r => r.UserId == user.Id).Select(reg => reg.GroupId).ToList();
+
+                groups = from gr in db.Groups
+                         where OwnGroups.Contains(gr.GroupId)
+                         select gr;
+            }
             var users = from usr in db.Users
                         orderby usr.UserName
                         select usr;
+            
+
             var search = "";
-            if (Request.Params.Get("search") != null)
+            if (Request.Params["searchDashboard"] != null)
             {
-                search = Request.Params.Get("search").Trim();
-                List<string> userIds = db.Users.Where(
-                    us => us.UserName.Contains(search)).Select(u => u.Id).ToList();
+                search = Request.Params["searchDashboard"].ToString().Trim();
+                List<string> userIds = db.Users.Where(us => us.UserName.Contains(search)).Select(u => u.Id).ToList();
                 users = (IOrderedQueryable<ApplicationUser>)db.Users.Where(usr => userIds.Contains(usr.Id));
                 ViewBag.CountUsers = users.Count();
+
+                List<int> groupIds = db.Groups.Where(gr => gr.GroupName.Contains(search) || gr.GroupDescription.Contains(search)).Select(g => g.GroupId).ToList();
+                groups = (IOrderedQueryable<Group>)db.Groups.Where(gr => groupIds.Contains(gr.GroupId));
             }
             else
             {
@@ -45,6 +88,7 @@ namespace SpaceOrganizing.Controllers
 
 
             ViewBag.UsersList = users;
+            ViewBag.Groups = groups;
 
             return View();
         }
@@ -103,6 +147,7 @@ namespace SpaceOrganizing.Controllers
             ViewBag.lowP = lowP;
             ViewBag.highP = highP;
             ViewBag.medP = medP;
+            ViewBag.UsersList = GetAllUsers(id);
             return View(group);
         }
 
@@ -200,6 +245,23 @@ namespace SpaceOrganizing.Controllers
                 TempData["message"] = "Nu aveti dreptul sa stergeti un grup care nu va apartine";
                 return RedirectToAction("Index");
             }
+        }
+
+        public ActionResult GroupNotification(int id)
+        {
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            Group group = db.Groups.Find(id);
+            ApplicationUser groupAdmin = db.Users.Find(group.UserId);
+            Notification notification = new Notification();
+            notification.GroupId = id;
+            notification.receivingUser = groupAdmin;
+            notification.sendingUser = user;
+            notification.Message = user.UserName + " wants to join " + group.GroupName;
+            groupAdmin.Notifications.Add(notification);
+            db.SaveChanges();
+            ViewBag.Accepted = false;
+            return Redirect("/Groups/Show/" + @group.GroupId);
+
         }
 
         [Authorize(Roles = "User, Administrator")]
