@@ -2,6 +2,7 @@
 using SpaceOrganizing.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -83,9 +84,11 @@ namespace SpaceOrganizing.Controllers
                               where profile.UserId == id
                               select profile;
             ViewBag.User = user;
+            ViewBag.Picture = user.ProfilePicture;
             ViewBag.ProfileDescription = user.ProfileDescription;
             ViewBag.CurrentUser = db.Users.Find(User.Identity.GetUserId());
             string currentId = User.Identity.GetUserId();
+            ViewBag.UserId = currentId;
             System.DateTime moment = System.DateTime.Now;
             int month = moment.Month;
             int day = moment.Day;
@@ -159,21 +162,16 @@ namespace SpaceOrganizing.Controllers
                 string pic = System.IO.Path.GetFileName(file.FileName);
                 string path = System.IO.Path.Combine(
                                        Server.MapPath("~/Content/profilePictures"), id + ".jpeg");
+
                 // file is uploaded
                 file.SaveAs(path);
 
-                // save the image path path to the database or you can send image 
-                // directly to database
-                // in-case if you want to store byte[] ie. for DB
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    file.InputStream.CopyTo(ms);
-                    byte[] array = ms.GetBuffer();
-                }
-
             }
+           
+
             // after successfully uploading redirect the user
             return RedirectToAction("Index", "Profiles");
         }
+
     }
 }
