@@ -133,13 +133,7 @@ namespace SpaceOrganizing.Controllers
             var tasks = from task in db.Tasks
                         where task.UserId2 == User.Identity.GetUserId()
                         select task;
-            var noGroups = (from reg in db.Registrations
-                            where reg.UserId == User.Identity.GetUserId()
-                            select reg).Count();
-
             ViewBag.myTasks = tasks;
-            ViewBag.noTasks = tasks.Count();
-            ViewBag.noGroups = noGroups;
             return View();
         }
 
