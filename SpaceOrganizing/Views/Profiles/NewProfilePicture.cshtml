@@ -1,4 +1,16 @@
-﻿@model SpaceOrganizing.Models.ApplicationUser
+﻿<script src="~/Scripts/jquery-1.7.1.min.js"></script>
+<script type="text/javascript">
+    function show(input) {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#user_img').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+@model SpaceOrganizing.Models.ApplicationUser
 
 @{
     ViewBag.Title = "NewProfilePicture";
@@ -7,13 +19,21 @@
     Layout = "~/Views/Shared/Dashboard.cshtml";
 }
 
-<h2>NewProfilePicture</h2>
+<h2>Change your profile picture!</h2>
 
 @using (Html.BeginForm("NewProfilePicture", "Profiles", FormMethod.Post,
                             new { enctype = "multipart/form-data" }))
 {
+    <div>
+        <img id="user_img"
+             height="180"
+             width="150"
+             style="border:solid" />
+        <br />
+    </div>
+    <br />
     <label for="file">Upload Image:</label>
-    <input type="file" name="file" id="file" style="width: 100%;" />
+    <input type="file" name="file" id="file" style="width: 100%;" onchange="show(this)" />
     <br />
     <input type="submit" value="Upload" class="submit btn btn-success" />
     <a href="~/Profiles/Index" class="btn btn-info">Inpoi la profil</a>
