@@ -125,6 +125,27 @@ namespace SpaceOrganizing.Controllers
             }
         }
 
+<<<<<<< Updated upstream
+=======
+        //SHOW
+        //user's tasks
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult MyTasks()
+        {
+            var user = User.Identity.GetUserId();
+            var tasks = from task in db.Tasks
+                        where task.UserId2 == user
+                        select task;
+            var noGroups = (from reg in db.Registrations
+                            where reg.UserId == user
+                            select reg).Count();
+
+            ViewBag.myTasks = tasks;
+            ViewBag.noTasks = tasks.Count();
+            ViewBag.noGroups = noGroups;
+            return View();
+        }
+>>>>>>> Stashed changes
 
         //NEW
         //GET: afisare formular adaugare task
