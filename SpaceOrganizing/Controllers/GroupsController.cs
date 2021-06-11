@@ -218,6 +218,23 @@ namespace SpaceOrganizing.Controllers
             }
         }
 
+        public ActionResult GroupNotification(int id)
+        {
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            Group group = db.Groups.Find(id);
+            ApplicationUser groupAdmin = db.Users.Find(group.UserId);
+            Notification notification = new Notification();
+            notification.GroupId = id;
+            notification.receivingUser = groupAdmin;
+            notification.sendingUser = user;
+            notification.Message = user.UserName + " wants to join " + group.GroupName;
+            groupAdmin.Notifications.Add(notification);
+            db.SaveChanges();
+            ViewBag.Accepted = false;
+            return Redirect("/Groups/Show/" + @group.GroupId);
+
+        }
+
         [Authorize(Roles = "User, Administrator")]
         public ActionResult NewMember(int id)
         {
