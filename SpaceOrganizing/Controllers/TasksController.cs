@@ -125,6 +125,18 @@ namespace SpaceOrganizing.Controllers
             }
         }
 
+        //SHOW
+        //user's tasks
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult MyTasks()
+        {
+            var tasks = from task in db.Tasks
+                        where task.UserId2 == User.Identity.GetUserId()
+                        select task;
+            ViewBag.myTasks = tasks;
+            return View();
+        }
+
 
         //NEW
         //GET: afisare formular adaugare task
