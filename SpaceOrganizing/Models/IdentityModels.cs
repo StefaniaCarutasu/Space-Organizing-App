@@ -44,6 +44,8 @@ namespace SpaceOrganizing.Models
 
         //un user poate crea mai multe taskuri
         public virtual ICollection<Tasks> CreatedTasks { get; set; }
+
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -63,9 +65,9 @@ namespace SpaceOrganizing.Models
         public DbSet<Registration> Registrations { get; set; }
 
 
-        //public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Expense> Expenses { get; set; }
 
-        //public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
 
         public static ApplicationDbContext Create()
