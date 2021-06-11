@@ -58,12 +58,11 @@ namespace SpaceOrganizing.Models
 
         public DbSet<Registration> Registrations { get; set; }
 
-<<<<<<< HEAD
-        public DbSet<Expense> Expenses { get; set; }
-=======
-        public DbSet<Notification> Notifications { get; set; }
 
->>>>>>> 1d8a43bec9070acb3900205089f0b478a20c7754
+        //public DbSet<Expense> Expenses { get; set; }
+
+        //public DbSet<Notification> Notifications { get; set; }
+
 
         public static ApplicationDbContext Create()
         {
