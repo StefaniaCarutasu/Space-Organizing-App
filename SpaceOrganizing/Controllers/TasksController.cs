@@ -125,6 +125,7 @@ namespace SpaceOrganizing.Controllers
             }
         }
 
+<<<<<<< HEAD
         //SHOW
         //user's tasks
         [Authorize(Roles = "User,Administrator")]
@@ -143,6 +144,8 @@ namespace SpaceOrganizing.Controllers
             return View();
         }
 
+=======
+>>>>>>> parent of 9a67d95 (my tasks method)
 
         //NEW
         //GET: afisare formular adaugare task
