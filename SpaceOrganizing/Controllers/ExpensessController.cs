@@ -25,7 +25,7 @@ namespace SpaceOrganizing.Controllers
         }
 
 
-        //GET: afisare formular adaugare plata
+        //GET: afisare formular adaugare cheltuiala
         [Authorize(Roles = "User,Administrator")]
         public ActionResult New(int Id)
         {
@@ -38,12 +38,12 @@ namespace SpaceOrganizing.Controllers
             }
             else
             {
-                TempData["message"] = "Nu aveti dreptul sa creati plati la o echipa din care nu faceti parte!";
+                TempData["message"] = "Nu aveti dreptul sa creati cheltuieli la o echipa din care nu faceti parte!";
                 return Redirect("Groups/Index");
             }
         }
 
-        //POST: adaugare plata noua in baza de date
+        //POST: adaugare cheltuiala noua in baza de date
         [Authorize(Roles = "User,Administrator")]
         [HttpPost]
         public ActionResult New(Expense newExpense)
@@ -64,29 +64,29 @@ namespace SpaceOrganizing.Controllers
                     {
                         db.Expenses.Add(newExpense);
                         db.SaveChanges();
-                        TempData["message"] = "Plata a fost adaugat cu success!";
+                        TempData["message"] = "cheltuiala a fost adaugat cu success!";
 
                         return Redirect("/Groups/Show/" + newExpense.GroupId);
                     }
 
-                    ViewBag.Message = "Nu s-a putut adauga plata!";
+                    ViewBag.Message = "Nu s-a putut adauga cheltuiala!";
                     return View(newExpense);
                 }
                 catch (Exception e)
                 {
-                    ViewBag.Message = "Nu s-a putut adauga plata!";
+                    ViewBag.Message = "Nu s-a putut adauga cheltuiala!";
                     return View(newExpense);
                 }
             }
             else
             {
-                TempData["message"] = "Nu aveti dreptul sa creati plati la o echipa din care nu faceti parte!";
+                TempData["message"] = "Nu aveti dreptul sa creati cheltuieli la o echipa din care nu faceti parte!";
                 return Redirect("Groups/Index");
             }
         }
 
         //EDIT
-        //GET: afisare formular de editare plata
+        //GET: afisare formular de editare cheltuiala
         [Authorize(Roles = "User,Administrator")]
         public ActionResult Edit(int id)
         {
@@ -99,12 +99,12 @@ namespace SpaceOrganizing.Controllers
 
             else
             {
-                TempData["message"] = "Nu aveti dreptul sa modificati platile de la aceasta echipa!";
+                TempData["message"] = "Nu aveti dreptul sa modificati cheltuielile de la aceasta echipa!";
                 return Redirect("/Groups/Show/" + Expense.GroupId);
             }
         }
 
-        //PUT: modificare plata
+        //PUT: modificare cheltuiala
         [Authorize(Roles = "User, Administrator")]
         [HttpPut]
         public ActionResult Edit(int id, Expense editedExpense)
@@ -124,30 +124,63 @@ namespace SpaceOrganizing.Controllers
                         {
                             Expense = editedExpense;
                             db.SaveChanges();
-                            TempData["message"] = "Plata a fost modificat cu succes!";
+                            TempData["message"] = "Cheltuiala a fost modificat cu succes!";
 
                             return Redirect("/Groups/Show/" + Expense.GroupId);
                         }
 
-                        ViewBag.Message = "Nu s-a putut edita plata!";
+                        ViewBag.Message = "Nu s-a putut edita cheltuiala!";
                         return View(editedExpense);
                     }
 
-                    ViewBag.Message = "Nu s-a putut edita plata!";
+                    ViewBag.Message = "Nu s-a putut edita cheltuiala!";
                     return View(editedExpense);
                 }
 
                 else
                 {
-                    TempData["message"] = "Nu aveti dreptul sa modificati un plata din aceasta echipa!";
+                    TempData["message"] = "Nu aveti dreptul sa modificati o cheltuiala din aceasta echipa!";
                     return Redirect("/Groups/Show/" + editedExpense.GroupId);
                 }
             }
 
             catch (Exception e)
             {
-                ViewBag.Message = "Nu s-a putut edita plata!";
+                ViewBag.Message = "Nu s-a putut edita cheltuiala!";
                 return View(editedExpense);
+            }
+        }
+
+        //DELETE
+        //DELETE: stergerea unuei cheltuieli
+        [Authorize(Roles = "User,Administrator")]
+        [HttpDelete]
+        public ActionResult Delete(int id)
+        {
+            Expense Expense = db.Expenses.Find(id);
+            ApplicationUser user1 = db.Users.Find(Expense.UserId);
+
+            try
+            {
+                if (IsFromGroup(User.Identity.GetUserId(), Expense.GroupId))
+                {
+                    db.Expenses.Remove(Expense);
+                    db.SaveChanges();
+                    TempData["message"] = "Cheltuiala a fost stearsa cu success!";
+
+                    return Redirect("/Groups/Show/" + Expense.GroupId);
+                }
+
+                else
+                {
+                    TempData["message"] = "Nu aveti dreptul sa stergeti o cheltuiala care nu va apartine!";
+                    return Redirect("/Groups/Show/" + Expense.GroupId);
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = "Nu s-a putut sterge cheltuiala!";
+                return Redirect("/Grups/Show/" + Expense.GroupId);
             }
         }
     }

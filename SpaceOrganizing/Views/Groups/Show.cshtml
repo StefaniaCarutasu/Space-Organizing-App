@@ -1,5 +1,4 @@
-﻿@{ ViewBag.Title = "Show";}
-@{
+﻿@{
     Layout = "~/Views/Shared/Dashboard.cshtml";
 }
 
@@ -83,21 +82,32 @@
                         </div>
                         <br />
                         <br />
-                        @using (Html.BeginForm(actionName: "New", controllerName: "Tasks"))
+                        @using (Html.BeginForm(actionName: "New", controllerName: "Taskss"))
                         {
                             @Html.Hidden("GroupId")
 
                             @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                             <input type="hidden" name="GroupId" value="@ViewBag.Group.GroupId" />
-                            @Html.Label("Content", "Continut task")
+                            @Html.Label("Title", "Titlu Task")
 
-                            @Html.TextArea("Content", null, new { @class = "form-control" })
+                            @Html.TextBox("Title", null, new { @class = "form-control" })
 
-                            @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+                            @Html.ValidationMessage("Title", null, new { @class = "text-danger" })
+
+                            @Html.Label("Descriprtion", "Continut task")
+
+                            @Html.TextArea("Description", null, new { @class = "form-control" })
+
+                            @Html.ValidationMessage("Description", null, new { @class = "text-danger" })
 
                             @Html.Label("Deadline", "Deadline")
 
                             @Html.TextArea("Deadline", null, new { @class = "form-control" })
+
+                            @Html.Label("UserId2", "Asignat")
+
+                            @Html.DropDownList("UserId2", new SelectList(ViewBag.UsersList, "Value", "Text"), "Selectati utilizator", new { @class = "form-control" })
+
                             <button class="btn btn-success " style="background-color: #9c27b0;" type="submit">
                                 Adauga
                                 task

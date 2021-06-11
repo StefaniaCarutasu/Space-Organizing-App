@@ -13,6 +13,34 @@ namespace SpaceOrganizing.Controllers
     public class GroupsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        [NonAction]
+        private IEnumerable<SelectListItem> GetAllUsers(int groupId)
+        {
+            var UsersList = new List<SelectListItem>();
+            var users = from user in db.Users
+                        join reg in db.Registrations on user.Id equals reg.UserId
+                        where reg.GroupId == groupId
+                        select user;
+
+            UsersList.Add(new SelectListItem
+            {
+                Value = null,
+                Text = "None"
+            });
+
+            foreach (var user in users)
+            {
+                UsersList.Add(new SelectListItem
+                {
+                    Value = user.Id,
+                    Text = user.UserName
+                });
+            }
+
+            return UsersList;
+        }
+
         // GET: Groups
         [Authorize(Roles = "User, Administrator")]
         public ActionResult Index()
@@ -103,6 +131,7 @@ namespace SpaceOrganizing.Controllers
             ViewBag.lowP = lowP;
             ViewBag.highP = highP;
             ViewBag.medP = medP;
+            ViewBag.UsersList = GetAllUsers(id);
             return View(group);
         }
 

@@ -24,7 +24,7 @@ namespace SpaceOrganizing.Controllers
                 ViewBag.esteOrganizator = true;
             }
 
-            ViewBag.esteUser = IsFromGroup(Task.UserId, Task.GroupId);
+            ViewBag.esteUser = IsFromGroup(ViewBag.utilizatorCurent, Task.GroupId);
         }
 
         // verificare daca userul face parte din echipa
