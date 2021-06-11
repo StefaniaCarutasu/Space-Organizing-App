@@ -12,10 +12,21 @@
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
     @Html.Hidden("Id")
-   
-    @Html.Label("UserName", "Nume utilizator")
+
+    @Html.Label("UserName", "Username")
     <br />
     @Html.Editor("Username")
+    <br />
+    <br />
+    @Html.Label("LastName", "Last name")
+    <br />
+    @Html.Editor("LastName")
+    <br />
+    <br />
+
+    @Html.Label("FirstName", "Last name")
+    <br />
+    @Html.Editor("FirstName")
     <br />
     <br />
 
@@ -26,7 +37,7 @@
 
     <br />
 
-    @Html.Label("PhoneNumber", "Numar telefon")
+    @Html.Label("PhoneNumber", "Phone number")
     <br />
     @Html.Editor("PhoneNumber")
     <br />

@@ -2,7 +2,6 @@
 using SpaceOrganizing.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -18,47 +17,26 @@ namespace SpaceOrganizing.Controllers
         [Authorize(Roles = "User, Administrator")]
         public ActionResult Index()
         {
-            
-
-
             if (TempData.ContainsKey("message"))
             {
                 ViewBag.message = TempData["message"].ToString();
             }
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
-            string ids = "";
-            string searchDash = "";
-            if (Request.Params["searchDashboard"] != null)
-                searchDash = Request.Params["searchDashboard"].ToString();
-
-            List<int> OwnGroups = db.Registrations.Where(r => r.UserId == user.Id).Select(reg => reg.GroupId).ToList();
-
-            foreach(int id in OwnGroups)
-            {
-                ids += id.ToString();
-            }
-
-            //ViewBag.Ids = ids;
-            //ViewBag.Dash = searchDash;
-
-            var groups = from gr in db.Groups
-                         where OwnGroups.Contains(gr.GroupId)
-                         select gr; 
-            //ViewBag.Groups = db.Groups.ToList();
+            ViewBag.Groups = db.Groups.ToList();
             ViewBag.User = user;
+            ViewBag.UserId = user.Id;
+            ViewBag.isAdmin = User.IsInRole("Administrator");
             var users = from usr in db.Users
                         orderby usr.UserName
                         select usr;
             var search = "";
-            if (Request.Params["searchDashboard"] != null)
+            if (Request.Params.Get("search") != null)
             {
-                search = Request.Params["searchDashboard"].ToString().Trim();
-                List<string> userIds = db.Users.Where(us => us.UserName.Contains(search)).Select(u => u.Id).ToList();
+                search = Request.Params.Get("search").Trim();
+                List<string> userIds = db.Users.Where(
+                    us => us.UserName.Contains(search)).Select(u => u.Id).ToList();
                 users = (IOrderedQueryable<ApplicationUser>)db.Users.Where(usr => userIds.Contains(usr.Id));
                 ViewBag.CountUsers = users.Count();
-
-                List<int> groupIds = db.Groups.Where(gr => gr.GroupName.Contains(search) || gr.GroupDescription.Contains(search)).Select(g => g.GroupId).ToList();
-                groups = (IOrderedQueryable<Group>)db.Groups.Where(gr => groupIds.Contains(gr.GroupId));
             }
             else
             {
@@ -67,7 +45,7 @@ namespace SpaceOrganizing.Controllers
 
 
             ViewBag.UsersList = users;
-            ViewBag.Groups = groups;
+
             return View();
         }
 
@@ -82,7 +60,7 @@ namespace SpaceOrganizing.Controllers
             ViewBag.isGroupOwner = false;
             ViewBag.UserId = User.Identity.GetUserId();
            
-            if (User.IsInRole("Admin"))
+            if (User.IsInRole("Administrator"))
             {
                 ViewBag.isAdmin = true;
             }
@@ -90,7 +68,14 @@ namespace SpaceOrganizing.Controllers
             {
                 ViewBag.isGroupOwner = true;
             }
-
+            ViewBag.isInGroup = false;
+            foreach(var reg in group.Registrations)
+            {
+                if(reg.UserId == User.Identity.GetUserId())
+                {
+                    ViewBag.isInGroup = true;
+                }
+            }
             ViewBag.Group = group;
             bool acc = true;
             List<Tasks> taskuriDone = (from task in db.Tasks
@@ -148,8 +133,7 @@ namespace SpaceOrganizing.Controllers
                     db.SaveChanges();
                     gr.Registrations.Add(reg);
                     db.SaveChanges();
-                    TempData["message"] = "Grupul a fost adaugat!";
-                    return RedirectToAction("Index");
+                    return Redirect("/Groups/Show/" + @gr.GroupId);
                 }
                 else
                 {
@@ -167,7 +151,7 @@ namespace SpaceOrganizing.Controllers
         public ActionResult Edit(int id)
         {
             Group gr = db.Groups.Find(id);
-            if (gr.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+            if (gr.UserId == User.Identity.GetUserId() || User.IsInRole("Administrator"))
             {
                 return View(gr);
             }
@@ -190,8 +174,7 @@ namespace SpaceOrganizing.Controllers
                     gr.GroupName = requestGroup.GroupName;
                     gr.GroupDescription = requestGroup.GroupDescription;
                     db.SaveChanges();
-                    TempData["message"] = "Grupul a fost editat cu succes";
-                    return RedirectToAction("Index");
+                    return Redirect("/Groups/Show/" + @gr.GroupId); ;
                 }
                 return View(requestGroup);
             }
@@ -206,11 +189,10 @@ namespace SpaceOrganizing.Controllers
         public ActionResult Delete(int id)
         {
             Group gr = db.Groups.Find(id);
-            if (gr.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+            if (gr.UserId == User.Identity.GetUserId() || User.IsInRole("Administrator"))
             {
                 db.Groups.Remove(gr);
                 db.SaveChanges();
-                TempData["message"] = "Grupul a fost sters";
                 return RedirectToAction("Index");
             }
             else

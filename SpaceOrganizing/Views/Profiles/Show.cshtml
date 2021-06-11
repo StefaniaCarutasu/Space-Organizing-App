@@ -3,6 +3,9 @@
     ViewBag.Title = "Show";
 }
 
+@{
+    Layout = "~/Views/Shared/Dashboard.cshtml";
+}
 <style>
 
     .text {
@@ -20,7 +23,7 @@
         font-size: 21px;
         text-align: center;
         margin-top: -20px;
-        color: antiquewhite;
+        color: darkblue;
     }
 
     .image {
@@ -28,8 +31,8 @@
         width: 200px;
         /* Container's dimensions */
         height: 200px;
-        -webkit-border-radius: 75%;
-        -moz-border-radius: 75%;
+        /*-webkit-border-radius: 75%;
+        -moz-border-radius: 75%;*/
         box-shadow: 0 0 0 1px #eee;
         background-size: cover;
         margin: auto;
@@ -63,7 +66,7 @@
         -webkit-transform: scale(1);
         transform: scale(1);
     }
-
+    /*
     #overlay {
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
@@ -71,72 +74,15 @@
         opacity: 1.0;
         -webkit-transition: opacity 2.25s ease;
         -moz-transition: opacity 10.25s ease;
-    }
+    }*/
 
     #box:hover #overlay {
         opacity: 1;
     }
 
-
-
-
-
-    .panel-group {
-        width: 350px;
-        margin: auto;
-        /*margin:50px 400px 50px 400px;*/
-        max-width: 100%;
-    }
-
-    .panel-heading {
-        background-color: transparent !important;
-    }
-
-    .title {
-        text-align: center;
-        background-color: transparent;
-        color: #000;
-        font-family: lato;
-        font-weight: 300;
-        font-size: 15px;
-        max-width: 100%;
-    }
-
-
-
-
-    #accordion {
-        background-color: transparent;
-        max-width: 100%;
-        margin-bottom: 200px;
-    }
-
-
-
-
-
-
-
-    .btn-outline {
-        color: inherit;
-        transition: all 1.4s;
-        background-color: transparent;
-    }
-    /* button CSS */
-
-    .btn-danger.btn-outline {
-        margin-top: 9px;
-        background-color: transparent;
-        color: #000;
-        border-color: #000;
-        padding: auto;
-        padding: 10px 0px 10px 0px;
-        margin: 1px 5px 1px 0px;
-        width: 100%;
-        text-align: center;
-        font-family: raleway;
-        font-weight: 300;
-        max-width: 100%;
+    .profile_picture {
+        width: auto;
+        height: 100%;
     }
 </style>
 </head>
@@ -147,19 +93,18 @@
             <div class="trick">
                 @if (ViewBag.Picture == false)
                 {
-                    <img src="~/Content/images/no_profile_picture.png" alt="Profile photo" width="500" height="600">
+                    <img src="~/Content/images/no_profile_picture.png" alt="Profile photo">
                 }
                 else
                 {
                     string fileName = ViewBag.UserId + ".jpeg";
-                    <img src="~/Content/profilePictures/@fileName" alt="Profile photo" width="500" height="600" />
-
+                    <img class="profile_picture" src="~/Content/profilePictures/@fileName" alt="Profile photo" />
                 }
 
 
             </div>
         </div>
-        <ul class="text" style="color: antiquewhite">@ViewBag.User.UserName</ul>
+        <ul class="text" style="color:darkblue">@ViewBag.User.UserName</ul>
         <br />
         @if (ViewBag.Birthday == 1)
         {
