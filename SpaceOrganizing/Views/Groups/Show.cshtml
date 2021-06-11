@@ -102,11 +102,16 @@
 
                             @Html.Label("Deadline", "Deadline")
 
-                            @Html.TextArea("Deadline", null, new { @class = "form-control" })
+                            <br/>
+                            <input class="text-box single-line input100" data-val="true" data-val-date="The field Date of Birth must be a date." id="Deadline" name="Deadline" type="date" value="">
+                            <br/>
 
                             @Html.Label("UserId2", "Asignat")
 
-                            @Html.DropDownList("UserId2", new SelectList(ViewBag.UsersList, "Value", "Text"), "Selectati utilizator", new { @class = "form-control" })
+                            if (ViewBag.UsersList != null)
+                            {
+                                @Html.DropDownList("UserId2", new SelectList(ViewBag.UsersList, "Value", "Text"), "Selectati utilizator", new { @class = "form-control" })
+                            }
 
                             <button class="btn btn-success " style="background-color: #9c27b0;" type="submit">
                                 Adauga
@@ -511,11 +516,15 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            @Html.Action("Index", "BasicScheduler")
+        </div>
     </div>
+    
 }
 else
 {
-    if(ViewBag.Accepted!=null)
+    if (ViewBag.Accepted != null)
     {
         <a class="btn btn-info" href="/Groups/GroupNotification/@ViewBag.Group.GroupId">Inscrie-te in grup</a>
     }
@@ -523,7 +532,7 @@ else
     {
         <p>Wait until admin approves your registration</p>
     }
-    
+
 }
 
 

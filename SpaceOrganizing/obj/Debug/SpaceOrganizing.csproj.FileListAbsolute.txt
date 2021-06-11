@@ -658,3 +658,6 @@ C:\Users\Mara\Documents\GitHub\Space-Organizing-App\SpaceOrganizing\bin\Microsof
 C:\Users\Mara\Documents\GitHub\Space-Organizing-App\SpaceOrganizing\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\Mara\Documents\GitHub\Space-Organizing-App\SpaceOrganizing\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Mara\Documents\GitHub\Space-Organizing-App\SpaceOrganizing\obj\Debug\SpaceOrganizing.csproj.CopyComplete
+C:\Users\Mara\Documents\GitHub\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.dll
+C:\Users\Mara\Documents\GitHub\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.pdb
+C:\Users\Mara\Documents\GitHub\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.xml
