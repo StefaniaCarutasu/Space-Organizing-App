@@ -318,29 +318,18 @@
                                                             <div class="form-check">
                                                                 <label class="form-check-label">
 
-                                                                    <input class="form-check-input" type="checkbox" id="edTask" value="" onclick=doneTask()>
+                                                                    <input class="form-check-input" type="checkbox" id="edTask" value="" onclick="doneTask()" checked>
                                                                     <span class="form-check-sign">
                                                                         <span class="check"></span>
                                                                     </span>
                                                                     <script>
                                                                         function doneTask() {
-                                                                            alert("aici")
                                                                             var checkbox = document.getElementById('edTask');
                                                                             if (checkbox.checked != true) {
                                                                                 task.Done = false;
                                                                             }
                                                                             else {
                                                                                 task.Done = true;
-                                                                                $.ajax({
-                                                                                    url: 'TasksController/MarkAsDone',
-                                                                                    data: { id: @task.TaskId },
-                                                                                    success: function () {
-                                                                                        alert('Added');
-                                                                                    }
-                                                                                    error: function () {
-                                                                                        alert("error")
-                                                                                    }
-                                                                                });
                                                                             }
                                                                         }
                                                                     </script>
@@ -392,7 +381,7 @@
                                                         <td>
                                                             <div class="form-check">
                                                                 <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" value="" onclick="doneTask()">
+                                                                    <input class="form-check-input" type="checkbox" value="" checked>
                                                                     <span class="form-check-sign">
                                                                         <span class="check"></span>
                                                                     </span>
@@ -443,7 +432,7 @@
                                                         <td>
                                                             <div class="form-check">
                                                                 <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" value="" onclick="doneTask()">
+                                                                    <input class="form-check-input" type="checkbox" value="" checked>
                                                                     <span class="form-check-sign">
                                                                         <span class="check"></span>
                                                                     </span>
@@ -511,16 +500,13 @@
 
                                         if (task.Done == false)
                                         {
-                                <tr>
-                                    <td>@counter</td>
-                                    <td>@task.Title</td>
-                                    <td>@task.User.UserName</td>
-                                    <td>@task.Deadline</td>
-                                    @if (task.UserId2 != null)
-                                    {
-                                        <td>@task.User2.UserName</td>
-                                    }
-                                </tr>
+                                            <tr>
+                                                <td>@counter</td>
+                                                <td>@task.Title</td>
+                                                <td>@task.User.UserName</td>
+                                                <td>@task.Deadline</td>
+                                                <td>@task.User2.UserName</td>
+                                            </tr>
                                         }
                                     }
                                 }
