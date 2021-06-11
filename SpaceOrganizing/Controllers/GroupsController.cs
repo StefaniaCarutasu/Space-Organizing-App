@@ -22,19 +22,25 @@ namespace SpaceOrganizing.Controllers
                 ViewBag.message = TempData["message"].ToString();
             }
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
-            
+            IQueryable<Group> groups = null;
             ViewBag.User = user;
-            ViewBag.UserId = user.Id;
-            ViewBag.isAdmin = User.IsInRole("Administrator");
+            if (User.IsInRole("Administrator"))
+            {
+                groups = from gr in db.Groups
+                         select gr;
+            }
+            else
+            {
+                List<int> OwnGroups = db.Registrations.Where(r => r.UserId == user.Id).Select(reg => reg.GroupId).ToList();
+
+                groups = from gr in db.Groups
+                         where OwnGroups.Contains(gr.GroupId)
+                         select gr;
+            }
             var users = from usr in db.Users
                         orderby usr.UserName
                         select usr;
-
-            List<int> OwnGroups = db.Registrations.Where(r => r.UserId == user.Id).Select(reg => reg.GroupId).ToList();
-
-            var groups = from gr in db.Groups
-                         where OwnGroups.Contains(gr.GroupId)
-                         select gr;
+            
 
             var search = "";
             if (Request.Params["searchDashboard"] != null)
