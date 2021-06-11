@@ -1,40 +1,32 @@
-﻿<script src="~/Scripts/jquery-1.7.1.min.js"></script>
-<script type="text/javascript">
-    function show(input) {
-        if (input.files && input.files[0]) {
-            var filerdr = new FileReader();
-            filerdr.onload = function (e) {
-                $('#user_img').attr('src', e.target.result);
-            }
-            filerdr.readAsDataURL(input.files[0]);
-        }
-    }
-</script>
+﻿
 @{
     ViewBag.Title = "Edit";
 }
 @{
     Layout = "~/Views/Shared/Dashboard.cshtml";
 }
-<h2 style="color:antiquewhite">Editare profil</h2>
+<h2 style="color:darkblue">Editare profil</h2>
 <br />
 
 <form class="panel-body" method="post" action="/Profiles/Edit">
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
     @Html.Hidden("Id")
-    <div>
-        <img id="user_img"
-             height="100"
-             width="90"
-             style="border:solid" />
-    </div>
-    <br />
-    <div><input type="file" title="search image" id="file" name="Id" onchange="show(this)" /> </div>
-    <br />
-    @Html.Label("UserName", "Nume utilizator")
+
+    @Html.Label("UserName", "Username")
     <br />
     @Html.Editor("Username")
+    <br />
+    <br />
+    @Html.Label("LastName", "Last name")
+    <br />
+    @Html.Editor("LastName")
+    <br />
+    <br />
+
+    @Html.Label("FirstName", "Last name")
+    <br />
+    @Html.Editor("FirstName")
     <br />
     <br />
 
@@ -45,7 +37,7 @@
 
     <br />
 
-    @Html.Label("PhoneNumber", "Numar telefon")
+    @Html.Label("PhoneNumber", "Phone number")
     <br />
     @Html.Editor("PhoneNumber")
     <br />

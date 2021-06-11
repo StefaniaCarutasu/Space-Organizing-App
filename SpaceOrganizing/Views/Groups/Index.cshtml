@@ -16,47 +16,63 @@
 {
     //if (group.GroupId != 1)
     //{
+    /*int count = 0;
 
-    <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="panel panel-default col-sm-8">
-            <div class="panel-heading" style="text-align:center">
-                <h2>@group.GroupName</h2>
-            </div>
-            <div class="panel-body" style="border-radius:0 0 20px 20px; text-align:center">
+    foreach (SpaceOrganizing.Models.Registration reg in group.Registrations)
+    {
+        if (ViewBag.isAdmin)
+        {
+            count = 1;
+        }
+    }
 
-                <p style="font-size:20px">@group.GroupDescription</p>
-                @{
+    if (count==1)
+    {*/
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="panel panel-default col-sm-8">
+                <div class="panel-heading" style="text-align:center">
+                    <h2>@group.GroupName</h2>
+                </div>
+                <div class="panel-body" style="border-radius:0 0 20px 20px; text-align:center">
 
-                    int count = 0;
-                    foreach (SpaceOrganizing.Models.Registration reg in group.Registrations)
-                    {
-                        if (ViewBag.User == reg.User || ViewBag.User == group.User)
-                        {
-                            <i class="glyphicon glyphicon-ok">Esti inscris in grup</i>
-                            count = 1;
-                            break;
-                        }
+                    <p style="font-size:20px">@group.GroupDescription</p>
+                    @{
+
+                        @*int count = 0;
+                            foreach (SpaceOrganizing.Models.Registration reg in group.Registrations)
+                            {
+                                if (ViewBag.User == reg.User || ViewBag.User == group.User)
+                                {
+                                    <i class="glyphicon glyphicon-ok">Esti inscris in grup</i>
+                                    count = 1;
+                                    break;
+                                }
+                            }
+                            if (count == 0)
+                            {
+                                <a class="btn btn-info" href="/Groups/NewMember/@group.GroupId">Inscrie-te in grup</a>
+                            }*@
+
+
+
+                        <a class="btn btn-info" href="/Groups/Show/@group.GroupId">Afisare grup</a>
                     }
-                    if (count == 0)
-                    {
-                        <a class="btn btn-info" href="/Groups/NewMember/@group.GroupId">Inscrie-te in grup</a>
-                    }
-                    <a class="btn btn-info" href="/Groups/Show/@group.GroupId">Afisare grup</a>
-                }
-                <br />
+                    <br />
+
+
+                </div>
 
 
             </div>
-
-
+            <div class="col-sm-2"></div>
         </div>
-        <div class="col-sm-2"></div>
-    </div>
 
 
 
-    <br />
+        <br />
+    //}
+
 
     //}
 

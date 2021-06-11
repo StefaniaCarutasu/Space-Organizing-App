@@ -78,10 +78,10 @@ namespace SpaceOrganizing.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        
         [Display(Name = "Date Of Birth")]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Birthday { get; set; }
 
         [Required]
