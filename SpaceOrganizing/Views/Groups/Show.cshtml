@@ -145,10 +145,14 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                                         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                                         <input type="hidden" name="GroupId" value="@ViewBag.Group.GroupId" />
                                         @Html.Label("Content", "Continut task")
-                                        <br />
+                                        
                                         @Html.TextArea("Content", null, new { @class = "form-control" })
-                                        <br />
+                                       
                                         @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+                                        
+                                        @Html.Label("Deadline", "Deadline")
+                                        
+                                        @Html.TextArea("Deadline", null, new { @class = "form-control" })
                                         <button class="btn btn-success " style="background-color: #9c27b0;" type="submit">
                                             Adauga
                                             task
@@ -163,10 +167,50 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                                     </h3>
                                 </div>
                                 <div class="card-footer">
-                                    <div class="stats">
-                                        <i class="material-icons text-danger">warning</i>
-                                        <a href="javascript:;">Set priority</a>
-                                    </div>
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                               
+                                                <div class="form-check">
+                                                    <td>
+                                                        <label for="urgent">
+
+                                                            <input class="form-check-input" type="checkbox" id="urgent" name="Urgent" value="Urgent">
+                                                            <span class="form-check-sign">
+                                                                <span class="check"></span>
+                                                            </span>
+                                                            Urgent
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <label for="medium">
+
+                                                            <input class="form-check-input" type="checkbox" id="medium" name="Medium" value="Medium">
+                                                            <span class="form-check-sign">
+                                                                <span class="check"></span>
+                                                            </span>
+                                                            Medium
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <label for="low">
+
+                                                            <input class="form-check-input" type="checkbox" id="low" name="Low" value="Low">
+                                                            <span class="form-check-sign">
+                                                                <span class="check"></span>
+                                                            </span>
+                                                            Low
+                                                        </label>
+                                                    </td>
+                                                
+                                                
+                                                <div class="stats">
+                                                    <i class="material-icons text-danger">warning</i>
+                                                    <a href="javascript:;">Set priority</a>
+                                                </div>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -453,7 +497,7 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                             <div class="card">
                                 <div class="card-header card-header-warning">
                                     <h4 class="card-title">Unfinished Tasks</h4>
-                                    <p class="card-category">-</p>
+                                    <p class="card-category"></p>
                                 </div>
                                 <div class="card-body table-responsive">
                                     <table class="table table-hover">
@@ -506,16 +550,7 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
                                     About Us
                                 </a>
                             </li>
-                            <li>
-                                <a href="http://blog.creative-tim.com">
-                                    Blog
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.creative-tim.com/license">
-                                    Licenses
-                                </a>
-                            </li>
+                          
                         </ul>
                     </nav>
                     <div class="copyright float-right">
