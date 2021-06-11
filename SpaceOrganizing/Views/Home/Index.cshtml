@@ -1,158 +1,190 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<!-- bootstrap css -->
+@Styles.Render("~/template/css")
+<section class="banner_main">
+    <div class="container">
 
-<div class="container">
-   
-    <div class="row d_flex">
-        <div class="col-md-5">
-            <div class="text-bg">
-                <h1>Powerful<br> Communication</h1>
-                <span>Innovative Duties Management Platform</span>
-                <p>Have you gotten tired of checking your roomies on every social-platform just to remind them it's their cleaning day? </p>
-                <p>We've got you! Now you'll waste little to no time in order to do this!</p>
-                <a href="#">Let's Get Started!</a>
+        <div class="row d_flex">
+            <div class="col-md-5">
+                <div class="text-bg">
+                    <h1>Powerful<br> Communication</h1>
+                    <span>Innovative Duties Management Platform</span>
+                    <p>Have you gotten tired of checking your roomies on every social-platform just to remind them it's their cleaning day? </p>
+                    <p>We've got you! Now you'll waste little to no time in order to do this!</p>
+                    <a class="nav-link" href="/Account/Register">Let's Get Started!</a>
+                </div>
             </div>
-        </div>
-        <div class="col-md-7">
-            <div class="text-img">
-                <figure><img src="~/Content/Images/image3.jpg" /></figure>
+            <div class="col-md-7">
+                <div class="text-img">
+                    <figure><img src="~/Content/Images/image3.jpg" /></figure>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- end banner -->
-<!-- Hosting -->
-<!-- end Hosting -->
-<!-- Services  -->
-<div id="service" class="Services">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="titlepage">
-                    <h2>Best Services</h2>
-                    <p>
-                        Your daily dose of efficient time-management.
-                    </p>
+    <!-- end banner -->
+    <!-- Hosting -->
+    <!-- end Hosting -->
+    <!-- Services  -->
+    <div id="service" class="Services">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titlepage">
+                        <h2>Best Services</h2>
+                        <p>
+                            Your daily dose of efficient time-management.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                <div class="Services-box">
-                    <i><img src="/Content/images/images.png" alt="#" /></i>
-                    <h3> Easy Usage</h3>
-                    <p>Just one click and your friends will know immediately what they have to bring for the party.</p>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="Services-box">
+                        <i><img src="/Content/images/images.png" alt="#" /></i>
+                        <h3> Easy Usage</h3>
+                        <p>Just one click and your friends will know immediately what they have to bring for the party.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                <div class="Services-box">
-                    <i><img src="/Content/images/service2.png" alt="#" /></i>
-                    <h3>Less Stress Consuming</h3>
-                    <p>Replace the thoughts of "Did I wash the dishes?" with a simple check on the application.</p>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="Services-box">
+                        <i><img src="/Content/images/service2.png" alt="#" /></i>
+                        <h3>Less Stress Consuming</h3>
+                        <p>Replace the thoughts of "Did I wash the dishes?" with a simple check on the application.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                <div class="Services-box">
-                    <i><img src="/Content/images/service3.jpg" alt="#" /></i>
-                    <h3>Diversity</h3>
-                    <p>Feeding the dog won't overlap with your meeting at the office!</p>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="Services-box">
+                        <i><img src="/Content/images/service3.jpg" alt="#" /></i>
+                        <h3>Diversity</h3>
+                        <p>Feeding the dog won't overlap with your meeting at the office!</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                <div class="Services-box">
-                    <i><img src="/Content/images/image7.png" alt="#" /></i>
-                    <h3>Priorities</h3>
-                    <p>Your boss or roomate can set you a task depending on its priority.</p>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="Services-box">
+                        <i><img src="/Content/images/image7.png" alt="#" /></i>
+                        <h3>Priorities</h3>
+                        <p>Your boss or roomate can set you a task depending on its priority.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                <div class="Services-box">
-                    <i><img src="/Content/images/image5.png" alt="#" /></i>
-                    <h3>Clean and Organized</h3>
-                    <p>You can organise your daily activities depending on the things you have to do in a day.</p>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="Services-box">
+                        <i><img src="/Content/images/image5.png" alt="#" /></i>
+                        <h3>Clean and Organized</h3>
+                        <p>You can organise your daily activities depending on the things you have to do in a day.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                <div class="Services-box">
-                    <i><img src="/Content/images/image6.jpg" alt="#" /></i>
-                    <h3>Avoid Conflicts</h3>
-                    <p>Avoid a conflict with the employers about 'forgetting' of setting the deadline of a project.</p>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="Services-box">
+                        <i><img src="/Content/images/image6.jpg" alt="#" /></i>
+                        <h3>Avoid Conflicts</h3>
+                        <p>Avoid a conflict with the employers about 'forgetting' of setting the deadline of a project.</p>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-    </div>
-</div>
-<!-- end Servicess -->
-<!-- why -->
-<br />
-<br />
-<div id="why" class="why">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="titlepage">
-                    <h2>Why you should choose </h2>
-                    <p>making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still </p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                <div id="box_ho" class="why-box">
-                    <i><img src="images/why1.png" alt="#" /></i>
-                    <h3>Powerful Features</h3>
-                    <p>making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still </p>
-                </div>
-             
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                <div class="why-box">
-                    <i><img src="images/why2.png" alt="#" /></i>
-                    <h3>Totaly Optimised</h3>
-                    <p>making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still </p>
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                <div class="why-box">
-                    <i><img src="images/why3.png" alt="#" /></i>
-                    <h3>Worldwide Support</h3>
-                    <p>making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still </p>
-                </div>
-              
             </div>
         </div>
     </div>
-</div>
-<!-- end why -->
-<!-- contact -->
-<div id="contact" class="contact">
-    <div class="container">
+    <!-- end Servicess -->
+    <!-- why -->
+    <br />
+    <br />
+    <div id="why" class="why">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titlepage">
+                        <h2>Why you should choose </h2>
+                        <p>making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div id="box_ho" class="why-box">
+                        <i><img src="images/why1.png" alt="#" /></i>
+                        <h3>Powerful Features</h3>
+                        <p>making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still </p>
+                    </div>
 
-        <div class="row">
-            <div class="col-md-6 offset-md-3 ">
-                <form class="main_form">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input class="contactus" placeholder="Name" type="text" name="Name">
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="why-box">
+                        <i><img src="images/why2.png" alt="#" /></i>
+                        <h3>Totaly Optimised</h3>
+                        <p>making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still </p>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="why-box">
+                        <i><img src="images/why3.png" alt="#" /></i>
+                        <h3>Worldwide Support</h3>
+                        <p>making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end why -->
+    <!-- contact 
+    <div id="contact" class="contact">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-6 offset-md-3 ">
+                    <form class="main_form">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input class="contactus" placeholder="Name" type="text" name="Name">
+                            </div>
+                            <div class="col-sm-12">
+                                <input class="contactus" placeholder="Email" type="text" name=" Email">
+                            </div>
+                            <div class="col-sm-12">
+                                <input class="contactus" placeholder="Phone" type="text" name="Phone">
+                            </div>
+                            <div class="col-sm-12">
+                                <textarea class="textarea" placeholder="Message" type="text" name="Message"></textarea>
+                            </div>
+                            <div class="col-sm-12">
+                                <button class="send">Send</button>
+                            </div>
                         </div>
-                        <div class="col-sm-12">
-                            <input class="contactus" placeholder="Email" type="text" name=" Email">
-                        </div>
-                        <div class="col-sm-12">
-                            <input class="contactus" placeholder="Phone" type="text" name="Phone">
-                        </div>
-                        <div class="col-sm-12">
-                            <textarea class="textarea" placeholder="Message" type="text" name="Message"></textarea>
-                        </div>
-                        <div class="col-sm-12">
-                            <button class="send">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+        -->
+    <!--  footer -->
+    <footer>
+        <div class="footer">
+            <!--
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <div class="cont">
+                            <h3>Contact now</h3>
+                            <span></span>
+                            <p>
+                            </p>
                         </div>
                     </div>
-                </form>
+                </div>
+            </div>-->
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>© 2021 All Rights Reserved.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+
+    </footer>
+    <!-- end footer -->

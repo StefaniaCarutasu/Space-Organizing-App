@@ -77,6 +77,20 @@
 </head>
 <!-- body -->
 
+
+    <!-- Javascript files-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/plugin.js"></script>
+    <!-- sidebar -->
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 <body class="main-layout">
 
     <!-- header -->
@@ -115,9 +129,6 @@
                                         <a class="nav-link" href="/Home/Index">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="/Profiles/Index">Profile</a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a class="nav-link" href="/Groups/Index">Groups List</a>
                                     </li>
                                     <li class="container">
@@ -137,7 +148,6 @@
                                                 <p><a href="javascript:document.getElementById('logoutForm').submit()" class="alstyle logoff">LOG OFF</a></p>
                                             </div>
                                         }
-
                                     }
                                     else
                                     {
@@ -162,55 +172,11 @@
     <!-- end header inner -->
     <!-- end header -->
     <!-- banner -->
-
-    <section class="banner_main">
-        @RenderBody()
-
-    </section>
-
-
+@RenderBody()
     <!-- end contact -->
-    <!--  footer -->
-    <footer>
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 offset-md-1">
-                        <div class="cont">
-                            <h3>Contact now</h3>
-                            <span></span>
-                            <p>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="copyright">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p>© 2021 All Rights Reserved.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
 
-    </footer>
-    <!-- end footer -->
-    <!-- Javascript files-->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery-3.0.0.min.js"></script>
-    <script src="js/plugin.js"></script>
-    <!-- sidebar -->
-    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/custom.js"></script>
-    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
 </body>
 </html>
 

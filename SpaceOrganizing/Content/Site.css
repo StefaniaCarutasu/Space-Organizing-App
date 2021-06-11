@@ -65,6 +65,7 @@ textarea {
     
 }
 
+<<<<<<< Updated upstream
 .box{
     display:grid;
     grid-template-columns:1fr 1fr 1fr 1fr;
@@ -86,3 +87,5 @@ textarea {
     grid-column:4/5;
     grid-row:2/3;
 }
+=======
+>>>>>>> Stashed changes

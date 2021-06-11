@@ -2,8 +2,11 @@
 @{
     ViewBag.Title = "New";
 }
+@{
+    Layout = "~/Views/Shared/Dashboard.cshtml";
+}
 
-
+@Styles.Render("~/template/cssLogin")
 <br />
 <a class="btn btn-primary pull-right" style="background-color: #5680E9" href="/Groups/Index">Inapoi la grupuri</a>
 <a class="btn btn-primary pull-right" style="background-color: #5680E9" href="/Posts/Index">Inapoi la postari</a>

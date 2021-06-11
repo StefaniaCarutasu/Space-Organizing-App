@@ -33,7 +33,8 @@ namespace SpaceOrganizing
                      "~/Content/css/style.css",
                      "~/Content/css/responsive.css",
                      "~/Content/css/style.css",
-                     "~/Content/site.css"));
+                     "~/Content/site.css",
+                     "~/Content/groupProfile.css"));
         }
     }
 }

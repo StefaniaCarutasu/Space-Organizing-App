@@ -2,6 +2,7 @@
 using SpaceOrganizing.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,7 +15,7 @@ namespace SpaceOrganizing.Controllers
         private void searchedUsers()
         {
             int count = 0;
-             ViewBag.Count = count;
+            ViewBag.Count = count;
             var users = from usr in db.Users
                         orderby usr.UserName
                         select usr;
@@ -32,10 +33,12 @@ namespace SpaceOrganizing.Controllers
                 ViewBag.CountUsers = 0;
             }
 
-            ViewBag.UsersList = users; 
+            ViewBag.UsersList = users;
         }
+
         // GET: Profiles
         //Afisarea profilului utilizatorului logat curent
+        [Authorize(Roles = "Administrator,User")]
         public ActionResult Index()
         {
             string id = User.Identity.GetUserId();
@@ -55,7 +58,7 @@ namespace SpaceOrganizing.Controllers
             int month = moment.Month;
             int day = moment.Day;
             DateTime userBirtday = user.BirthDate;
-            if(day == userBirtday.Day && month == userBirtday.Month)
+            if (day == userBirtday.Day && month == userBirtday.Month)
             {
                 ViewBag.Birthday = 1;
             }
@@ -71,7 +74,7 @@ namespace SpaceOrganizing.Controllers
         }
 
         //Vizualizeaza profilul unui utilizator
-        [Authorize(Roles = "User,Admin")]
+        [Authorize(Roles = "Administrator,User")]
         public ActionResult Show(string id)
         {
             ApplicationUser user = db.Users.Find(id);
@@ -101,7 +104,7 @@ namespace SpaceOrganizing.Controllers
             return View(user);
         }
 
-        [Authorize(Roles = "User,Admin")]
+        [Authorize(Roles = "Administrator,User")]
         public ActionResult Edit()
         {
             string id = User.Identity.GetUserId();
@@ -110,8 +113,8 @@ namespace SpaceOrganizing.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "User,Admin")]
-        public ActionResult Edit(ApplicationUser requestUser)
+        [Authorize(Roles = "Administrator,User")]
+        public ActionResult Edit(ApplicationUser requestUser, FormCollection fc, HttpPostedFileBase file)
         {
             string id = User.Identity.GetUserId();
             try
@@ -134,6 +137,43 @@ namespace SpaceOrganizing.Controllers
             {
                 return View(requestUser);
             }
+        }
+
+        [Authorize(Roles = "Administrator,User")]
+        public ActionResult NewProfilePicture()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator,User")]
+        public ActionResult NewProfilePicture(HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                string id = User.Identity.GetUserId();
+                ApplicationUser user = db.Users.Find(id);
+                user.ProfilePicture = true;
+                db.SaveChanges();
+                string pic = System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Content/profilePictures"), id + ".jpeg");
+                // file is uploaded
+                file.SaveAs(path);
+
+                // save the image path path to the database or you can send image 
+                // directly to database
+                // in-case if you want to store byte[] ie. for DB
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(ms);
+                    byte[] array = ms.GetBuffer();
+                }
+
+            }
+            // after successfully uploading redirect the user
+            return RedirectToAction("Index", "Profiles");
         }
     }
 }

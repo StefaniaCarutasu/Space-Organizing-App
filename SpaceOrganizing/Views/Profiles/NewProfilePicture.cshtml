@@ -1,0 +1,22 @@
+﻿@model SpaceOrganizing.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "NewProfilePicture";
+}
+@{
+    Layout = "~/Views/Shared/Dashboard.cshtml";
+}
+
+<h2>NewProfilePicture</h2>
+
+@using (Html.BeginForm("NewProfilePicture", "Profiles", FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+{
+    <label for="file">Upload Image:</label>
+    <input type="file" name="file" id="file" style="width: 100%;" />
+    <br />
+    <input type="submit" value="Upload" class="submit btn btn-success" />
+    <a href="~/Profiles/Index" class="btn btn-info">Inpoi la profil</a>
+
+}
+

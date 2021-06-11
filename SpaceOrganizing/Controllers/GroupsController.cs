@@ -58,6 +58,7 @@ namespace SpaceOrganizing.Controllers
             ViewBag.isAdmin = false;
             ViewBag.isGroupOwner = false;
             ViewBag.UserId = User.Identity.GetUserId();
+           
             if (User.IsInRole("Admin"))
             {
                 ViewBag.isAdmin = true;
@@ -68,6 +69,32 @@ namespace SpaceOrganizing.Controllers
             }
 
             ViewBag.Group = group;
+            bool acc = true;
+            List<Tasks> taskuriDone = (from task in db.Tasks
+                             where task.Done == true && task.GroupId == id
+                             select task).ToList();
+            ViewBag.countDone = taskuriDone.Count;
+            List<Tasks> lowP = new List<Tasks>();
+            List<Tasks> highP = new List<Tasks>();
+            List<Tasks> medP = new List<Tasks>();
+            foreach (var task in taskuriDone)
+            {
+                if (task.Priority == "Urgent" && task.Done == false)
+                {
+                    highP.Add(task);
+                }
+                else if (task.Priority =="Medium" && task.Done==false)
+                {
+                    medP.Add(task);
+                }
+                else if (task.Priority == "Low" && task.Done == false)
+                {
+                    lowP.Add(task);
+                }
+            }
+            ViewBag.lowP = lowP;
+            ViewBag.highP = highP;
+            ViewBag.medP = medP;
             return View(group);
         }
 
