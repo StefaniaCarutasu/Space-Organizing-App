@@ -125,7 +125,6 @@ namespace SpaceOrganizing.Controllers
             }
         }
 
-<<<<<<< HEAD
         //SHOW
         //user's tasks
         [Authorize(Roles = "User,Administrator")]
@@ -143,9 +142,6 @@ namespace SpaceOrganizing.Controllers
             ViewBag.noGroups = noGroups;
             return View();
         }
-
-=======
->>>>>>> 241379d00f4f74171a13e88f58194359074a2df0
 
         //NEW
         //GET: afisare formular adaugare task
