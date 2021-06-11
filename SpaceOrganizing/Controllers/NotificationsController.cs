@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,10 @@ namespace SpaceOrganizing.Controllers
     public class NotificationsController : Controller
     {
         // GET: Notifications
-        public ActionResult Index()
+        public void GetAllNotifications()
         {
-            return View();
+            string userId = User.Identity.GetUserId();
+
         }
     }
 }
