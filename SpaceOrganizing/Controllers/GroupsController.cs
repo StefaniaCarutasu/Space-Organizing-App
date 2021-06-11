@@ -22,9 +22,10 @@ namespace SpaceOrganizing.Controllers
                 ViewBag.message = TempData["message"].ToString();
             }
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
-            //var groups = db.Groups;
             ViewBag.Groups = db.Groups.ToList();
             ViewBag.User = user;
+            ViewBag.UserId = user.Id;
+            ViewBag.isAdmin = User.IsInRole("Administrator");
             var users = from usr in db.Users
                         orderby usr.UserName
                         select usr;
@@ -59,7 +60,7 @@ namespace SpaceOrganizing.Controllers
             ViewBag.isGroupOwner = false;
             ViewBag.UserId = User.Identity.GetUserId();
            
-            if (User.IsInRole("Admin"))
+            if (User.IsInRole("Administrator"))
             {
                 ViewBag.isAdmin = true;
             }
@@ -144,7 +145,7 @@ namespace SpaceOrganizing.Controllers
         public ActionResult Edit(int id)
         {
             Group gr = db.Groups.Find(id);
-            if (gr.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+            if (gr.UserId == User.Identity.GetUserId() || User.IsInRole("Administrator"))
             {
                 return View(gr);
             }
@@ -183,7 +184,7 @@ namespace SpaceOrganizing.Controllers
         public ActionResult Delete(int id)
         {
             Group gr = db.Groups.Find(id);
-            if (gr.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+            if (gr.UserId == User.Identity.GetUserId() || User.IsInRole("Administrator"))
             {
                 db.Groups.Remove(gr);
                 db.SaveChanges();
