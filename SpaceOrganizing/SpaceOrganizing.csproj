@@ -172,6 +172,7 @@
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\ProfilesController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Global.asax.cs">
@@ -186,6 +187,7 @@
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Registration.cs" />
     <Compile Include="Models\Tasks.cs" />
@@ -311,7 +313,9 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Notifications\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

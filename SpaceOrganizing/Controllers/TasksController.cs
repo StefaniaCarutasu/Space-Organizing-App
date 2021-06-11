@@ -143,7 +143,6 @@ namespace SpaceOrganizing.Controllers
             return View();
         }
 
-       //NEW
         //GET: afisare formular adaugare task
         [Authorize(Roles = "User,Administrator")]
         public ActionResult New(int Id)
