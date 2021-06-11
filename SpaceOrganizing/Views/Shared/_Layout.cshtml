@@ -128,6 +128,12 @@
                                     <li class="nav-item active">
                                         <a class="nav-link" href="/Home/Index">Home</a>
                                     </li>
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/Profiles/Index">Profile</a>
+                                        </li>
+                                    }
                                     <li class="nav-item">
                                         <a class="nav-link" href="/Groups/Index">Groups List</a>
                                     </li>
@@ -137,7 +143,9 @@
                                         </form>
                                     </li>
                                     @if (Request.IsAuthenticated)
+
                                     {
+
                                         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                                         {
                                             @Html.AntiForgeryToken()
