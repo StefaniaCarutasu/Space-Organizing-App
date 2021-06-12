@@ -103,7 +103,7 @@
                         @Html.Label("Deadline", "Deadline")
 
                         <br />
-                        <input class="text-box single-line input100" data-val="true" data-val-date="The field Date of Birth must be a date." id="Deadline" name="Deadline" type="date" value="">
+                        <input class="text-box single-line form-control" data-val="true" data-val-date="The field Date of Birth must be a date." id="Deadline" name="Deadline" type="date" value="">
                         <br />
 
 
@@ -515,7 +515,7 @@
         </div>
     </div>
     <div class="row">
-        @Html.Action("Index", "BasicScheduler")
+        @Html.Action("Index", "BasicScheduler", new { id = ViewBag.Group.GroupId })
     </div>
 
 </div>

@@ -13,11 +13,13 @@ namespace SpaceOrganizing.Controllers
 {
     public class BasicSchedulerController : Controller
     {
+        private static int groupId = 0;
         private ApplicationDbContext db = new ApplicationDbContext();
 
         private void getTasks()
         {
             List<Tasks> tasks = (from task in db.Tasks
+                                 where task.GroupId == groupId
                                  select task).ToList();
 
             var entities = new DefaultConnection();
@@ -43,8 +45,9 @@ namespace SpaceOrganizing.Controllers
             entities.SaveChanges();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int id)
         {
+            groupId = id;
             var sched = new DHXScheduler(this);
             sched.Skin = DHXScheduler.Skins.Terrace;
             sched.LoadData = true;

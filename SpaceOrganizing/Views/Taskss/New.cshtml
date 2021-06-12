@@ -27,7 +27,8 @@
 
     @Html.Label("Deadline", "Termen Limita")
     <br />
-    @Html.TextBox("Deadline", null, new { @class = "form-control" })
+    <input class="text-box single-line input100" data-val="true" data-val-date="The field Date of Birth must be a date." id="Deadline" name="Deadline" type="date" value="">
+    <br />
     @Html.ValidationMessageFor(m => m.Deadline, "", new { @class = "text-danger" })
     <br />
     <br />
