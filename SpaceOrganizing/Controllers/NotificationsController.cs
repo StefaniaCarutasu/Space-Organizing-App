@@ -12,28 +12,29 @@ namespace SpaceOrganizing.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Notifications
-        public void GetAllNotifications()
+        public ActionResult Index()
         {
             string userId = User.Identity.GetUserId();
             ViewBag.Notifications = (from notification in db.Notifications
-                                     where notification.receivingUser.Id == userId
+                                     where notification.receivingUser == userId 
+                                     orderby notification.sentDate descending
                                      select notification).ToList();
+
+            return View();
 
         }
 
         public ActionResult Show(int id)
         {
-            Notification notification = (Notification)(from notif in db.Notifications
-                                        where notif.NotificationId == id
-                                        select notif);
-            Group group = (Group)(from gr in db.Groups
-                                  where gr.GroupId == notification.GroupId
-                                  select gr);
+            Notification notification = db.Notifications.Find(id);
             notification.seen = true;
             db.SaveChanges();
-            ViewBag.SendingUser = notification.sendingUser;
-            ViewBag.NotificationMessage = notification.Message;
-            ViewBag.Group = group;
+
+            ApplicationUser sendingUser = db.Users.Find(notification.sendingUser);
+            ViewBag.Name = sendingUser.FirstName + sendingUser.LastName;
+            ViewBag.Message = notification.Message;
+            ViewBag.Date = notification.sentDate;
+            ViewBag.Notification = notification;
 
             return View();
         }

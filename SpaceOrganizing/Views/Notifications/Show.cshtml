@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Notification: </h2>
+
+<div class="panel panel-default">
+    <div class="panel panel-heading"> @ViewBag.Message</div>
+    <div class="panel panel-body">From: @ViewBag.Name </div>
+    @if (ViewBag.Notification.seen == false)
+    {
+        <div class="panel-body">
+            <a class="btn btn-success" href="/Groups/AcceptRequest/@ViewBag.Notification.NotificationId">Accept request</a>
+            <a class="btn btn-danger" href="/Groups/DismissRequest/@ViewBag.Notification.NotificationId">Dismiss Request</a>
+        </div>
+    }
+
+    <div class="panel panel-footer">Send on: @ViewBag.Date</div>
+</div>
+

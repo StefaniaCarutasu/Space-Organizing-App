@@ -515,7 +515,7 @@
 }
 else
 {
-    if(ViewBag.Accepted!=null)
+    if (ViewBag.Accepted == null)
     {
         <a class="btn btn-info" href="/Groups/GroupNotification/@ViewBag.Group.GroupId">Inscrie-te in grup</a>
     }
@@ -523,7 +523,7 @@ else
     {
         <p>Wait until admin approves your registration</p>
     }
-    
+
 }
 
 

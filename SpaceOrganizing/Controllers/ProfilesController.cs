@@ -37,6 +37,23 @@ namespace SpaceOrganizing.Controllers
             ViewBag.UsersList = users;
         }
 
+        private void GetAllNotifications()
+        {
+            string id = User.Identity.GetUserId();
+            ViewBag.Notifications = (from notif in db.Notifications
+                                     where notif.receivingUser == id
+                                     orderby notif.sentDate descending
+                                     select notif).ToList();
+            var unread = (from notif in db.Notifications
+                          where notif.receivingUser == id && notif.seen == false
+                          select notif).Count();
+            ViewBag.Unread = 0;
+            if (unread != null)
+            {
+                ViewBag.Unread = unread;
+            }
+        }
+
         // GET: Profiles
         //Afisarea profilului utilizatorului logat curent
         [Authorize(Roles = "Administrator,User")]
@@ -69,7 +86,7 @@ namespace SpaceOrganizing.Controllers
             }
 
             searchedUsers();
-
+            GetAllNotifications();
 
             return View();
         }
@@ -103,6 +120,7 @@ namespace SpaceOrganizing.Controllers
             }
 
             searchedUsers();
+            GetAllNotifications();
 
             return View(user);
         }

@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Notifications</h2>
+<div class="panel-group ">
+    @if (ViewBag.Notifications != null)
+    {
+        foreach (var notif in ViewBag.Notifications)
+        {
+            if (notif.seen == false)
+            {
+                <div class="panel panel-default" style="background-color: lightblue">
+                    <a class="panel-heading" href="/Notifications/Show/@notif.NotificationId">@notif.Message</a>
+                    <div class="panel-body">
+                        <a class="btn btn-success" href="/Groups/AcceptRequest/@notif.NotificationId">Accept request</a>
+                        <a class="btn btn-danger" href="/Groups/DismissRequest/@notif.NotificationId">Dismiss Request</a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="panel-heading">
+                    <a href="/Notifications/Show/@notif.NotificationId">@notif.Message</a>
+                </div>
+            }
+
+        }
+    }
+
+</div>
+

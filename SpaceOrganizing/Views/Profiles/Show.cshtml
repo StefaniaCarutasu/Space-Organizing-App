@@ -104,12 +104,12 @@
 
             </div>
         </div>
-        <ul class="text" style="color:darkblue">@ViewBag.User.UserName</ul>
+        <ul class="text" style="color:darkblue">@ViewBag.User.FirstName @ViewBag.User.LastName</ul>
         <br />
         @if (ViewBag.Birthday == 1)
         {
             <div class="text1">
-                <h3 class="text1">HAPPY BIRTHDAY!</h3>
+                <h3 class="text1">Whish @ViewBag.User.FirstName @ViewBag.User.LastName a happy birthday!!</h3>
             </div>
             <br />
         }
@@ -117,13 +117,6 @@
             @if (ViewBag.ProfileDescription != null)
             {
                 <h5 style="text-align:center; font-size:20px;color:antiquewhite"><strong>~@ViewBag.ProfileDescription~</strong></h5>
-                <br />
-                <a class="btn btn-info" href="/Profiles/Edit/"> Editeaza profil!</a>
-            }
-            else
-            {
-                <a class="btn btn-info" href="/Profiles/Edit/"> Adauga descriere</a>
-                <br />
                 <br />
             }
         </div>

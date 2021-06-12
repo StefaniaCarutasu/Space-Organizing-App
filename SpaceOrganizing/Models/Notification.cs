@@ -14,12 +14,14 @@ namespace SpaceOrganizing.Models
 
         public int GroupId { get; set; }
 
-        public ApplicationUser sendingUser { get; set; }
-        public ApplicationUser receivingUser { get; set; }
+        public string sendingUser { get; set; }
+        public string receivingUser { get; set; }
 
         [DataType(DataType.MultilineText)]
         public string Message { get; set; }
 
-        public Boolean seen { get; set; }
+        public bool seen { get; set; }
+
+        public DateTime sentDate { get; set; }
     }
 }

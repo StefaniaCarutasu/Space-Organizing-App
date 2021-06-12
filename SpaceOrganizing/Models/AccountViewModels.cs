@@ -68,8 +68,14 @@ namespace SpaceOrganizing.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "Last name")]
+        public string LastName { get; set; }
 
         [Required]
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
         [Display(Name = "Username")]
         public string UserName { get; set; }
 

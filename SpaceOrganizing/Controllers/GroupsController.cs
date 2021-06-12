@@ -90,6 +90,8 @@ namespace SpaceOrganizing.Controllers
             ViewBag.UsersList = users;
             ViewBag.Groups = groups;
 
+            GetAllNotifications();
+
             return View();
         }
 
@@ -160,6 +162,7 @@ namespace SpaceOrganizing.Controllers
             }
             ViewBag.totalSum = totalSum;
             ViewBag.sumPerUser = totalSum / ViewBag.UsersCount;
+            GetAllNotifications();
             return View(group);
         }
 
@@ -259,38 +262,95 @@ namespace SpaceOrganizing.Controllers
             }
         }
 
+
         public ActionResult GroupNotification(int id)
         {
+            //preiau user ul care doreste sa se inscrie in grup
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+
+            //preiau grupul in care doreste sa se inscrie
             Group group = db.Groups.Find(id);
-            ApplicationUser groupAdmin = db.Users.Find(group.UserId);
+
+            //preiau adminul grupului
+            ApplicationUser admin = db.Users.Find(group.UserId);
+
+            //preiau data la care se trimite cererea
+            DateTime sentDate = DateTime.Now;
+
+            //mesajul notificarii
+            string message = "Hei " + admin.FirstName + ", " + user.FirstName + " " + user.LastName + " would like to join your group, " + group.GroupName + ". Accept if you think they should be part of the group, dismiss if you think it is a mistake.";
+
+            //creez o noua notificare
             Notification notification = new Notification();
-            notification.GroupId = id;
-            notification.receivingUser = groupAdmin;
-            notification.sendingUser = user;
-            notification.Message = user.UserName + " wants to join " + group.GroupName;
-            groupAdmin.Notifications.Add(notification);
+            notification.GroupId = group.GroupId;
+            notification.sendingUser = user.Id;
+            notification.receivingUser = admin.Id;
+            notification.Message = message;
+            notification.sentDate = sentDate;
+
+            db.Notifications.Add(notification);
             db.SaveChanges();
+
             ViewBag.Accepted = false;
             return Redirect("/Groups/Show/" + @group.GroupId);
 
         }
 
-        [Authorize(Roles = "User, Administrator")]
-        public ActionResult NewMember(int id)
+        private void GetAllNotifications()
         {
-            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            string id = User.Identity.GetUserId();
+            ViewBag.Notifications = (from notif in db.Notifications
+                                     where notif.receivingUser == id
+                                     orderby notif.sentDate descending
+                                     select notif).ToList();
+        
+            var unread = (from notif in db.Notifications
+                             where notif.receivingUser == id && notif.seen == false
+                             select notif).Count();
+            ViewBag.Unread = 0;
+            if(unread != null)
+            {
+                ViewBag.Unread = unread;
+            }
+
+        }
+
+        [Authorize(Roles = "User, Administrator")]
+        public void NewMember(int groupId, string userId)
+        {
+            ApplicationUser user = db.Users.Find(userId);
             Registration reg = new Registration();
-            reg.GroupId = id;
+            reg.GroupId = groupId;
             reg.UserId = User.Identity.GetUserId();
             reg.Date = DateTime.Now;
-            Group group = db.Groups.Find(id);
+            Group group = db.Groups.Find(groupId);
             group.Registrations.Add(reg);
             user.Registrations.Add(reg);
             db.SaveChanges();
 
-            return Redirect("/Groups/Show/" + @group.GroupId);
         }
+
+        public ActionResult AcceptRequest(int id)
+        {
+            Notification notification = db.Notifications.Find(id);
+            notification.seen = true;
+            db.SaveChanges();
+
+            NewMember(notification.GroupId, notification.sendingUser);
+
+            return Redirect("/Profiles/Index");
+        }
+
+        public ActionResult DismissRequest(int id)
+        {
+            Notification notification = db.Notifications.Find(id);
+            notification.seen = true;
+            db.SaveChanges();
+            return Redirect("/Profiles/Index");
+        }
+
+
+
 
         [HttpDelete]
         [Authorize(Roles = "User, Administrator")]

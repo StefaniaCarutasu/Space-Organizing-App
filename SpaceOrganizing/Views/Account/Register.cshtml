@@ -39,9 +39,19 @@
                         @Html.AntiForgeryToken()
 
                         @Html.ValidationSummary("", new { @class = "text-danger" })
-                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                        <div class="wrap-input100 validate-input" data-validate="Username is required">
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "input100" })
+
+                        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                        <div class="wrap-input100 validate-input" data-validate="Last name is required">
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "input100" })
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i aria-hidden="true"></i>
+                            </span>
+                        </div>
+
+                        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                        <div class="wrap-input100 validate-input" data-validate="FirstName is required">
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "input100" })
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i aria-hidden="true"></i>
