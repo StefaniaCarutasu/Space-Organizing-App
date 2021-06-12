@@ -771,3 +771,6 @@ C:\Users\Mara\Documents\GitHub\Space-Organizing-App-Calendar\Space-Organizing-Ap
 C:\Users\Mara\Documents\GitHub\Space-Organizing-App-Calendar\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.dll
 C:\Users\Mara\Documents\GitHub\Space-Organizing-App-Calendar\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.pdb
 C:\Users\Mara\Documents\GitHub\Space-Organizing-App-Calendar\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.xml
+E:\transfer\Facultate\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.dll
+E:\transfer\Facultate\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.pdb
+E:\transfer\Facultate\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.xml
