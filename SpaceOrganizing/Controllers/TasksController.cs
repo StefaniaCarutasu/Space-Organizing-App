@@ -150,6 +150,7 @@ namespace SpaceOrganizing.Controllers
             if (IsFromGroup(User.Identity.GetUserId(), Id))
             {
                 Tasks Task = new Tasks();
+                Task.StartDate = DateTime.Now;
                 Task.PriorityLabel = GetPriority();
                 Task.UsersList = GetAllUsers(Id);
 
@@ -175,6 +176,7 @@ namespace SpaceOrganizing.Controllers
 
             if (IsFromGroup(userId, newTask.GroupId))
             {
+                newTask.StartDate = DateTime.Now;
                 newTask.UserId = userId;
                 newTask.User = user1;
                 newTask.Done = false;

@@ -183,19 +183,5 @@ namespace SpaceOrganizing.Controllers
                 return Redirect("/Grups/Show/" + Expense.GroupId);
             }
         }
-
-        [NonAction]
-        [Authorize(Roles = "User,Administrator")]
-        public void Reset(int groupId)
-        {
-            List<Expense> expenses = (from expense in db.Expenses
-                                      where expense.GroupId == groupId && expense.Paid == false
-                                      select expense).ToList();
-            foreach(Expense expense in expenses)
-            {
-                expense.Paid = true;
-            }
-            db.SaveChanges();
-        }
     }
 }
