@@ -176,6 +176,7 @@ namespace SpaceOrganizing.Controllers
 
             if (IsFromGroup(userId, newTask.GroupId))
             {
+                newTask.StartDate = DateTime.Now;
                 newTask.UserId = userId;
                 newTask.User = user1;
                 newTask.Done = false;
