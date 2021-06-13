@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using SpaceOrganizing.Models;
@@ -196,10 +197,15 @@ namespace SpaceOrganizing.Controllers
                         if (user2 != null)
                         {
                             user2.AsignedTasks.Add(newTask);
-                            taskAsigantionEmailAsync(newTask.TaskId, newTask.GroupId);
+                            //taskAsigantionEmailAsync(newTask.TaskId, newTask.GroupId);
                         }
                         db.SaveChanges();
                         TempData["message"] = "Task-ul a fost adaugat cu success!";
+
+                        string toMail = user2.Email;
+                        string subject = "Alocare task nou";
+                        string body = "Ati fost asignat unui task: " + newTask.Title + ", in cadrul grupului: " + db.Groups.Find(newTask.GroupId).GroupName + ". O zi frumoasa!";
+                        WebMail.Send(toMail, subject, body, null, null, null, true, null, null, null, null, null, null);
 
                         return Redirect("/Groups/Show/" + newTask.GroupId);
                     }

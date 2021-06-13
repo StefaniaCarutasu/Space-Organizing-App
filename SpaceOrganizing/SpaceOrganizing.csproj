@@ -537,6 +537,7 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Email\" />
     <Folder Include="Views\Expensess\" />
   </ItemGroup>
   <PropertyGroup>
