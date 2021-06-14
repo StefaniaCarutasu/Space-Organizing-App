@@ -25,7 +25,7 @@ namespace SpaceOrganizing.Controllers
                 ViewBag.esteOrganizator = true;
             }
 
-            ViewBag.esteUser = IsFromGroup(Task.UserId, Task.GroupId);
+            ViewBag.esteUser = IsFromGroup(User.Identity.GetUserId(), Task.GroupId);
         }
 
         // verificare daca userul face parte din echipa
@@ -126,8 +126,6 @@ namespace SpaceOrganizing.Controllers
             }
         }
 
-<<<<<<< Updated upstream
-=======
         //SHOW
         //user's tasks
         [Authorize(Roles = "User,Administrator")]
@@ -146,7 +144,6 @@ namespace SpaceOrganizing.Controllers
             ViewBag.noGroups = noGroups;
             return View();
         }
->>>>>>> Stashed changes
 
         //NEW
         //GET: afisare formular adaugare task
