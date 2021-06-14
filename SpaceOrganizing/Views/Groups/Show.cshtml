@@ -78,81 +78,15 @@
             <div class="card card-stats">
                 <div class="card-header card-header-warning card-header-icon">
                     <div class="card-icon">
-                        <i class="material-icons">content_copy</i>
+                        <i class="material-icons">info_outline</i>
                     </div>
-                    <br />
-                    <br />
-                    @using (Html.BeginForm(actionName: "New", controllerName: "Taskss"))
-                    {
-                        @Html.Hidden("GroupId")
-
-                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-                        <input type="hidden" name="GroupId" value="@ViewBag.Group.GroupId" />
-                        @Html.Label("Title", "Titlu Task")
-
-                        @Html.TextBox("Title", null, new { @class = "form-control" })
-
-                        @Html.ValidationMessage("Title", null, new { @class = "text-danger" })
-
-                        @Html.Label("Descriprtion", "Continut task")
-
-                        @Html.TextArea("Description", null, new { @class = "form-control" })
-
-                        @Html.ValidationMessage("Description", null, new { @class = "text-danger" })
-
-                        @Html.Label("Deadline", "Deadline")
-
-                        <input class="text-box single-line form-control" data-val="true" data-val-date="The field Date of Birth must be a date." id="Deadline" name="Deadline" type="date" value="">
-                        
-
-                        @Html.Label("UserId2", "Asignat")
-
-                        @Html.DropDownList("UserId2", new SelectList(ViewBag.UsersList, "Value", "Text"), "Selectati utilizator", new { @class = "form-control" })
-
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <div class="form-check">
-
-                                        <td>
-                                            @Html.Label("Priority", "Urgent")
-
-                                            @Html.RadioButton("Priority", "Urgent", false)
-                                        </td>
-                                        <td>
-                                            @Html.Label("Priority", "Medium")
-
-                                            @Html.RadioButton("Priority", "Medium", false)
-                                        </td>
-                                        <td>
-                                            @Html.Label("Priority", "Low")
-
-                                            @Html.RadioButton("Priority", "Low", true)
-                                        </td>
-
-
-                                        <div class="stats">
-                                            <i class="material-icons text-danger">warning</i>
-                                            <a href="javascript:;">Set priority</a>
-                                        </div>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <button class="btn btn-success " style="background-color: #9c27b0;" type="submit">
-                            Adauga
-                            task
-                        </button>
-                    }
-
-                    <p class="card-category"></p>
-                    <h3 class="card-title">
-
-                        <small></small>
-                    </h3>
+                    <p class="card-category">Total Tasks</p>
+                    <h3 class="card-title">@ViewBag.countTasks</h3>
                 </div>
                 <div class="card-footer">
-                    
+                    <div class="stats">
+                        <i class="material-icons">local_offer</i> Tracked
+                    </div>
                 </div>
             </div>
         </div>
@@ -194,13 +128,80 @@
         <div class="col-md-4">
             <div class="card card-chart">
                 <div class="card-header card-header-success">
-                    <div class="ct-chart" id="dailySalesChart"></div>
+                    <div class="ct-chart" id="dailySalesChart">Add Task</div>
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Total tasks</h4>
-                    <p class="card-category">
-                        <span class="text-success"><i class="fa fa-long-arrow-up"></i> @ViewBag.countTasks</span>
-                    </p>
+
+                    @using (Html.BeginForm(actionName: "New", controllerName: "Taskss"))
+                    {
+                        @Html.Hidden("GroupId")
+
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        <input type="hidden" name="GroupId" value="@ViewBag.Group.GroupId" />
+                        @Html.Label("Title", "Titlu Task")
+
+                        @Html.TextBox("Title", null, new { @class = "form-control" })
+
+                        @Html.ValidationMessage("Title", null, new { @class = "text-danger" })
+
+                        <br />
+
+                        @Html.Label("Descriprtion", "Continut task")
+
+                        @Html.TextArea("Description", null, new { @class = "form-control" })
+
+                        @Html.ValidationMessage("Description", null, new { @class = "text-danger" })
+
+                        <br />
+
+                        @Html.Label("Deadline", "Deadline")
+
+                        <input class="text-box single-line form-control" data-val="true" data-val-date="The field Date of Birth must be a date." id="Deadline" name="Deadline" type="date" value="">
+
+
+                        <br />
+
+                        @Html.Label("UserId2", "Asignat")
+
+                        @Html.DropDownList("UserId2", new SelectList(ViewBag.UsersList, "Value", "Text"), "Selectati utilizator", new { @class = "form-control" })
+
+                        <br />
+
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <div class="form-check">
+
+                                        <td>
+                                            @Html.Label("Priority", "Urgent")
+
+                                            @Html.RadioButton("Priority", "Urgent", false)
+                                        </td>
+                                        <td>
+                                            @Html.Label("Priority", "Medium")
+
+                                            @Html.RadioButton("Priority", "Medium", false)
+                                        </td>
+                                        <td>
+                                            @Html.Label("Priority", "Low")
+
+                                            @Html.RadioButton("Priority", "Low", true)
+                                        </td>
+
+
+                                        <div class="stats">
+                                            <i class="material-icons text-danger">warning</i>
+                                            <a href="javascript:;">Set priority</a>
+                                        </div>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <button class="btn btn-success " type="submit">
+                            Adauga
+                            task
+                        </button>
+                    }
                 </div>
                 <div class="card-footer">
                     <div class="stats">
@@ -212,26 +213,130 @@
         <div class="col-md-4">
             <div class="card card-chart">
                 <div class="card-header card-header-warning">
-                    <div class="ct-chart" id="websiteViewsChart"></div>
+                    <div class="ct-chart" id="websiteViewsChart">Expenses</div>
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Total groups</h4>
-                    <p class="card-category"></p>
+                    <h4 class="card-title"></h4>
+                    <table class="table table-hover">
+                        <thead class="text-warning">
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th></th>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.UsersCount != 0)
+                            {
+                                var counter = 0;
+                                foreach (var expense in ViewBag.Group.Expenses)
+                                {
+                                    counter += 1;
+
+                                    if (expense.Paid == false)
+                                    {
+                                        <tr>
+                                            <td>@counter</td>
+                                            <td>@expense.Name</td>
+                                            <td>@expense.Price</td>
+                                            <td class="td-actions text-right">
+                                                @if (expense.UserId == ViewBag.UserId || ViewBag.isAdmin)
+                                                {
+                                                    <a href="/Expensess/Edit/@expense.ExpenseId" type="button" title="Edit" class="btn btn-primary btn-link btn-sm">
+                                                        <i class="material-icons" style="color:darkorange">edit</i>
+                                                    </a>
+                                                    <a class="btn btn-primary btn-link btn-sm" type="button title="Show" href="/Expensess/Show/@expense.ExpenseId">
+                                                        <i class="fa fa-eye" style="color:darkorange"></i>
+                                                    </a>
+                                                }
+                                                @if (ViewBag.isGroupOwner || expense.UserId == ViewBag.UserId || ViewBag.isAdmin)
+                                                {
+                                                    <button type="button" rel="submit" title="Remove" class="btn btn-danger btn-link btn-sm" onclick="deleteExpense(@expense.ExpenseId)">
+                                                        <i class="material-icons">close</i>
+                                                    </button>
+
+                                                    <script>
+                                                        function deleteExpense(id) {
+                                                            $.ajax({
+                                                                type: 'DELETE',
+                                                                url: '/Expensess/Delete',
+                                                                data: { id: id }
+                                                            });
+                                                        }
+                                                    </script>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">access_time</i>
+                        <table class="table">
+                            <tbody>
+                                <td>
+                                    <b style="font-size:larger">Total: @ViewBag.totalSum</b>
+                                </td>
+                                <td>
+                                    <small style="font-size:small">Per user: @ViewBag.sumPerUser</small>
+                                </td>
+                                <td>
+                                    <button type="button" rel="submit" title="Reset" class="btn btn-defalt" style="background-color:darkorange" onclick="reset(@ViewBag.Group.GroupId)">
+                                        Reset
+                                    </button>
+
+                                    <script>
+                                        function reset(id) {
+                                            $.ajax({
+                                                url: '/Expensess/Reset',
+                                                data: { id: id }
+                                            });
+                                        }
+                                    </script>
+                                </td>
+                            </tbody>
+                        </table>
                     </div>
+                </div>
+
+                <div class="card-body">
+                    @using (Html.BeginForm(actionName: "New", controllerName: "Expensess"))
+                    {
+                        @Html.Hidden("GroupId")
+
+                        @Html.Label("Name", "Nume cheltuiala")
+
+                        @Html.TextBox("Name", null, new { @class = "form-control" })
+
+                        @Html.ValidationMessage("Name", null, new { @class = "text-danger" })
+
+                        <br />
+
+                        @Html.Label("Price", "Pret")
+
+                        @Html.TextBox("Price", null, new { @class = "form-control" })
+
+                        @Html.ValidationMessage("Price", null, new { @class = "text-danger" })
+
+                        <br />
+
+                        <button class="btn btn-success " type="submit"  style="background-color:darkorange">
+                            Adauga
+                            cheltuiala
+                        </button>
+                    }
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card card-chart">
                 <div class="card-header card-header-danger">
-                    <div class="ct-chart" id="completedTasksChart"></div>
+                    <div class="ct-chart" id="completedTasksChart">Completed Tasks</div>
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Completed Tasks</h4>
+                    <h4 class="card-title"></h4>
                     @if (ViewBag.UsersCount != 0)
                     {
                         foreach (var task in ViewBag.Group.Tasks)
@@ -332,14 +437,19 @@
                                                         }
                                                         @if (ViewBag.isGroupOwner || task.UserId == ViewBag.UserId || ViewBag.isAdmin)
                                                         {
+                                                            <button type="button" rel="submit" title="Remove" class="btn btn-danger btn-link btn-sm" onclick="deleteTask(@task.TaskId)">
+                                                                <i class="material-icons">close</i>
+                                                            </button>
 
-                                                            <form method="post" action="/Taskss/Delete/@task.TaskId">
-                                                                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                                                                <button type="button" rel="submit" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                                                    <i class="material-icons">close</i>
-                                                                </button>
-                                                            </form>
-
+                                                            <script>
+                                                                function deleteTask(id) {
+                                                                    $.ajax({
+                                                                        type: 'DELETE',
+                                                                        url: '/Taskss/Delete',
+                                                                        data: { id: id }
+                                                                    });
+                                                                }
+                                                            </script>
                                                         }
                                                     </td>
                                                 </tr>
@@ -395,12 +505,19 @@
                                                         @if (ViewBag.isGroupOwner || task.UserId == ViewBag.UserId || ViewBag.isAdmin)
                                                         {
 
-                                                            <form method="post" action="/Taskss/Delete/@task.TaskId">
-                                                                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                                                                <button type="button" rel="submit" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                                                    <i class="material-icons">close</i>
-                                                                </button>
-                                                            </form>
+                                                            <button type="button" rel="submit" title="Remove" class="btn btn-danger btn-link btn-sm" onclick="deleteTask(@task.TaskId)">
+                                                                <i class="material-icons">close</i>
+                                                            </button>
+
+                                                            <script>
+                                                                function deleteTask(id) {
+                                                                    $.ajax({
+                                                                        type: 'DELETE',
+                                                                        url: '/Taskss/Delete',
+                                                                        data: { id: id }
+                                                                    });
+                                                                }
+                                                            </script>
 
                                                         }
                                                     </td>
@@ -458,12 +575,19 @@
                                                         @if (ViewBag.isGroupOwner || task.UserId == ViewBag.UserId || ViewBag.isAdmin)
                                                         {
 
-                                                            <form method="post" action="/Taskss/Delete/@task.TaskId">
-                                                                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                                                                <button type="button" rel="submit" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                                                    <i class="material-icons">close</i>
-                                                                </button>
-                                                            </form>
+                                                            <button type="button" rel="submit" title="Remove" class="btn btn-danger btn-link btn-sm" onclick="deleteTask(@task.TaskId)">
+                                                                <i class="material-icons">close</i>
+                                                            </button>
+
+                                                            <script>
+                                                                function deleteTask(id) {
+                                                                    $.ajax({
+                                                                        type: 'DELETE',
+                                                                        url: '/Taskss/Delete',
+                                                                        data: { id: id }
+                                                                    });
+                                                                }
+                                                            </script>
 
                                                         }
 

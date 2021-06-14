@@ -517,6 +517,9 @@
     <Content Include="Views\BasicScheduler\Index.cshtml" />
     <Content Include="Views\Notifications\Index.cshtml" />
     <Content Include="Views\Notifications\Show.cshtml" />
+    <Content Include="Views\Expensess\New.cshtml" />
+    <Content Include="Views\Expensess\Edit.cshtml" />
+    <Content Include="Views\Expensess\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202105130854256_Initial.resx">
@@ -538,7 +541,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Email\" />
-    <Folder Include="Views\Expensess\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

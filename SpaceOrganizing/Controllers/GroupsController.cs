@@ -149,7 +149,15 @@ namespace SpaceOrganizing.Controllers
             ViewBag.highP = highP;
             ViewBag.medP = medP;
             ViewBag.UsersList = GetAllUsers(id);
-            ViewBag.countTasks = group.Tasks.ToList().Count();
+            ViewBag.countTasks = group.Tasks.ToList().Count(); int totalSum = 0;
+
+            totalSum = 0;
+            foreach (Expense expense in group.Expenses)
+            {
+                totalSum += expense.Price;
+            }
+            ViewBag.totalSum = totalSum;
+            ViewBag.sumPerUser = totalSum / ViewBag.UsersCount;
             return View(group);
         }
 

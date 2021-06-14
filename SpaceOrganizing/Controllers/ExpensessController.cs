@@ -24,6 +24,25 @@ namespace SpaceOrganizing.Controllers
             return registrations != null;
         }
 
+        //GET: afisarea unuei singure cheltuieli
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult Show(int id)
+        {
+            if (TempData.ContainsKey("message"))
+                ViewBag.Message = TempData["message"];
+
+            Expense Expense = db.Expenses.Find(id);
+
+            if (IsFromGroup(User.Identity.GetUserId(), Expense.GroupId))
+            {
+                return View(Expense);
+            }
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa vedeti cheltuielile unei echipe din care nu faceti parte!";
+                return Redirect("Groups/Index");
+            }
+        }
 
         //GET: afisare formular adaugare cheltuiala
         [Authorize(Roles = "User,Administrator")]
@@ -63,6 +82,7 @@ namespace SpaceOrganizing.Controllers
                     if (ModelState.IsValid)
                     {
                         db.Expenses.Add(newExpense);
+                        db.Groups.Find(newExpense.GroupId).Expenses.Add(newExpense);
                         db.SaveChanges();
                         TempData["message"] = "cheltuiala a fost adaugat cu success!";
 
@@ -165,6 +185,7 @@ namespace SpaceOrganizing.Controllers
                 if (IsFromGroup(User.Identity.GetUserId(), Expense.GroupId))
                 {
                     db.Expenses.Remove(Expense);
+                    db.Groups.Find(Expense.GroupId).Expenses.Remove(Expense);
                     db.SaveChanges();
                     TempData["message"] = "Cheltuiala a fost stearsa cu success!";
 
@@ -182,6 +203,20 @@ namespace SpaceOrganizing.Controllers
                 TempData["message"] = "Nu s-a putut sterge cheltuiala!";
                 return Redirect("/Grups/Show/" + Expense.GroupId);
             }
+        }
+
+        // RESET: resetting the expenses 
+        // marking all the existing expenses as paid
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult Reset(int groupId)
+        {
+            Group Group = db.Groups.Find(groupId);
+            foreach (Expense expense in Group.Expenses)
+            {
+                expense.Paid = true;
+            }
+            db.SaveChanges();
+            return Redirect("/Groups/Show/" + groupId);
         }
     }
 }
