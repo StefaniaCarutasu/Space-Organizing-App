@@ -149,6 +149,7 @@ namespace SpaceOrganizing.Controllers
             ViewBag.highP = highP;
             ViewBag.medP = medP;
             ViewBag.UsersList = GetAllUsers(id);
+            ViewBag.countTasks = group.Tasks.ToList().Count();
             return View(group);
         }
 
