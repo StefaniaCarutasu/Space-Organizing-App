@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using Group = SpaceOrganizing.Models.Group;
 
@@ -178,6 +179,12 @@ namespace SpaceOrganizing.Controllers
                     db.SaveChanges();
                     gr.Registrations.Add(reg);
                     db.SaveChanges();
+
+                    string toMail = user.Email;
+                    string subject = "Creare grup nou";
+                    string body = "Ati creat cu succes grupul: " + gr.GroupName + ". O zi frumoasa!";
+                    WebMail.Send(toMail, subject, body, null, null, null, true, null, null, null, null, null, null);
+
                     return Redirect("/Groups/Show/" + @gr.GroupId);
                 }
                 else
@@ -341,6 +348,12 @@ namespace SpaceOrganizing.Controllers
             db.Notifications.Add(acceptanceNotification);
 
             db.SaveChanges();
+
+            string toMail = newGroupMember.Email;
+            string subject = "Acceptare in grup";
+            string body = "Ati fost acceptat in grupul: " + group.GroupName + ". O zi frumoasa!";
+            WebMail.Send(toMail, subject, body, null, null, null, true, null, null, null, null, null, null);
+
 
             return Redirect("/Profiles/Index");
         }

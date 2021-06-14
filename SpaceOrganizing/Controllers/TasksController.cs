@@ -93,15 +93,15 @@ namespace SpaceOrganizing.Controllers
 
         // trimitere mail
         [NonAction]
-        public async System.Threading.Tasks.Task taskAsigantionEmailAsync(int taskId, int groupId)
+        public void taskAsigantionEmailAsync(int taskId, int groupId)
         {
             Tasks Task = db.Tasks.Find(taskId);
             Group Group = db.Groups.Find(groupId);
-            string authorEmail = Task.User2.Email;
-            string notificationBody = "<p>Ati fost asignat unui task: " + Task.Title + " in cadrul grupului " + Group.GroupName + "</p>";
-            notificationBody += "<br /><br />O zi frumoasa!";
 
-            await EmailService.SendAsync(authorEmail, "Ati fost asignat unui task", notificationBody);
+            string toMail = Task.User2.Email;
+            string subject = "Alocare task nou";
+            string body = "Ati fost asignat unui task: " + Task.Title + ", in cadrul grupului: " + Group.GroupName + ". O zi frumoasa!";
+            WebMail.Send(toMail, subject, body, null, null, null, true, null, null, null, null, null, null);
         }
 
         //SHOW
@@ -197,15 +197,10 @@ namespace SpaceOrganizing.Controllers
                         if (user2 != null)
                         {
                             user2.AsignedTasks.Add(newTask);
-                            //taskAsigantionEmailAsync(newTask.TaskId, newTask.GroupId);
+                            taskAsigantionEmailAsync(newTask.TaskId, newTask.GroupId);
                         }
                         db.SaveChanges();
                         TempData["message"] = "Task-ul a fost adaugat cu success!";
-
-                        string toMail = user2.Email;
-                        string subject = "Alocare task nou";
-                        string body = "Ati fost asignat unui task: " + newTask.Title + ", in cadrul grupului: " + db.Groups.Find(newTask.GroupId).GroupName + ". O zi frumoasa!";
-                        WebMail.Send(toMail, subject, body, null, null, null, true, null, null, null, null, null, null);
 
                         return Redirect("/Groups/Show/" + newTask.GroupId);
                     }
@@ -283,15 +278,11 @@ namespace SpaceOrganizing.Controllers
 
                         if (TryUpdateModel(Task))
                         {
-                            // Task = editedTask;
-                            //Task.User = user1;
-                            //Task.User2 = user2;
-                            //db.SaveChanges();
                             if (user2 != user2Initial && user2 != null && user2Initial != null)
                             {
-                                user2.AsignedTasks.Add(Task);
+                                user2.AsignedTasks.Add(editedTask);
                                 user2Initial.AsignedTasks.Remove(Task);
-                                // taskAsigantionEmailAsync(editedTask.TaskId, editedTask.GroupId);
+                                taskAsigantionEmailAsync(editedTask.TaskId, editedTask.GroupId);
                             }
                             else if (user2 == null && user2Initial != null)
                             {
@@ -299,8 +290,8 @@ namespace SpaceOrganizing.Controllers
                             }
                             else if (user2Initial == null && user2 != null)
                             {
-                                user2.AsignedTasks.Add(Task);
-                                // taskAsigantionEmailAsync(Task.TaskId, Task.GroupId);
+                                user2.AsignedTasks.Add(editedTask);
+                                taskAsigantionEmailAsync(editedTask.TaskId, editedTask.GroupId);
                             }
                             db.Tasks.Remove(Task);
                             db.Tasks.Add(editedTask);
