@@ -375,5 +375,15 @@ namespace SpaceOrganizing.Controllers
                 return Redirect("/Taskss/Show/" + Task.TaskId);
             }
         }
+
+        // marking a task as done
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult MarkAsDone(int id)
+        {
+            Tasks Task = db.Tasks.Find(id);
+            Task.Done = true;
+            db.SaveChanges();
+            return Redirect("/Groups/Show/" + Task.GroupId);
+        }
     }
 }
