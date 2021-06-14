@@ -283,18 +283,9 @@
                                     <small style="font-size:small">Per user: @ViewBag.sumPerUser</small>
                                 </td>
                                 <td>
-                                    <button type="button" rel="submit" title="Reset" class="btn btn-defalt" style="background-color:darkorange" onclick="reset(@ViewBag.Group.GroupId)">
+                                    <button type="button" rel="submit" title="Reset" class="btn btn-defalt" style="background-color:darkorange" href="/Expensess/Reset/@ViewBag.Group.GroupId">
                                         Reset
                                     </button>
-
-                                    <script>
-                                        function reset(id) {
-                                            $.ajax({
-                                                url: '/Expensess/Reset',
-                                                data: { id: id }
-                                            });
-                                        }
-                                    </script>
                                 </td>
                             </tbody>
                         </table>
