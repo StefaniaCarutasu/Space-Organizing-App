@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "ShowTask";
+}
+@{
+    Layout = "~/Views/Shared/Dashboard.cshtml";
+}
+<div class="container">
+
+    @foreach (var task in ViewBag.myTasks)
+    {
+        <div class="jumbotron">
+            <p class="display-3">@task.Title</p>
+            Descriere task: <p class="lead">@task.Description</p>
+            Prioritate: <strong>@task.Priority</strong>
+            <hr class="my-4">
+            <p>Creat de: @task.User.UserName</p>
+            <span class="label label-info">Deadline: @task.Deadline</span>
+            <p>Done: @task.Done</p>
+            <p class="lead" style="margin-top:2rem">
+                <div style="display: inline-block; float : left; margin-right: 15px">
+                    <a class="btn btn-primary btn-lg" style="padding:1rem" href="/Taskss/Edit/@task.TaskId">Modifica task</a>
+                </div>
+
+                @if (ViewBag.esteOrganizator!=null || ViewBag.esteAdmin!=null)
+                {
+                    <div style="display: inline-block; float : left">
+                        <form method="post" action="/Taskss/Delete/@task.TaskId">
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+                            <button class="btn btn-primary btn-lg" style="padding:1rem" type="submit">Sterge task</button>
+                        </form>
+                    </div>
+
+                }
+            </p>
+        </div>
+}
+</div>

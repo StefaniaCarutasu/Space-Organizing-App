@@ -25,7 +25,7 @@ namespace SpaceOrganizing.Controllers
                 ViewBag.esteOrganizator = true;
             }
 
-            ViewBag.esteUser = IsFromGroup(ViewBag.utilizatorCurent, Task.GroupId);
+            ViewBag.esteUser = IsFromGroup(Task.UserId, Task.GroupId);
         }
 
         // verificare daca userul face parte din echipa
@@ -126,16 +126,19 @@ namespace SpaceOrganizing.Controllers
             }
         }
 
+<<<<<<< Updated upstream
+=======
         //SHOW
         //user's tasks
         [Authorize(Roles = "User,Administrator")]
         public ActionResult MyTasks()
         {
+            var user = User.Identity.GetUserId();
             var tasks = from task in db.Tasks
-                        where task.UserId2 == User.Identity.GetUserId()
+                        where task.UserId2 == user
                         select task;
             var noGroups = (from reg in db.Registrations
-                            where reg.UserId == User.Identity.GetUserId()
+                            where reg.UserId == user
                             select reg).Count();
 
             ViewBag.myTasks = tasks;
@@ -143,7 +146,9 @@ namespace SpaceOrganizing.Controllers
             ViewBag.noGroups = noGroups;
             return View();
         }
+>>>>>>> Stashed changes
 
+        //NEW
         //GET: afisare formular adaugare task
         [Authorize(Roles = "User,Administrator")]
         public ActionResult New(int Id)
