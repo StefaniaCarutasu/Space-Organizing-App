@@ -51,18 +51,23 @@ One of the biggest problems that comes with sharing a space with somebody else i
       - Error: Couldn't change design for 404 page
       - Solution: The error was 500
    3) Can't edit assigned user of task
+      - Error: Instead of editing the existing task, another task is added to the database
+      - Solution: Deleting the old task and leving only the edited one in the database
    4) Can't edit task from within group page
+      - Error: Invalid model state
+      - Solution: Added the missing Priority field
    5) Can't login after register
       - Error: Register successful, but user couldn't stay logged in
       - Solution: name != username
    6) Can't add new task
-      - Error: Invalid model
+      - Error: Invalid model state
       - Solution: Added the missing Priority field
 
 
 ## Automation Testing:
    - Unit testing using Moq to simulate the context of assigning roles for users that are accessing the app
    - Authorization to access the app's functionalities has been tested 
+
 ![image](https://user-images.githubusercontent.com/62206596/122086113-13ad8380-ce0c-11eb-8490-371bcc9906ba.png)
 
 ## Our motto:
