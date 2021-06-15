@@ -120,6 +120,24 @@
                 <br />
             }
         </div>
+        @if (ViewBag.isAdmin != 0)
+        {
+            <div class="nav-item dropdown">
+                <a class="nav-link" href="javascript:;" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="btn btn-info">Afiseaza grupuri</i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    @if (ViewBag.Groups != null)
+                    {
+                        foreach (var group in ViewBag.Groups)
+                        {
+                            <a class="dropdown-item" href="/Groups">@group.Title</a>
+                        }
 
+                        <div class="dropdown-divider"></div>
+                    }
+                </div>
+            </div>
+        }
     </div>
 </div>
