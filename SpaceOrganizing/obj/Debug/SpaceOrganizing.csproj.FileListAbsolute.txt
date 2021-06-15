@@ -777,3 +777,6 @@ E:\transfer\Facultate\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.xml
 A:\Claudia files\Proiecte\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.dll
 A:\Claudia files\Proiecte\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.pdb
 A:\Claudia files\Proiecte\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.xml
+D:\An II\Proiect MDS\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.dll
+D:\An II\Proiect MDS\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.pdb
+D:\An II\Proiect MDS\Space-Organizing-App\SpaceOrganizing\bin\DHTMLX.xml
