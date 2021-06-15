@@ -12,6 +12,21 @@ namespace SpaceOrganizing.Controllers
     {
         private Models.ApplicationDbContext db = new Models.ApplicationDbContext();
 
+        [NonAction]
+        private void SetAccessRights(Expense Expense)
+        {
+            ViewBag.utilizatorCurent = User.Identity.GetUserId();
+            ViewBag.esteAdmin = User.IsInRole("Administrator");
+
+            ViewBag.esteOrganizator = false;
+            if (Expense.UserId == ViewBag.utilizatorCurent)
+            {
+                ViewBag.esteOrganizator = true;
+            }
+
+            ViewBag.esteUser = IsFromGroup(User.Identity.GetUserId(), Expense.GroupId);
+        }
+
         // verificare daca userul face parte din echipa
         [NonAction]
         private bool IsFromGroup(String userId, int groupId)
@@ -32,6 +47,7 @@ namespace SpaceOrganizing.Controllers
                 ViewBag.Message = TempData["message"];
 
             Expense Expense = db.Expenses.Find(id);
+            SetAccessRights(Expense);
 
             if (IsFromGroup(User.Identity.GetUserId(), Expense.GroupId))
             {
@@ -111,8 +127,9 @@ namespace SpaceOrganizing.Controllers
         public ActionResult Edit(int id)
         {
             Expense Expense = db.Expenses.Find(id);
+            SetAccessRights(Expense);
 
-            if (IsFromGroup(User.Identity.GetUserId(), Expense.GroupId))
+            if (ViewBag.esteAdmin || ViewBag.esteOrganizator || ViewBag.esteUser)
             {
                 return View(Expense);
             }
@@ -129,6 +146,7 @@ namespace SpaceOrganizing.Controllers
         [HttpPut]
         public ActionResult Edit(int id, Expense editedExpense)
         {
+            SetAccessRights(editedExpense);
             ApplicationUser user1 = db.Users.Find(editedExpense.UserId);
             editedExpense.User = user1;
 
@@ -178,14 +196,15 @@ namespace SpaceOrganizing.Controllers
         public ActionResult Delete(int id)
         {
             Expense Expense = db.Expenses.Find(id);
-            ApplicationUser user1 = db.Users.Find(Expense.UserId);
+            SetAccessRights(Expense);
 
             try
             {
                 if (IsFromGroup(User.Identity.GetUserId(), Expense.GroupId))
                 {
+                    Group Group = db.Groups.Find(Expense.GroupId);
+                    Group.Expenses.Remove(Expense);
                     db.Expenses.Remove(Expense);
-                    db.Groups.Find(Expense.GroupId).Expenses.Remove(Expense);
                     db.SaveChanges();
                     TempData["message"] = "Cheltuiala a fost stearsa cu success!";
 
@@ -208,6 +227,7 @@ namespace SpaceOrganizing.Controllers
         // RESET: resetting the expenses 
         // marking all the existing expenses as paid
         [Authorize(Roles = "User,Administrator")]
+        [HttpPost]
         public ActionResult Reset(int groupId)
         {
             Group Group = db.Groups.Find(groupId);

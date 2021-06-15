@@ -205,7 +205,6 @@
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">access_time</i>
                     </div>
                 </div>
             </div>
@@ -222,6 +221,7 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Price</th>
+                        <th></th>
                         <th></th>
                         </thead>
                         <tbody>
@@ -248,21 +248,19 @@
                                                         <i class="fa fa-eye" style="color:darkorange"></i>
                                                     </a>
                                                 }
+                                            </td>
+                                            <td class="td-actions text-left">
                                                 @if (ViewBag.isGroupOwner || expense.UserId == ViewBag.UserId || ViewBag.isAdmin)
                                                 {
-                                                    <button type="button" rel="submit" title="Remove" class="btn btn-danger btn-link btn-sm" onclick="deleteExpense(@expense.ExpenseId)">
-                                                        <i class="material-icons">close</i>
-                                                    </button>
+                                                    <a>
+                                                        <form method="post" action="/Expensess/Delete/@expense.ExpenseId">
+                                                            @Html.HttpMethodOverride(HttpVerbs.Delete)
 
-                                                    <script>
-                                                        function deleteExpense(id) {
-                                                            $.ajax({
-                                                                type: 'DELETE',
-                                                                url: '/Expensess/Delete',
-                                                                data: { id: id }
-                                                            });
-                                                        }
-                                                    </script>
+                                                            <button class="btn btn-danger btn-link btn-sm" type="submit">
+                                                                <i class="material-icons">close</i>
+                                                            </button>
+                                                        </form>
+                                                    </a>
                                                 }
                                             </td>
                                         </tr>
@@ -283,9 +281,11 @@
                                     <small style="font-size:small">Per user: @ViewBag.sumPerUser</small>
                                 </td>
                                 <td>
-                                    <button type="button" rel="submit" title="Reset" class="btn btn-defalt" style="background-color:darkorange" href="/Expensess/Reset/@ViewBag.Group.GroupId">
-                                        Reset
-                                    </button>
+                                    <form method="post" action="/Expensess/Reset/@ViewBag.Group.GroupId">
+                                        <button class="btn btn-default" type="submit" style="background-color:darkorange">
+                                            Reset
+                                        </button>
+                                    </form>
                                 </td>
                             </tbody>
                         </table>
@@ -342,7 +342,6 @@
                 </div>
                 <div class="card-footer">
                     <div class="stats">
-                        <i class="material-icons">access_time</i>
                     </div>
                 </div>
             </div>
@@ -428,19 +427,13 @@
                                                         }
                                                         @if (ViewBag.isGroupOwner || task.UserId == ViewBag.UserId || ViewBag.isAdmin)
                                                         {
-                                                            <button type="button" rel="submit" title="Remove" class="btn btn-danger btn-link btn-sm" onclick="deleteTask(@task.TaskId)">
-                                                                <i class="material-icons">close</i>
-                                                            </button>
+                                                            <form method="post" action="/Taskss/Delete/@task.TaskId">
+                                                                @Html.HttpMethodOverride(HttpVerbs.Delete)
 
-                                                            <script>
-                                                                function deleteTask(id) {
-                                                                    $.ajax({
-                                                                        type: 'DELETE',
-                                                                        url: '/Taskss/Delete',
-                                                                        data: { id: id }
-                                                                    });
-                                                                }
-                                                            </script>
+                                                                <button class="btn btn-danger btn-link btn-sm" type="submit">
+                                                                    <i class="material-icons">close</i>
+                                                                </button>
+                                                            </form>
                                                         }
                                                     </td>
                                                 </tr>
@@ -495,21 +488,13 @@
                                                         }
                                                         @if (ViewBag.isGroupOwner || task.UserId == ViewBag.UserId || ViewBag.isAdmin)
                                                         {
+                                                            <form method="post" action="/Taskss/Delete/@task.TaskId">
+                                                                @Html.HttpMethodOverride(HttpVerbs.Delete)
 
-                                                            <button type="button" rel="submit" title="Remove" class="btn btn-danger btn-link btn-sm" onclick="deleteTask(@task.TaskId)">
-                                                                <i class="material-icons">close</i>
-                                                            </button>
-
-                                                            <script>
-                                                                function deleteTask(id) {
-                                                                    $.ajax({
-                                                                        type: 'DELETE',
-                                                                        url: '/Taskss/Delete',
-                                                                        data: { id: id }
-                                                                    });
-                                                                }
-                                                            </script>
-
+                                                                <button class="btn btn-danger btn-link btn-sm" type="submit">
+                                                                    <i class="material-icons">close</i>
+                                                                </button>
+                                                            </form>
                                                         }
                                                     </td>
                                                 </tr>
@@ -565,21 +550,13 @@
                                                         }
                                                         @if (ViewBag.isGroupOwner || task.UserId == ViewBag.UserId || ViewBag.isAdmin)
                                                         {
+                                                            <form method="post" action="/Taskss/Delete/@task.TaskId">
+                                                                @Html.HttpMethodOverride(HttpVerbs.Delete)
 
-                                                            <button type="button" rel="submit" title="Remove" class="btn btn-danger btn-link btn-sm" onclick="deleteTask(@task.TaskId)">
-                                                                <i class="material-icons">close</i>
-                                                            </button>
-
-                                                            <script>
-                                                                function deleteTask(id) {
-                                                                    $.ajax({
-                                                                        type: 'DELETE',
-                                                                        url: '/Taskss/Delete',
-                                                                        data: { id: id }
-                                                                    });
-                                                                }
-                                                            </script>
-
+                                                                <button class="btn btn-danger btn-link btn-sm" type="submit">
+                                                                    <i class="material-icons">close</i>
+                                                                </button>
+                                                            </form>
                                                         }
 
                                                     </td>
