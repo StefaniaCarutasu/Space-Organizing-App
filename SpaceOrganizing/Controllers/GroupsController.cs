@@ -154,7 +154,10 @@ namespace SpaceOrganizing.Controllers
             totalSum = 0;
             foreach (Expense expense in group.Expenses)
             {
-                totalSum += expense.Price;
+                if (!expense.Paid)
+                {
+                    totalSum += expense.Price;
+                }
             }
             ViewBag.totalSum = totalSum;
             ViewBag.sumPerUser = totalSum / ViewBag.UsersCount;
