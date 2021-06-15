@@ -354,7 +354,12 @@
                             <span class="nav-tabs-title">Mark as done:</span>
                             <ul class="nav nav-tabs" data-tabs="tabs">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#profile" data-toggle="tab">
+                                    <a class="nav-link active" href="#profile" data-toggle="tab"  >
+                                        <script>
+                                            function makeActive(param) {
+                                                document.getElementById(param).className += "nav - link active";
+                                            }
+                                        </script>
                                         <i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:crimson"></i> High
                                         <div class="ripple-container"></div>
                                     </a>
@@ -366,7 +371,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#settings" data-toggle="tab">
+                                    <a class="nav-link" href="#settings" data-toggle="tab"   >
                                         <i class="fa fa-tasks " aria-hidden="true" style="color:aquamarine"></i> Low
                                         <div class="ripple-container"></div>
                                     </a>
@@ -509,6 +514,7 @@
                                     {
                                         foreach (var task in ViewBag.Group.Tasks)
                                         {
+                                            
                                             if (task.Priority == "Low" && task.Done == false)
                                             {
 
@@ -648,7 +654,7 @@ else
 
     </div>
 </footer>
-
+<!--
 <div class="fixed-plugin">
     <div class="dropdown show-dropdown">
         <a href="#" data-toggle="dropdown">
@@ -691,13 +697,6 @@ else
                 </a>
             </li>
 
-            <!-- <li class="header-title">Want more components?</li>
-                <li class="button-container">
-                    <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
-                      Get the pro version
-                    </a>
-                </li> -->
-
             <li class="button-container text-center">
                 <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45</button>
                 <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot; 50</button>
@@ -707,3 +706,4 @@ else
         </ul>
     </div>
 </div>
+-->
