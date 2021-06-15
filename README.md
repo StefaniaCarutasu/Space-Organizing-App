@@ -26,11 +26,11 @@ We used Trello to keep track of our tasks: https://trello.com/b/ji4XLFmP/organiz
 
 
 ## App description:
-One of the biggest problems that comes with sharing a space with somebody else is its management. It can prove to be quite difficult to share the tasks around the house and keep track of them, and sometimes people even forget about them. So what can you do? I'm glad you asked. Here is our solution: a space organizing app whose purpose is to make the life of those who share a space together easier.
-How, you may ask? By doing the tedious part of keeping track of tasks and expenses so you don't have to.
-Our app is designed in such a way that it is easy to create a group for your common space and then assign tasks and add expenses for it. Just a few clicks and your roomates can know they have to do the dishes or clean the floors. And in case you've got tired of keeping track of how much money you spend and how much you have to get back from your colleagues, we've got you coverd as well. All you have to do is add the expense to your group's board and we'll do all the math for you.
-The platform is very intuitive and user-freindly. Easy to navigate and add or remove elements, view your own tasks and edit your group's page.
-No more sticky notes left all over the place. We are here to do what most people hate: organize. And we do it well.
+One of the biggest problems that comes with sharing a space with somebody else is its management. It can prove to be quite difficult to share the tasks around the house and keep track of them, and sometimes people even forget about them. So what can you do? I'm glad you asked. Here is our solution: a space organizing app whose purpose is to make the life of those who share a space together easier.  
+How, you may ask? By doing the tedious part of keeping track of tasks and expenses so you don't have to.  
+Our app is designed in such a way that it is easy to create a group for your common space and then assign tasks and add expenses for it. Just a few clicks and your roomates can know they have to do the dishes or clean the floors. And in case you've got tired of keeping track of how much money you spend and how much you have to get back from your colleagues, we've got you coverd as well. All you have to do is add the expense to your group's board and we'll do all the math for you.  
+The platform is very intuitive and user-freindly. Easy to navigate and add or remove elements, view your own tasks and edit your group's page.  
+No more sticky notes left all over the place. We are here to do what most people hate: organize. And we do it well.  
 
 ## Features:
    - Creating a user profile (including eiting)
