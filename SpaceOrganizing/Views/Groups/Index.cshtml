@@ -12,6 +12,34 @@
 
 <br />
 <br />
+
+@if (ViewBag.CountUsers != 0)
+{
+    foreach (SpaceOrganizing.Models.ApplicationUser user in ViewBag.UsersList)
+    {
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="panel panel-default col-sm-8">
+                <div class="panel-heading" style="text-align:center">
+                    <h2>@user.UserName</h2>
+                </div>
+                <div class="panel-body" style="border-radius:0 0 20px 20px; text-align:center">
+
+                    <p style="font-size:20px">@user.ProfileDescription</p>
+                    @{
+                        <a class="btn btn-info" href="/Profiles/Show/@user.Id">Afisare utilizator</a>
+                    }
+                    <br />
+
+                </div>
+
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+    }
+}
+
+
 @foreach (SpaceOrganizing.Models.Group group in ViewBag.Groups)
 {
     //if (group.GroupId != 1)
@@ -28,49 +56,49 @@
 
     if (count==1)
     {*/
-        <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="panel panel-default col-sm-8">
-                <div class="panel-heading" style="text-align:center">
-                    <h2>@group.GroupName</h2>
-                </div>
-                <div class="panel-body" style="border-radius:0 0 20px 20px; text-align:center">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="panel panel-default col-sm-8">
+            <div class="panel-heading" style="text-align:center">
+                <h2>@group.GroupName</h2>
+            </div>
+            <div class="panel-body" style="border-radius:0 0 20px 20px; text-align:center">
 
-                    <p style="font-size:20px">@group.GroupDescription</p>
-                    @{
+                <p style="font-size:20px">@group.GroupDescription</p>
+                @{
 
-                        @*int count = 0;
-                            foreach (SpaceOrganizing.Models.Registration reg in group.Registrations)
+                    @*int count = 0;
+                        foreach (SpaceOrganizing.Models.Registration reg in group.Registrations)
+                        {
+                            if (ViewBag.User == reg.User || ViewBag.User == group.User)
                             {
-                                if (ViewBag.User == reg.User || ViewBag.User == group.User)
-                                {
-                                    <i class="glyphicon glyphicon-ok">Esti inscris in grup</i>
-                                    count = 1;
-                                    break;
-                                }
+                                <i class="glyphicon glyphicon-ok">Esti inscris in grup</i>
+                                count = 1;
+                                break;
                             }
-                            if (count == 0)
-                            {
-                                <a class="btn btn-info" href="/Groups/NewMember/@group.GroupId">Inscrie-te in grup</a>
-                            }*@
+                        }
+                        if (count == 0)
+                        {
+                            <a class="btn btn-info" href="/Groups/NewMember/@group.GroupId">Inscrie-te in grup</a>
+                        }*@
 
 
 
-                        <a class="btn btn-info" href="/Groups/Show/@group.GroupId">Afisare grup</a>
-                    }
-                    <br />
-
-
-                </div>
+                    <a class="btn btn-info" href="/Groups/Show/@group.GroupId">Afisare grup</a>
+                }
+                <br />
 
 
             </div>
-            <div class="col-sm-2"></div>
+
+
         </div>
+        <div class="col-sm-2"></div>
+    </div>
 
 
 
-        <br />
+    <br />
     //}
 
 
