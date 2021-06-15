@@ -15,7 +15,9 @@
 12) As a user I want to find other groups I’m supposed to join by their names
 
 ## Backlog
-https://trello.com/b/ji4XLFmP/organize-living-space-app
+We used Trello to keep track of our tasks: https://trello.com/b/ji4XLFmP/organize-living-space-app
+
+![image](https://user-images.githubusercontent.com/62221313/122079659-4b193180-ce06-11eb-96be-97e237f02bfa.png)
 
 ## Conceptual Diagram
 ![Space-Organizing-Diagram (1)](https://user-images.githubusercontent.com/62221313/122078233-1b1d5e80-ce05-11eb-9c7c-e5c8f81fc22b.png)
