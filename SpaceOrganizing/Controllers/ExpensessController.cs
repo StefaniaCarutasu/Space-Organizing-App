@@ -239,7 +239,7 @@ namespace SpaceOrganizing.Controllers
                 db.SaveChanges();
             } catch(Exception e)
             {
-                return Redirect("Grups/Index");
+                return Redirect("/Groups/Index");
             }
             return Redirect("/Groups/Show/" + groupId);
         }
