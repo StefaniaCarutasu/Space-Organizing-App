@@ -49,6 +49,7 @@ One of the biggest problems that comes with sharing a space with somebody else i
 ## Automation Testing:
    - Unit testing using Moq to simulate the context of assigning roles for users that are accessing the app
    - Authorization to access the app's functionalities has been tested 
+![image](https://user-images.githubusercontent.com/62206596/122086113-13ad8380-ce0c-11eb-8490-371bcc9906ba.png)
 
 ## Our motto:
 ![apes](https://user-images.githubusercontent.com/62221313/122080609-1194f600-ce07-11eb-93ee-b604fd7aaa5a.jpg)
