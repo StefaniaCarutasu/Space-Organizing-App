@@ -236,11 +236,20 @@ The above copyright notice and this permission notice shall be included in all c
                                                     @if(notif.Type == "request")
                                                     {
                                                         <a class="btn btn-success" href="/Groups/AcceptRequest/@notif.NotificationId">Accept request</a>
-                                                        <a class="btn btn-danger" href="/Groups/DismissRequest/@notif.NotificationId">Dismiss Request</a>
+                                                        <a class="btn btn-danger" href="/Groups/DismissRequest/@notif.NotificationId">Dismiss request</a>
                                                     }
                                                     else
                                                     {
-                                                        <a class="btn btn-danger" href="/Groups/DismissRequest/@notif.NotificationId">Dismiss Notification</a>
+                                                        if(notif.Type == "invite")
+                                                        {
+                                                            <a class="btn btn-success" href="/Groups/AcceptInvite/@notif.NotificationId">Accept invite</a>
+                                                            <a class="btn btn-danger" href="/Groups/DismissRequest/@notif.NotificationId">Dismiss invite</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a class="btn btn-danger" href="/Groups/DismissRequest/@notif.NotificationId">Dismiss notification</a>
+                                                        }
+                                                        
                                                     }
                                                     
                                                 </div>

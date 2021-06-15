@@ -332,7 +332,15 @@ namespace SpaceOrganizing.Controllers
             group.Registrations.Add(reg);
             user.Registrations.Add(reg);
             db.SaveChanges();
+        }
 
+        public ActionResult AcceptInvite(int id)
+        {
+            Notification notification = db.Notifications.Find(id);
+            notification.seen = true;
+            NewMember(notification.GroupId, notification.receivingUser);
+            var groupId = notification.GroupId;
+            return Redirect("/Groups/Show/" + groupId);
         }
 
         public ActionResult AcceptRequest(int id)

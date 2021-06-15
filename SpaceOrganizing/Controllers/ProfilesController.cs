@@ -92,20 +92,30 @@ namespace SpaceOrganizing.Controllers
         }
 
         //Daca user ul curent logat este sau nu administrator de grup
-        private bool isGroupAdmin()
+        //Pun in viewbag toate grupurile din care utilizatorul pe care vreau sa il invit in grupuri nu este deja
+        private List<Group> isGroupAdmin(string userId)
         {
             string id = User.Identity.GetUserId();
-            var groups = (from gr in db.Groups
-                          where gr.UserId == id
-                          select gr).ToList();
-            if(groups.Count() > 0)
+
+            List<Group> allGroups = (from gr in db.Groups
+                                     where gr.UserId == id
+                                     select gr).ToList();
+
+            List<Group> currentUserGroups = (from gr in db.Groups
+                                     join reg in db.Registrations on gr.GroupId equals reg.GroupId
+                                     where reg.UserId == userId && gr.UserId == id
+                                     select gr).ToList();
+            List<Group> possible = new List<Group>();
+            foreach(var gr in allGroups)
             {
-                return true;
+                if (!currentUserGroups.Contains(gr))
+                {
+                    possible.Add(gr);
+                }
             }
-            else
-            {
-                return false;
-            }
+
+            return possible;
+
         }
 
         //Vizualizeaza profilul unui utilizator
@@ -136,7 +146,8 @@ namespace SpaceOrganizing.Controllers
                 ViewBag.Birthday = 0;
             }
 
-            ViewBag.GroupAdmin = isGroupAdmin();
+            ViewBag.Groups = isGroupAdmin(id);
+            ViewBag.IsAdmin = isGroupAdmin(id).Count();
 
             searchedUsers();
             GetAllNotifications();
@@ -211,10 +222,13 @@ namespace SpaceOrganizing.Controllers
         }
 
 
+        //invite to group current user
         public ActionResult InviteToGroup(string userId, int groupId)
         {
             
             ApplicationUser groupAdmin = db.Users.Find(User.Identity.GetUserId());
+            ApplicationUser invitedUser = db.Users.Find(userId);
+            Group group = db.Groups.Find(groupId);
             Notification invite = new Notification();
 
             invite.GroupId = groupId;
@@ -222,11 +236,13 @@ namespace SpaceOrganizing.Controllers
             invite.receivingUser = userId;
             invite.sentDate = DateTime.Now;
             invite.seen = false;
-            invite.Message = "Hei, ";
+            invite.Message = "Hei, " + invitedUser.FirstName + "! " + groupAdmin.FirstName + " " + groupAdmin.LastName + " is inviting you to join a group, " + group.GroupName + ". Accept or ignore the invite!";
+            invite.Type = "invite";
 
+            db.Notifications.Add(invite);
+            db.SaveChanges();
 
-
-            return View();
+            return Redirect("/Profiles/Show/userId");
         }
 
     }

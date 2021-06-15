@@ -1,31 +1,56 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "All notifications";
 }
-
-<h2>Notifications</h2>
-<div class="panel-group ">
+@{
+    Layout = "~/Views/Shared/Dashboard.cshtml";
+}
+<div class="container">
     @if (ViewBag.Notifications != null)
     {
         foreach (var notif in ViewBag.Notifications)
         {
             if (notif.seen == false)
             {
-                <div class="panel panel-default" style="background-color: lightblue">
-                    <a class="panel-heading" href="/Notifications/Show/@notif.NotificationId">@notif.Message</a>
-                    <div class="panel-body">
-                        <a class="btn btn-success" href="/Groups/AcceptRequest/@notif.NotificationId">Accept request</a>
-                        <a class="btn btn-danger" href="/Groups/DismissRequest/@notif.NotificationId">Dismiss Request</a>
-                    </div>
+                <div class="jumbotron" style="background-color: lightblue">
+                    <p class="display-3">New</p>
+                    Mesaj: <p class="lead">@notif.Message</p>
+                    <hr class="my-4">
+                    <p>Data: @notif.sentDate</p>
+                    @if(notif.Type == "request")
+                    {
+                         <div class="panel-body">
+                             <a class="btn btn-success" href="/Groups/AcceptRequest/@notif.NotificationId">Accept request</a>
+                             <a class="btn btn-danger" href="/Groups/DismissRequest/@notif.NotificationId">Dismiss request</a>
+                        </div>
+                    }
+                    else
+                    {
+                        if(notif.Type == "invite")
+                        {
+                            
+                             <div class="panel-body">
+                                 <a class="btn btn-success" href="/Groups/AcceptInvite/@notif.NotificationId">Accept invite</a>
+                                 <a class="btn btn-danger" href="/Groups/DismissRequest/@notif.NotificationId">Dismiss invite</a>
+                            </div>
+                        }
+                        else
+                        {
+                             <a class="btn btn-danger" href="/Groups/DismissRequest/@notif.NotificationId">Dismiss notification</a>
+                        }
+                    }
+
                 </div>
             }
             else
             {
-                <div class="panel-heading">
-                    <a href="/Notifications/Show/@notif.NotificationId">@notif.Message</a>
-                </div>
+                <p class="display-3">Seen</p>
+                Mesaj: <a class="lead" href="/Notifications/Show/@notif.NotificationId">@notif.Message</a>
+                <hr class="my-4">
+                <p>Data: @notif.sentDate</p>
             }
 
         }
     }
+
 
 </div>
