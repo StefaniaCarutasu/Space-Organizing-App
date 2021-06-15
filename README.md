@@ -34,3 +34,4 @@ We used Trello to keep track of our tasks: https://trello.com/b/ji4XLFmP/organiz
 ## Automation Testing:
 
 ## Our motto:
+![apes](https://user-images.githubusercontent.com/62221313/122080609-1194f600-ce07-11eb-93ee-b604fd7aaa5a.jpg)
