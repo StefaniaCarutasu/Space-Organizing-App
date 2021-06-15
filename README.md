@@ -18,4 +18,4 @@
 https://trello.com/b/ji4XLFmP/organize-living-space-app
 
 ## Conceptual Diagram
-![Space-Organizing-Diagram](https://user-images.githubusercontent.com/62221313/115113052-02253800-9f91-11eb-92c0-d3ac6be7243b.png)
+![Space-Organizing-Diagram (1)](https://user-images.githubusercontent.com/62221313/122078233-1b1d5e80-ce05-11eb-9c7c-e5c8f81fc22b.png)
