@@ -340,6 +340,16 @@ namespace SpaceOrganizing.Controllers
             notification.seen = true;
             NewMember(notification.GroupId, notification.receivingUser);
             var groupId = notification.GroupId;
+
+            ApplicationUser user = db.Users.Find(notification.receivingUser);
+            Group group = db.Groups.Find(notification.GroupId);
+
+            string toMail = user.Email;
+            string subject = "Alaturare grup";
+            string body = "V-ati alaturat grupului: " + group.GroupName + ". O zi frumoasa!";
+            WebMail.Send(toMail, subject, body, null, null, null, true, null, null, null, null, null, null);
+
+
             return Redirect("/Groups/Show/" + groupId);
         }
 
