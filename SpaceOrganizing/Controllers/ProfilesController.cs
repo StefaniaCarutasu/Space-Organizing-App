@@ -91,6 +91,23 @@ namespace SpaceOrganizing.Controllers
             return View();
         }
 
+        //Daca user ul curent logat este sau nu administrator de grup
+        private bool isGroupAdmin()
+        {
+            string id = User.Identity.GetUserId();
+            var groups = (from gr in db.Groups
+                          where gr.UserId == id
+                          select gr).ToList();
+            if(groups.Count() > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         //Vizualizeaza profilul unui utilizator
         [Authorize(Roles = "Administrator,User")]
         public ActionResult Show(string id)
@@ -118,6 +135,8 @@ namespace SpaceOrganizing.Controllers
             {
                 ViewBag.Birthday = 0;
             }
+
+            ViewBag.GroupAdmin = isGroupAdmin();
 
             searchedUsers();
             GetAllNotifications();
@@ -189,6 +208,25 @@ namespace SpaceOrganizing.Controllers
 
             // after successfully uploading redirect the user
             return RedirectToAction("Index", "Profiles");
+        }
+
+
+        public ActionResult InviteToGroup(string userId, int groupId)
+        {
+            
+            ApplicationUser groupAdmin = db.Users.Find(User.Identity.GetUserId());
+            Notification invite = new Notification();
+
+            invite.GroupId = groupId;
+            invite.sendingUser = groupAdmin.Id;
+            invite.receivingUser = userId;
+            invite.sentDate = DateTime.Now;
+            invite.seen = false;
+            invite.Message = "Hei, ";
+
+
+
+            return View();
         }
 
     }

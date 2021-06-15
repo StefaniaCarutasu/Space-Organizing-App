@@ -13,21 +13,30 @@
 10) As a user I want to send in-app notifications to enter certain groups
 11) As a user I want to be able to customize the app’s interface and my profile
 12) As a user I want to find other groups I’m supposed to join by their names
-
-
+  
+  
 ## Backlog
 We used Trello to keep track of our tasks: https://trello.com/b/ji4XLFmP/organize-living-space-app
 
 ![image](https://user-images.githubusercontent.com/62221313/122079659-4b193180-ce06-11eb-96be-97e237f02bfa.png)
-
+  
 
 ## Conceptual Diagram
 ![Space-Organizing-Diagram (1)](https://user-images.githubusercontent.com/62221313/122078233-1b1d5e80-ce05-11eb-9c7c-e5c8f81fc22b.png)
-
+  
 
 ## App description:
-One of the biggest problems that comes with sharing a space with somebody else is the management of tasks. It can prove to be quite difficult to share the tasks around the house and keep track of them, and sometimes people even forget about them. So what can you do? I'm glad you asked.
-
+One of the biggest problems that comes with sharing a space with somebody else is its management. It can prove to be quite difficult to share the tasks around the house and keep track of them, and sometimes people even forget about them. So what can you do? I'm glad you asked. Here is our solution: a space organizing app whose purpose is to make the life of those who share a space together easier.  
+  
+How, you may ask? By doing the tedious part of keeping track of tasks and expenses so you don't have to.  
+  
+Our app is designed in such a way that it is easy to create a group for your common space and then assign tasks and add expenses for it. Just a few clicks and your roomates can know they have to do the dishes or clean the floors. And in case you've got tired of keeping track of how much money you spend and how much you have to get back from your colleagues, we've got you coverd as well. All you have to do is add the expense to your group's board and we'll do all the math for you.  
+  
+The platform is very intuitive and user-freindly. Easy to navigate and add or remove elements, view your own tasks and edit your group's page.  
+  
+No more sticky notes left all over the place. We are here to do what most people hate: organize. And we do it well.  
+  
+  
 ## Features:
    - Creating a user profile (including eiting)
    - Creating a new group for your shared space (including editing and deleting)
@@ -41,7 +50,7 @@ One of the biggest problems that comes with sharing a space with somebody else i
    - Calculating the total expense's price and how much each member has to pay
    - Resetting the expenses for the group
    - User-friendly calendar in the groups' dashboards
-
+  
 
 ## Bug reporting:
    1) Getting the index for a group
@@ -51,19 +60,26 @@ One of the biggest problems that comes with sharing a space with somebody else i
       - Error: Couldn't change design for 404 page
       - Solution: The error was 500
    3) Can't edit assigned user of task
+      - Error: Instead of editing the existing task, another task is added to the database
+      - Solution: Deleting the old task and leving only the edited one in the database
    4) Can't edit task from within group page
+      - Error: Invalid model state
+      - Solution: Added the missing Priority field
    5) Can't login after register
       - Error: Register successful, but user couldn't stay logged in
       - Solution: name != username
    6) Can't add new task
-      - Error: Invalid model
+      - Error: Invalid model state
       - Solution: Added the missing Priority field
-
+  
 
 ## Automation Testing:
    - Unit testing using Moq to simulate the context of assigning roles for users that are accessing the app
    - Authorization to access the app's functionalities has been tested 
-![image](https://user-images.githubusercontent.com/62206596/122086113-13ad8380-ce0c-11eb-8490-371bcc9906ba.png)
+   - Ran 20 successful tests
 
+![image](https://user-images.githubusercontent.com/62206596/122086113-13ad8380-ce0c-11eb-8490-371bcc9906ba.png)
+  
+  
 ## Our motto:
 ![apes](https://user-images.githubusercontent.com/62221313/122080609-1194f600-ce07-11eb-93ee-b604fd7aaa5a.jpg)
