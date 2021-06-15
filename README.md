@@ -44,6 +44,20 @@ One of the biggest problems that comes with sharing a space with somebody else i
 
 
 ## Bug reporting:
+   1) Getting the index for a group
+      - Error: There is already an open DataReader associated with this Command which must be closed first
+      - Solution: Transforming data from DB into a list using the ToList method, thus closing the open DB connection
+   2) Adding the 404 page
+      - Error: Couldn't change design for 404 page
+      - Solution: The error was 500
+   3) Can't edit assigned user of task
+   4) Can't edit task from within group page
+   5) Can't login after register
+      - Error: Register successful, but user couldn't stay logged in
+      - Solution: name != username
+   6) Can't add new task
+      - Error: Invalid model
+      - Solution: Added the missing Priority field
 
 
 ## Automation Testing:
