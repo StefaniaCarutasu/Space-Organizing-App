@@ -201,6 +201,7 @@ namespace SpaceOrganizing.Controllers
                             user2.AsignedTasks.Add(newTask);
                             taskAsigantionEmailAsync(newTask.TaskId, newTask.GroupId);
                         }
+                        db.Groups.Find(newTask.GroupId).Tasks.Add(newTask);
                         db.SaveChanges();
                         TempData["message"] = "Task-ul a fost adaugat cu success!";
 
@@ -357,6 +358,7 @@ namespace SpaceOrganizing.Controllers
                     {
                         user2.AsignedTasks.Remove(Task);
                     }
+                    db.Groups.Find(Task.GroupId).Tasks.Remove(Task);
                     db.SaveChanges();
                     TempData["message"] = "Task-ul a fost sters cu success!";
 

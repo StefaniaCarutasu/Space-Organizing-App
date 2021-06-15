@@ -227,15 +227,20 @@ namespace SpaceOrganizing.Controllers
         // RESET: resetting the expenses 
         // marking all the existing expenses as paid
         [Authorize(Roles = "User,Administrator")]
-        [HttpPost]
         public ActionResult Reset(int groupId)
         {
-            Group Group = db.Groups.Find(groupId);
-            foreach (Expense expense in Group.Expenses)
+            try
             {
-                expense.Paid = true;
+                Group Group = db.Groups.Find(groupId);
+                foreach (Expense expense in Group.Expenses)
+                {
+                    expense.Paid = true;
+                }
+                db.SaveChanges();
+            } catch(Exception e)
+            {
+                return Redirect("Grups/Index");
             }
-            db.SaveChanges();
             return Redirect("/Groups/Show/" + groupId);
         }
     }

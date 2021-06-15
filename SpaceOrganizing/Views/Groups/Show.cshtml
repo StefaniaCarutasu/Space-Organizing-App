@@ -281,11 +281,9 @@
                                     <small style="font-size:small">Per user: @ViewBag.sumPerUser</small>
                                 </td>
                                 <td>
-                                    <form method="post" action="/Expensess/Reset/@ViewBag.Group.GroupId">
-                                        <button class="btn btn-default" type="submit" style="background-color:darkorange">
-                                            Reset
-                                        </button>
-                                    </form>
+                                    <a class="btn btn-primary" type="button" title="Reset" href="/Expensess/Reset/@ViewBag.Group.GroupId" style="background-color:darkorange">
+                                        Reset
+                                    </a>
                                 </td>
                             </tbody>
                         </table>
