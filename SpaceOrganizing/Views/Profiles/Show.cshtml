@@ -86,7 +86,7 @@
     }
 </style>
 </head>
-
+<h2>@TempData["message"]</h2>
 <div class="panel-default">
     <div id="overlay">
         <div class="image">
@@ -116,11 +116,11 @@
         <div class="text1">
             @if (ViewBag.ProfileDescription != null)
             {
-                <h5 style="text-align:center; font-size:20px;color:antiquewhite"><strong>~@ViewBag.ProfileDescription~</strong></h5>
+                <h5 style="text-align:center; font-size:20px;color:darkblue"><strong>~@ViewBag.ProfileDescription~</strong></h5>
                 <br />
             }
         </div>
-        @if (ViewBag.isAdmin != 0)
+        @if (ViewBag.isAdmin > 0)
         {
             <div class="nav-item dropdown">
                 <a class="nav-link" href="javascript:;" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -131,7 +131,8 @@
                     {
                         foreach (var group in ViewBag.Groups)
                         {
-                            <a class="dropdown-item" href="/Groups">@group.Title</a>
+
+                            <a class="dropdown-item" href="/Profiles/InviteToGroup/?userId=@ViewBag.User.Id&groupId=@group.GroupId" title="Click to invite">@group.GroupName</a>
                         }
 
                         <div class="dropdown-divider"></div>

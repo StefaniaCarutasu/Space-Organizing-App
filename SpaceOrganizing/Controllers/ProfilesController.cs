@@ -108,7 +108,8 @@ namespace SpaceOrganizing.Controllers
             List<Group> possible = new List<Group>();
             foreach(var gr in allGroups)
             {
-                if (!currentUserGroups.Contains(gr))
+                if (currentUserGroups.Contains(gr)) { }
+                else
                 {
                     possible.Add(gr);
                 }
@@ -242,7 +243,9 @@ namespace SpaceOrganizing.Controllers
             db.Notifications.Add(invite);
             db.SaveChanges();
 
-            return Redirect("/Profiles/Show/userId");
+            TempData["message"] = "Invitation sent!";
+            return Redirect("/Profiles/Show/" + userId);
+
         }
 
     }
