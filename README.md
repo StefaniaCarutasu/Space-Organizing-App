@@ -76,7 +76,7 @@ No more sticky notes left all over the place. We are here to do what most people
 ## Automation Testing:
    - Unit testing using Moq to simulate the context of assigning roles for users that are accessing the app
    - Authorization to access the app's functionalities has been tested 
-   - Run 20 successful tests
+   - Ran 20 successful tests
 
 ![image](https://user-images.githubusercontent.com/62206596/122086113-13ad8380-ce0c-11eb-8490-371bcc9906ba.png)
   
