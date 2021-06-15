@@ -517,6 +517,9 @@
     <Content Include="Views\BasicScheduler\Index.cshtml" />
     <Content Include="Views\Notifications\Index.cshtml" />
     <Content Include="Views\Notifications\Show.cshtml" />
+    <Content Include="Views\Expensess\New.cshtml" />
+    <Content Include="Views\Expensess\Edit.cshtml" />
+    <Content Include="Views\Expensess\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202105130854256_Initial.resx">
@@ -537,7 +540,7 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Expensess\" />
+    <Folder Include="Views\Email\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

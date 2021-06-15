@@ -10,12 +10,60 @@
 7) As a tenant, I want to know what I have to do without spending extra time talking with my roommate.
 8) As a user, I want to be able to manage the common spaces I live in
 9) As a student, I want to simultaneously keep track of my dorm room and my home’s chores
-10) As a user I want to send in-app texts for faster communication
+10) As a user I want to send in-app notifications to enter certain groups
 11) As a user I want to be able to customize the app’s interface and my profile
 12) As a user I want to find other groups I’m supposed to join by their names
 
+
 ## Backlog
-https://trello.com/b/ji4XLFmP/organize-living-space-app
+We used Trello to keep track of our tasks: https://trello.com/b/ji4XLFmP/organize-living-space-app
+
+![image](https://user-images.githubusercontent.com/62221313/122079659-4b193180-ce06-11eb-96be-97e237f02bfa.png)
+
 
 ## Conceptual Diagram
-![Space-Organizing-Diagram](https://user-images.githubusercontent.com/62221313/115113052-02253800-9f91-11eb-92c0-d3ac6be7243b.png)
+![Space-Organizing-Diagram (1)](https://user-images.githubusercontent.com/62221313/122078233-1b1d5e80-ce05-11eb-9c7c-e5c8f81fc22b.png)
+
+
+## App description:
+One of the biggest problems that comes with sharing a space with somebody else is the management of tasks. It can prove to be quite difficult to share the tasks around the house and keep track of them, and sometimes people even forget about them. So what can you do? I'm glad you asked.
+
+## Features:
+   - Creating a user profile (including eiting)
+   - Creating a new group for your shared space (including editing and deleting)
+   - Searching a group by its name or description
+   - Requesting to enter a group (needs accept from the admin of the group)
+   - Adding a new task to the group dashboard (including editing and deleting)
+   - Assigning tasks to different members of the groups
+   - Viewing all the tasks grouped by priority
+   - Viewing all the tasks assigned to the current user
+   - Adding a new expense to the group (inlcuding editing and deleting)
+   - Calculating the total expense's price and how much each member has to pay
+   - Resetting the expenses for the group
+   - User-friendly calendar in the groups' dashboards
+
+
+## Bug reporting:
+   1) Getting the index for a group
+      - Error: There is already an open DataReader associated with this Command which must be closed first
+      - Solution: Transforming data from DB into a list using the ToList method, thus closing the open DB connection
+   2) Adding the 404 page
+      - Error: Couldn't change design for 404 page
+      - Solution: The error was 500
+   3) Can't edit assigned user of task
+   4) Can't edit task from within group page
+   5) Can't login after register
+      - Error: Register successful, but user couldn't stay logged in
+      - Solution: name != username
+   6) Can't add new task
+      - Error: Invalid model
+      - Solution: Added the missing Priority field
+
+
+## Automation Testing:
+   - Unit testing using Moq to simulate the context of assigning roles for users that are accessing the app
+   - Authorization to access the app's functionalities has been tested 
+![image](https://user-images.githubusercontent.com/62206596/122086113-13ad8380-ce0c-11eb-8490-371bcc9906ba.png)
+
+## Our motto:
+![apes](https://user-images.githubusercontent.com/62221313/122080609-1194f600-ce07-11eb-93ee-b604fd7aaa5a.jpg)

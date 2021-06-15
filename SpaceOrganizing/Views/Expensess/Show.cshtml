@@ -1,0 +1,42 @@
+﻿@model SpaceOrganizing.Models.Expense
+
+@{
+    ViewBag.Title = "Show";
+}
+@{
+    Layout = "~/Views/Shared/Dashboard.cshtml";
+}
+<br />
+<p class="text-info">@ViewBag.Message</p>
+
+<a href="/Groups/Show/@Model.GroupId">Inapoi la echipa</a>
+<br />
+
+<br />
+<div class="container">
+    <div class="jumbotron">
+        <p class="display-3">@Model.Name</p>
+        Pret: <p class="lead">@Model.Price</p>
+        <p>Efectuata de: @Model.User.UserName</p>
+      
+        <p class="lead" style="margin-top:2rem">
+            <div style="display: inline-block; float : left; margin-right: 15px">
+                <a class="btn btn-primary btn-lg" style="padding:1rem" href="/Expensess/Edit/@Model.ExpenseId">Modifica cheltuiala</a>
+            </div>
+
+            @if (ViewBag.esteOrganizator || ViewBag.esteAdmin)
+            {
+                <div style="display: inline-block; float : left">
+                    <form method="post" action="/Expensess/Delete/@Model.ExpenseId">
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+                        <button class="btn btn-primary btn-lg" style="padding:1rem" type="submit">Sterge cheltuiala</button>
+                    </form>
+                </div>
+
+            }
+        </p>
+    </div>
+
+</div>
+<hr />

@@ -12,6 +12,21 @@ namespace SpaceOrganizing.Controllers
     {
         private Models.ApplicationDbContext db = new Models.ApplicationDbContext();
 
+        [NonAction]
+        private void SetAccessRights(Expense Expense)
+        {
+            ViewBag.utilizatorCurent = User.Identity.GetUserId();
+            ViewBag.esteAdmin = User.IsInRole("Administrator");
+
+            ViewBag.esteOrganizator = false;
+            if (Expense.UserId == ViewBag.utilizatorCurent)
+            {
+                ViewBag.esteOrganizator = true;
+            }
+
+            ViewBag.esteUser = IsFromGroup(User.Identity.GetUserId(), Expense.GroupId);
+        }
+
         // verificare daca userul face parte din echipa
         [NonAction]
         private bool IsFromGroup(String userId, int groupId)
@@ -24,6 +39,26 @@ namespace SpaceOrganizing.Controllers
             return registrations != null;
         }
 
+        //GET: afisarea unuei singure cheltuieli
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult Show(int id)
+        {
+            if (TempData.ContainsKey("message"))
+                ViewBag.Message = TempData["message"];
+
+            Expense Expense = db.Expenses.Find(id);
+            SetAccessRights(Expense);
+
+            if (IsFromGroup(User.Identity.GetUserId(), Expense.GroupId))
+            {
+                return View(Expense);
+            }
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa vedeti cheltuielile unei echipe din care nu faceti parte!";
+                return Redirect("Groups/Index");
+            }
+        }
 
         //GET: afisare formular adaugare cheltuiala
         [Authorize(Roles = "User,Administrator")]
@@ -63,6 +98,7 @@ namespace SpaceOrganizing.Controllers
                     if (ModelState.IsValid)
                     {
                         db.Expenses.Add(newExpense);
+                        db.Groups.Find(newExpense.GroupId).Expenses.Add(newExpense);
                         db.SaveChanges();
                         TempData["message"] = "cheltuiala a fost adaugat cu success!";
 
@@ -91,8 +127,9 @@ namespace SpaceOrganizing.Controllers
         public ActionResult Edit(int id)
         {
             Expense Expense = db.Expenses.Find(id);
+            SetAccessRights(Expense);
 
-            if (IsFromGroup(User.Identity.GetUserId(), Expense.GroupId))
+            if (ViewBag.esteAdmin || ViewBag.esteOrganizator || ViewBag.esteUser)
             {
                 return View(Expense);
             }
@@ -109,6 +146,7 @@ namespace SpaceOrganizing.Controllers
         [HttpPut]
         public ActionResult Edit(int id, Expense editedExpense)
         {
+            SetAccessRights(editedExpense);
             ApplicationUser user1 = db.Users.Find(editedExpense.UserId);
             editedExpense.User = user1;
 
@@ -158,12 +196,14 @@ namespace SpaceOrganizing.Controllers
         public ActionResult Delete(int id)
         {
             Expense Expense = db.Expenses.Find(id);
-            ApplicationUser user1 = db.Users.Find(Expense.UserId);
+            SetAccessRights(Expense);
 
             try
             {
                 if (IsFromGroup(User.Identity.GetUserId(), Expense.GroupId))
                 {
+                    Group Group = db.Groups.Find(Expense.GroupId);
+                    Group.Expenses.Remove(Expense);
                     db.Expenses.Remove(Expense);
                     db.SaveChanges();
                     TempData["message"] = "Cheltuiala a fost stearsa cu success!";
@@ -182,6 +222,26 @@ namespace SpaceOrganizing.Controllers
                 TempData["message"] = "Nu s-a putut sterge cheltuiala!";
                 return Redirect("/Grups/Show/" + Expense.GroupId);
             }
+        }
+
+        // RESET: resetting the expenses 
+        // marking all the existing expenses as paid
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult Reset(int groupId)
+        {
+            try
+            {
+                Group Group = db.Groups.Find(groupId);
+                foreach (Expense expense in Group.Expenses)
+                {
+                    expense.Paid = true;
+                }
+                db.SaveChanges();
+            } catch(Exception e)
+            {
+                return Redirect("/Groups/Index");
+            }
+            return Redirect("/Groups/Show/" + groupId);
         }
     }
 }

@@ -1,0 +1,28 @@
+﻿+﻿@{ ViewBag.Titlu = "New"; }
+@{ Layout = "~/Views/Shared/Dashboard.cshtml"; }
+<br />
+<p class="text-info">@ViewBag.Message</p>
+
+<h2>Adaugare task</h2>
+
+@model SpaceOrganizing.Models.Expense
+
+<form method="post" action="/Expensess/New/@ViewBag.GroupId">
+    @Html.Label("Name", "Nume cheltuiala")
+    <br />
+    @Html.TextBox("Name", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    @Html.Label("Price", "Pret")
+    <br />
+    @Html.TextArea("Price", null, new { @class = "form-control" })
+    <br />
+    <br />
+
+    @Html.Hidden("GroupId")
+    <button class="btn btn-sm btn-success" type="submit">Adauga cheltuiala</button>
+
+</form>
+

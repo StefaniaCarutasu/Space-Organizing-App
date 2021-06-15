@@ -1,0 +1,36 @@
+﻿﻿@{ ViewBag.Title = "Edit"; }
+@{ Layout = "~/Views/Shared/Dashboard.cshtml"; }
+<br />
+<p class="text-info">@ViewBag.Message</p>
+
+<h2>Modificare cheltuiala</h2>
+
+@model SpaceOrganizing.Models.Expense
+
+<div class="container body-content" style="margin-top:20px;">
+    <form method="post" action="/Expensess/Edit/@ViewBag.GroupId">
+        @Html.HttpMethodOverride(HttpVerbs.Put)
+
+        @Html.HiddenFor(m => m.ExpenseId)
+        @Html.HiddenFor(m => m.GroupId)
+        @Html.HiddenFor(m => m.UserId)
+
+        @Html.Label("Name", "Nume cheltuiala")
+        <br />
+        <div class="form-control2">
+            @Html.EditorFor(m => m.Name)
+            <br />
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </div>
+        <br />
+        <br />
+
+        @Html.Label("Price", "Pret")
+        <br />
+        @Html.Editor("Price")
+        <br />
+        <br />
+
+        <button class="btn btn-success" type="submit">Modifica cheltuiala</button>
+    </form>
+</div>

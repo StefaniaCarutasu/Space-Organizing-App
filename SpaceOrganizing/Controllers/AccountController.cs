@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -162,6 +163,11 @@ namespace SpaceOrganizing.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    string toMail = user.Email;
+                    string subject = "Inregistrare platforma";
+                    string body = "V-ati inregistrat cu succes la platforma Apes Together Strong. O zi frumoasa!";
+                    WebMail.Send(toMail, subject, body, null, null, null, true, null, null, null, null, null, null);
 
                     return RedirectToAction("Index", "Home");
                 }
