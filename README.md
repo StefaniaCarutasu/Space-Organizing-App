@@ -54,6 +54,10 @@ No more sticky notes left all over the place. We are here to do what most people
    - User-friendly calendar in the groups' dashboards
   
   
+## Demo
+
+  
+  
 ## Design Patterns
    - MVC arhitecture
   
