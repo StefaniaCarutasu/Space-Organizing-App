@@ -93,7 +93,7 @@ namespace SpaceOrganizing.Controllers
 
         //Daca user ul curent logat este sau nu administrator de grup
         //Pun in viewbag toate grupurile din care utilizatorul pe care vreau sa il invit in grupuri nu este deja
-        private List<Group> isGroupAdmin(string userId)
+        private List<Group> IsGroupAdmin(string userId)
         {
             string id = User.Identity.GetUserId();
 
@@ -147,8 +147,8 @@ namespace SpaceOrganizing.Controllers
                 ViewBag.Birthday = 0;
             }
 
-            ViewBag.Groups = isGroupAdmin(id);
-            ViewBag.IsAdmin = isGroupAdmin(id).Count();
+            ViewBag.Groups = IsGroupAdmin(id);
+            ViewBag.IsAdmin = IsGroupAdmin(id).Count();
 
             searchedUsers();
             GetAllNotifications();
