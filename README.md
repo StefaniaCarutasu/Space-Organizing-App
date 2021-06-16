@@ -22,7 +22,8 @@ We used Trello to keep track of our tasks: https://trello.com/b/ji4XLFmP/organiz
   
 
 ## Conceptual Diagram
-![Space-Organizing-Diagram (1)](https://user-images.githubusercontent.com/62221313/122078233-1b1d5e80-ce05-11eb-9c7c-e5c8f81fc22b.png)
+![Space-Organizing-Diagram (3)](https://user-images.githubusercontent.com/62221313/122174899-d4bf1280-ce8b-11eb-8551-f068d0930f9a.png)
+
   
 
 ## App description:
