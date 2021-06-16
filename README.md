@@ -42,6 +42,7 @@ No more sticky notes left all over the place. We are here to do what most people
    - Creating a new group for your shared space (including editing and deleting)
    - Searching a group by its name or description
    - Requesting to enter a group (needs accept from the admin of the group)
+   - Sending invites to users to join a group
    - Adding a new task to the group dashboard (including editing and deleting)
    - Assigning tasks to different members of the groups
    - Viewing all the tasks grouped by priority
