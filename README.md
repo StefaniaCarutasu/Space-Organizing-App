@@ -51,7 +51,22 @@ No more sticky notes left all over the place. We are here to do what most people
    - Resetting the expenses for the group
    - User-friendly calendar in the groups' dashboards
   
-
+  
+## Design Patterns
+   - MVC arhitecture
+  
+  
+## Code standards
+   - Bootstrap
+   - Jquery
+   - Camel Case naming 
+   - Controller standard naming
+  
+  
+## Build tool
+   - Visual Studio build tool (MSBuild)
+  
+  
 ## Bug reporting:
    1) Getting the index for a group
       - Error: There is already an open DataReader associated with this Command which must be closed first
@@ -79,6 +94,10 @@ No more sticky notes left all over the place. We are here to do what most people
    - Ran 20 successful tests
 
 ![image](https://user-images.githubusercontent.com/62206596/122086113-13ad8380-ce0c-11eb-8490-371bcc9906ba.png)
+  
+  
+## Refactoring
+
   
   
 ## Our motto:
