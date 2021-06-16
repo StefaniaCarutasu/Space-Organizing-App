@@ -98,10 +98,10 @@ No more sticky notes left all over the place. We are here to do what most people
   
 ## Refactoring
 Before:
-![WhatsApp Image 2021-06-16 at 09 44 26](https://user-images.githubusercontent.com/62221313/122170757-9cb5d080-ce87-11eb-802a-1995913776e5.jpeg)
+![WhatsApp Image 2021-06-16 at 09 48 51](https://user-images.githubusercontent.com/62221313/122171319-3e3d2200-ce88-11eb-9b8e-ab6341010bef.jpeg)
 
 After:
-![WhatsApp Image 2021-06-16 at 09 44 26 (1)](https://user-images.githubusercontent.com/62221313/122170765-9de6fd80-ce87-11eb-9b5e-ce1faf0a0fe9.jpeg)
+![WhatsApp Image 2021-06-16 at 09 48 51 (1)](https://user-images.githubusercontent.com/62221313/122171322-3ed5b880-ce88-11eb-92bb-63d2469f5882.jpeg)
   
   
 ## Our motto:
